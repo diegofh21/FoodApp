@@ -1,0 +1,43 @@
+<ActionBar title="Inicio" icon="" class="action-bar black-text">
+</ActionBar>
+
+<BottomNavigation selectedIndex="0">
+
+  <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
+  <TabStrip>
+      <TabStripItem class="home black-text">
+          <Label text="Inicio"></Label>
+          <Image src="font://&#xf015;" class="fas"></Image>
+      </TabStripItem>
+
+      <TabStripItem class="special black-text">
+          <Label text="Encontrar restaurantes"></Label>
+          <Image src="font://&#xf007;" class="fas"></Image>
+      </TabStripItem>
+
+      <TabStripItem class="special black-text">
+          <Label text="Cuenta"></Label>
+          <Image src="font://&#xf00e;" class="fas"></Image>
+      </TabStripItem>
+  </TabStrip>
+
+  <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
+  <TabContentItem>
+      <GridLayout class="page">
+          <Label text="Página de Inicio" class="h2 text-center black-text"></Label>
+      </GridLayout>
+  </TabContentItem>
+
+  <TabContentItem>
+      <GridLayout class="page2">
+          <Label text="Página para encontrar restaurantes" class="h2 text-center black-text"></Label>
+      </GridLayout>
+  </TabContentItem>
+
+  <TabContentItem>
+      <GridLayout class="page3">
+          <Label text="Página de cuenta" class="h2 text-center black-text"></Label>
+      </GridLayout>
+  </TabContentItem>
+
+</BottomNavigation>

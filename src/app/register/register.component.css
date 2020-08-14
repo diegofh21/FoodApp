@@ -1,0 +1,49 @@
+FlexboxLayout 
+{
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-image: url("~/assets/images/bg-app.jpg");
+}
+
+StackLayout
+{
+  background-color: whitesmoke;
+  color: black;
+  width: 90%;
+}
+
+Button, TextField 
+{
+  margin-bottom: 10;
+  font-size: 16px;
+}
+
+.btn
+{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.btn-border
+{
+  border-radius: 100px;
+}
+
+.user-btn
+{
+  background-color: cadetblue;
+  color: white;
+}
+
+.rest-btn
+{
+  background-color: brown;
+  color: white;
+}
+
+.active
+{
+  color: green;
+  background-color: black;
+}
