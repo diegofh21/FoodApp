@@ -1,28 +1,56 @@
-<GridLayout rows="350, 425" columns="*" class="bg-app">
-
 	<StackLayout row="0" col="0" class="principal-box">
 		<Image src="~/assets/images/logo-app.png"></Image>
-		<Label text="App Food Finder" class="Logo-Label align-center"></Label>
-	</StackLayout>
+		<Label text="FindEat!" class="Logo-Label align-center"></Label>
+	
 
-  <GridLayout row="1" col="0" rows="110, 100, 100" columns="*" class="login-box">
+<!--  <GridLayout row="1" col="0" rows="110, 100, 100" columns="*" class="login-box">
 
 		<Label row="0" col="0" text="Encuentra y sigue a tus restaurantes favoritos o emprende la busqueda de nuevos de tu agrado! 🍽" textWrap="true" class="medium-text align-center black mr-3 ml-3"></Label>
 
-		<!-- <TextField hint="Correo Eléctronico" keyboardType="email" autocorrect="false" autocapitalizationType="none" class="" [(ngModel)]="user.email"></TextField>
-		<TextField hint="Contraseña" secure="true" class="" [(ngModel)]="user.password"></TextField> -->
+		 <TextField hint="Correo Eléctronico" keyboardType="email" autocorrect="false" autocapitalizationType="none" class="" [(ngModel)]="user.email"></TextField>
+		<TextField hint="Contraseña" secure="true" class="" [(ngModel)]="user.password"></TextField>
 
 		<StackLayout row="1" col="0" class="login-buttons">
 				<Button class="btn google-btn btn-border black" text="Google" (tap)="login()"></Button>
 		</StackLayout>
 		
 		<GridLayout rows="*" columns="*" row="3" col="0" class="border-top">
-			<!-- <Button row="0" col="0" text="Iniciar sesion" class="btn-login" [ngClass]="{'active': isLoggingIn == true, 'inactive': isLoggingIn == false}" (tap)="toggleLogin()"></Button>
+			 <Button row="0" col="0" text="Iniciar sesion" class="btn-login" [ngClass]="{'active': isLoggingIn == true, 'inactive': isLoggingIn == false}" (tap)="toggleLogin()"></Button>
 			<Button row="0" col="1" text="Registrarse" class="btn-register" [ngClass]="{'active': isLoggingIn == false, 'inactive': isLoggingIn == true}" (tap)="toggleRegister()"></Button> -->
 
-			<!-- <Label text="¿Eres un restaurante? Presiona el boton de abajo para inicia sesion o registrarte" textWrap="true" class="mt-3 mb-5"></Label> -->
+			<!-- <Label text="¿Eres un restaurante? Presiona el boton de abajo para inicia sesion o registrarte" textWrap="true" class="mt-3 mb-5"></Label> 
 			<Button text="¿Eres un restaurante? Presiona el boton de abajo para inicia sesion o registrarte aquiii (soy el boton)" class="restar black" (tap)="rest()"></Button>
 		</GridLayout>
 
-  </GridLayout>
-</GridLayout>
+  </GridLayout>-->
+  <StackLayout class="formulario">
+   <FlexboxLayout alignItems="center" class="inputs">
+	<img src="~/assets/images/usuario.png" alt="" class="icono">
+	<TextField hint="E-mail"  [(ngModel)]="user.email"></TextField>
+  </FlexboxLayout>
+
+  <FlexboxLayout alignItems="center" class="inputs">
+	<img src="~/assets/images/contrasena.png" alt="" class="icono">
+	<TextField hint="Contraseña" secure="true"  [(ngModel)]="user.password"></TextField>
+  </FlexboxLayout> 
+  <Button text="LOGIN" (tap)="login()" class="my-button" ></Button>
+  <FlexboxLayout alignItems="center" class="newUser" justifyContent="space-between">
+	<Label text=""></Label>
+	<Label text="Nuevo usuario? Regístrate" class="link"></Label>
+
+  </FlexboxLayout>
+</StackLayout>
+
+	<Label text="O regístrate usando tus redes sociales" class="align-center"></Label>
+
+<FlexboxLayout alignItems="center" justifyContent="space-between" class="RRSS">
+	<img src="~/assets/images/google-logo.png" (tap)="google()" alt="" class="rrss-btn">
+	<Label text="" class="v-divider"></Label>
+	<img src="~/assets/images/facebook-logo.png" (tap)="Facebook()" alt="" class="rrss-btn">
+  </FlexboxLayout> 
+ 
+
+  <Label text="¿Eres un restaurante? Presiona aquí para iniciar sesión o registrarte" class="link-rest align-center"  (tap)="login()" > </Label>
+
+</StackLayout>
+

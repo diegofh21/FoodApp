@@ -104,9 +104,26 @@ export class LoginComponent implements OnInit
 
     alert(registroAlert);
     
-    this.userService.login().subscribe((resp: any) => {
-      console.log(resp)
-    });
+  //  this.userService.login().subscribe((resp: any) => {
+    //  console.log(resp)
+    //});
+  }
+  
+  Facebook()
+	{
+		const registroAlert: AlertOptions =
+		{
+			title: "Inicio con Facebook",
+			message: "Con esta parte se iniciaría sesión o se registraría con Facebook",
+			okButtonText: "Entendido",
+			cancelable: false
+		};
+
+    alert(registroAlert);
+    
+  //  this.userService.login().subscribe((resp: any) => {
+    //  console.log(resp)
+    //});
 	}
 
   toggleLogin() 
