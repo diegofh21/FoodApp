@@ -1,6 +1,6 @@
-	<StackLayout row="0" col="0" class="principal-box">
-		<Image src="~/assets/images/logo-app.png"></Image>
-		<Label text="FindEat!" class="Logo-Label align-center"></Label>
+<StackLayout row="0" col="0" class="principal-box">
+	<Image src="~/assets/images/FindEat-logo-v4.png"></Image>
+	<!-- <Label text="FindEat!" class="Logo-Label align-center"></Label> -->
 	
 
 <!--  <GridLayout row="1" col="0" rows="110, 100, 100" columns="*" class="login-box">
@@ -24,29 +24,29 @@
 
   </GridLayout>-->
   <StackLayout class="formulario">
-   <FlexboxLayout alignItems="center" class="inputs">
-	<img src="~/assets/images/usuario.png" alt="" class="icono">
-	<TextField hint="E-mail"  [(ngModel)]="user.email"></TextField>
-  </FlexboxLayout>
+   	<FlexboxLayout alignItems="center" class="inputs">
+			<img src="~/assets/images/usuario.png" alt="" class="icono">
+			<TextField hint="E-mail"  [(ngModel)]="user.email"></TextField>
+  	</FlexboxLayout>
 
-  <FlexboxLayout alignItems="center" class="inputs">
-	<img src="~/assets/images/contrasena.png" alt="" class="icono">
-	<TextField hint="Contraseña" secure="true"  [(ngModel)]="user.password"></TextField>
-  </FlexboxLayout> 
-  <Button text="LOGIN" (tap)="login()" class="my-button" ></Button>
-  <FlexboxLayout alignItems="center" class="newUser" justifyContent="space-between">
-	<Label text=""></Label>
-	<Label text="Nuevo usuario? Regístrate" class="link"></Label>
+  	<FlexboxLayout alignItems="center" class="inputs">
+			<img src="~/assets/images/contrasena.png" alt="" class="icono">
+			<TextField hint="Contraseña" secure="true"  [(ngModel)]="user.password"></TextField>
+  	</FlexboxLayout> 
+  	<Button text="LOGIN" (tap)="login()" class="my-button" ></Button>
+  	<FlexboxLayout alignItems="center" class="newUser" justifyContent="space-between">
+			<Label text=""></Label>
+			<Label text="Nuevo usuario? Regístrate" class="link"></Label>
 
-  </FlexboxLayout>
-</StackLayout>
+  	</FlexboxLayout>
+	</StackLayout>
 
 	<Label text="O regístrate usando tus redes sociales" class="align-center"></Label>
 
-<FlexboxLayout alignItems="center" justifyContent="space-between" class="RRSS">
-	<img src="~/assets/images/google-logo.png" (tap)="google()" alt="" class="rrss-btn">
-	<Label text="" class="v-divider"></Label>
-	<img src="~/assets/images/facebook-logo.png" (tap)="Facebook()" alt="" class="rrss-btn">
+	<FlexboxLayout alignItems="center" justifyContent="space-between" class="RRSS">
+		<img src="~/assets/images/google-logo.png" (tap)="google()" alt="" class="rrss-btn">
+		<Label text="" class="v-divider"></Label>
+		<img src="~/assets/images/facebook-logo.png" (tap)="Facebook()" alt="" class="rrss-btn">
   </FlexboxLayout> 
  
 
