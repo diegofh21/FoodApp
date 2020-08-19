@@ -18,7 +18,6 @@ import { UserService } from "../utils/servicios/user.service";
 export class LoginComponent implements OnInit 
 {
   user: User;
-  isLoggingIn = true;
 
   constructor(private page: Page, private router: Router, private routerEx: RouterExtensions, private userService: UserService) 
   { 
@@ -29,18 +28,6 @@ export class LoginComponent implements OnInit
   {
     this.page.actionBarHidden = true;
   }
-
-  // submit() 
-  // {
-  //   if (this.isLoggingIn) 
-  //   {
-  //     this.login();
-  //   }
-  //   else 
-  //   {
-  //     this.signUp();
-  //   }
-	// }
 	
 	login()
 	{
@@ -57,40 +44,35 @@ export class LoginComponent implements OnInit
           transition:
           {
             name: 'fade',
-            duration: 500,
+            duration: 250,
             curve: 'linear'
           }
         })
 
 		});
   }
-  
-  restar()
+
+  signUp() 
   {
-    console.log("restar boton presionado!!!");
-  }
+		const registroAlert: AlertOptions =
+		{
+			title: "Registro",
+			message: "Aqui se hace el registro de personas",
+			okButtonText: "Entendido",
+			cancelable: false
+		};
 
-  // signUp() 
-  // {
-	// 	const registroAlert: AlertOptions =
-	// 	{
-	// 		title: "Registro",
-	// 		message: "Aqui se comprueba el registro de personas o restaurantes",
-	// 		okButtonText: "Entendido",
-	// 		cancelable: false
-	// 	};
-
-	// 	alert(registroAlert).then(() => {
-  //     this.routerEx.navigate(['/register'], {
-  //       transition:
-  //       {
-  //         name: 'fade',
-  //         duration: 250,
-  //         curve: 'linear'
-  //       }
-  //     });
-	// 	});
-	// }
+		alert(registroAlert).then(() => {
+      this.routerEx.navigate(['/register'], {
+        transition:
+        {
+          name: 'fade',
+          duration: 250,
+          curve: 'linear'
+        }
+      });
+		});
+	}
 	
 	google()
 	{
@@ -125,14 +107,4 @@ export class LoginComponent implements OnInit
     //  console.log(resp)
     //});
 	}
-
-  toggleLogin() 
-  {
-    this.isLoggingIn = true
-  }
-
-  toggleRegister()
-  {
-    this.isLoggingIn = false;
-  }
 }

@@ -5,20 +5,20 @@
 
 .bg-app
 {
-  /* justify-content: center;
-  align-items: center;
-  background: #fff; */
   background-size: cover;
-  background-image: url("~/assets/images/bg-app.jpg");
+  /* background: #fff; */
+  background-image: url("~/assets/images/bg-app2.jpg");
 }
-.icono{
+.icono
+{
   width: 7%;
-  height: 7%;
-  
+  height: 7%;  
 }
+
 Image 
 {
-  height: 60%;
+  margin-top: 2%;
+  height: 25%;
 }
 
 Button
@@ -28,48 +28,26 @@ Button
 }
 
 TextField
-{ border-bottom-color: rgba(0, 0, 0, 0);
+{ 
+  border-bottom-color: rgba(0, 0, 0, 0);
   placeholder-color: rgba(255, 166, 0, 0.548);
   color: orange;
   font-size: 16px;
   width: 80%;
-
+  border-width: 0;
 }
 
-.Logo-Label
+TextField:focus, TextField:active
 {
-  color: black;
-  font-size: 36px;
-  margin-bottom: 3%;
-}
-
-.welcome-label
-{
-  font-size: 28px;
-  color: black;
+  border-width: 0;
 }
 
 .principal-box
 {
-  margin-top: 2%;
   width: 100%;
   padding: 10px 16px;
   display: flex;
   justify-content: center;
-}
-
-.login-box
-{
-  width: 90%;
-  /* padding: 10 16; */
-  border-radius: 10px;
-  background-color: rgb(252, 252, 252);
-}
-
-.login-buttons
-{
-  width: 80%;
-  color: white;
 }
 
 .btn
@@ -78,55 +56,62 @@ TextField
   margin-right: 0;
 }
 
-.inputs{
+.inputs
+{
   border-bottom-width: 2;
   border-bottom-color:rgb(255, 123, 0);
   height: 20%;
   min-height: 18%;
   margin-bottom: 7%;
   width: 80%;
-  
-
 }
 
-.newUser{
+.newUser
+{
   margin-top:10%;
-
   width: 90%;
 }
 
-.link{
+.link
+{
   color: rgb(255, 123, 0);
   text-decoration: underline;
 }
 
-.link-rest{
-  margin-top: 5%;
+.link-rest
+{
+  margin-top: 2%;
   color: rgb(255, 123, 0);
   text-decoration: underline;
   align-content: center;
 }
 
-.v-divider{
+.v-divider
+{
   width: 4px;
   height: 80%;
   border-width: 2px;
   border-color: rgb(71, 71, 71);
 }
 
-.RRSS{
+.RRSS
+{
   height: 8%;
   width: 50%;
   margin: 2% 10%;
 }
 
-.rrss-btn{
-    height: max-content;
+.rrss-btn
+{
+    height: 100%;
     border-radius: 100%;
+    border-width: 5px;
+    border-color: black;
     background-color: white;
 }
 
-.my-button{
+.my-button
+{
   color: black;
   background-color: rgb(255, 123, 0);
   font-weight: bold;
@@ -136,7 +121,8 @@ TextField
   padding-top: 5%;
 }
 
-.rest-button{
+.rest-button
+{
   color: rgb(255, 123, 0);
   font-size: 14px;
   background-color: rgba(24, 25, 32, 0.849);
@@ -146,9 +132,11 @@ TextField
   padding-top: 5%;
 }
 
-.formulario{
+.formulario
+{
   height: 40%;
   padding-top: 20%;
+  margin-top: 3%;
   border-radius: 30px;
   width: 90%;
   background-color: rgba(24, 25, 32, 0.849);
@@ -210,39 +198,12 @@ TextField
   color: black;
 }
 
-.restar
-{
-  background: transparent;
-}
-
-.border-top
-{
-  border-top-width: 3px;
-  border-color: #000;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-
-/* Colores de iconos */
-
-.google-icon
-{
-  color: red;
-  font-size: 24px;
-}
-
-.text-icon
-{
-  color: black;
-}
-
 /* Estados de texto */
 
 .active
 {
   border-color: black;
   border-top-width: 4px;
-  /* transition: 0.5s all; */
 }
 
 .inactive
@@ -282,12 +243,8 @@ TextField
 }
 
 /* Colores */
+
 .black
 {
   color: black;
-}
-
-image{
-  height: 25%;
-  
 }
