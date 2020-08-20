@@ -21,6 +21,12 @@ Image
   height: 25%;
 }
 
+.img-header
+{
+  height: 10%;
+  margin-top: 2%;
+}
+
 Button
 {
   margin-bottom: 10;
@@ -62,7 +68,14 @@ TextField:focus, TextField:active
   border-bottom-color:rgb(255, 123, 0);
   height: 20%;
   min-height: 18%;
-  margin-bottom: 7%;
+  margin-bottom: 3%;
+  width: 80%;
+  padding-bottom: -20%;
+}
+
+.form-header
+{
+  height: 18%;
   width: 80%;
 }
 
@@ -94,6 +107,14 @@ TextField:focus, TextField:active
   border-color: rgb(71, 71, 71);
 }
 
+.h-divider
+{
+  width: 35%;
+  height: 4px;
+  border-width: 2px;
+  border-color: rgb(255, 123, 0);
+}
+
 .RRSS
 {
   height: 8%;
@@ -101,14 +122,6 @@ TextField:focus, TextField:active
   margin: 2% 10%;
 }
 
-.rrss-btn
-{
-    height: 100%;
-    border-radius: 100%;
-    border-width: 5px;
-    border-color: black;
-    background-color: white;
-}
 
 .my-button
 {
@@ -117,6 +130,8 @@ TextField:focus, TextField:active
   font-weight: bold;
   border-radius: 360;
   letter-spacing: 0.5;
+  margin-top: 7%;
+  margin-bottom: 7%;
   padding-bottom: 5%;
   padding-top: 5%;
 }
@@ -134,8 +149,8 @@ TextField:focus, TextField:active
 
 .formulario
 {
-  height: 40%;
-  padding-top: 20%;
+  height: 45%;
+  padding-top: 2%;
   margin-top: 3%;
   border-radius: 30px;
   width: 90%;
@@ -149,20 +164,20 @@ TextField:focus, TextField:active
 
 .google-btn
 {
-  height: 90%;
-  border-radius: 100%;
-  border-width: 2px;
-  border-color: black;
-  background-color: white;
+    height: 90%;
+    border-radius: 100%;
+    border-width: 2px;
+    border-color: black;
+    background-color: white;
 }
 
 .facebook-btn
 {
-  height: 90%;
-  border-radius: 100%;
-  border-width: 2px;
-  border-color: black;
-  background-color: rgb(60,90,153);
+    height: 90%;
+    border-radius: 100%;
+    border-width: 2px;
+    border-color: black;
+    background-color: rgb(60,90,153);
 }
 
 .btn-login

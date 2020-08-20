@@ -8,8 +8,15 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ItemsComponent } from "./item/items.component";
 import { ItemDetailComponent } from "./item/item-detail.component";
+
+// Logins
 import { LoginComponent } from "./login/login.component";
+import { LoginRestaurantComponent } from './loginRestaurant/loginRestaurant.component';
+
+// Registro
 import { RegisterComponent } from "./register/register.component";
+
+// Inicio
 import { HomeComponent } from "./home/home.component";
 
 
@@ -34,6 +41,7 @@ import { HomeComponent } from "./home/home.component";
     declarations: [
         AppComponent,
         LoginComponent,
+        LoginRestaurantComponent,
         RegisterComponent,
         HomeComponent,
         ItemsComponent,

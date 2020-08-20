@@ -2,6 +2,9 @@
 	<Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
 
   <StackLayout class="formulario">
+
+		<img src="~/assets/images/tienda_formulario.png" alt="" class="img-header">
+
    	<FlexboxLayout alignItems="center" class="inputs">
 			<img src="~/assets/images/usuario.png" alt="" class="icono">
 			<TextField hint="E-mail" [(ngModel)]="user.email"></TextField>
@@ -12,14 +15,12 @@
 			<TextField hint="Contraseña" secure="true"  [(ngModel)]="user.password"></TextField>
   	</FlexboxLayout> 
   	<Button text="LOGIN" (tap)="login()" class="my-button" ></Button>
-  	<!-- <FlexboxLayout alignItems="center" class="newUser" justifyContent="space-between"> -->
-			<Label text=""></Label>
-			<Label text="¿Nuevo usuario? Regístrate aquí" class="link mt-5" (tap)="signUp()" textAlignment="center"></Label>
 
-  	<!-- </FlexboxLayout> -->
+			<Label text="¿Nuevo restaurante o local? Regístrate aquí" class="link mt-5" (tap)="signUp()" textAlignment="center"></Label>
+
 	</StackLayout>
 	<Label text=""></Label>
-	<Label text="O regístrate usando tus redes sociales" class="align-center black"></Label>
+	<Label text="O registra tu restautante mediante sus redes sociales" class="align-center black"></Label>
 
 	<FlexboxLayout alignItems="center" justifyContent="space-between" class="RRSS">
 		<img src="~/assets/images/google-logo.png" (tap)="google()" alt="" class="google-btn">
@@ -28,7 +29,7 @@
   </FlexboxLayout> 
  
 
-  <Label text="¿Eres un restaurante? Presiona aquí para iniciar sesión o registrarte" class="link-rest align-center" (tap)="changeToRest()"> </Label>
+  <Label text="¿Eres un usuario? Presiona aquí para iniciar sesión o registrarte" class="link-rest align-center" (tap)="changeToUser()"> </Label>
 
 </StackLayout>
 

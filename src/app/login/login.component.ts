@@ -106,5 +106,27 @@ export class LoginComponent implements OnInit
   //  this.userService.login().subscribe((resp: any) => {
     //  console.log(resp)
     //});
-	}
+  }
+  
+  changeToRest()
+  {
+    const ChangeToAlert: AlertOptions =
+		{
+			title: "Cambio de login",
+			message: "Aqui se hace el cambio de login a login de restaurantes",
+			okButtonText: "OK",
+			cancelable: false
+		};
+
+		alert(ChangeToAlert).then(() => {
+      this.routerEx.navigate(['/loginRestaurant'], {
+        transition:
+        {
+          name: 'fade',
+          duration: 250,
+          curve: 'linear'
+        }
+      });
+		});
+  }
 }
