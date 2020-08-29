@@ -9,6 +9,7 @@
   /* background: #fff; */
   background-image: url("~/assets/images/bg-app2.jpg");
 }
+
 .icono
 {
   width: 7%;
@@ -114,6 +115,17 @@ TextField:focus, TextField:active
 {
   color: black;
   background-color: rgb(255, 123, 0);
+  font-weight: bold;
+  border-radius: 360;
+  letter-spacing: 0.5;
+  padding-bottom: 5%;
+  padding-top: 5%;
+}
+
+.back-btn
+{
+  color: white;
+  background-color: rgb(226, 0, 0);
   font-weight: bold;
   border-radius: 360;
   letter-spacing: 0.5;
@@ -245,4 +257,9 @@ TextField:focus, TextField:active
 .black
 {
   color: black;
+}
+
+.bigg
+{
+  height: 4000px;
 }

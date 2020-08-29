@@ -5,9 +5,8 @@ import { Routes } from "@angular/router";
 import { ItemsComponent } from "./item/items.component";
 import { ItemDetailComponent } from "./item/item-detail.component";
 
-// Logins
+// Login
 import { LoginComponent } from "./login/login.component";
-import { LoginRestaurantComponent } from './loginRestaurant/loginRestaurant.component';
 
 // Registro
 import { RegisterComponent } from "./register/register.component";
@@ -25,10 +24,6 @@ const routes: Routes = [
 		{
 			path: "login",
 			component: LoginComponent
-		},
-		{
-			path: 'loginRestaurant',
-			component: LoginRestaurantComponent
 		},
 		{
 			path: "register",

@@ -1,4 +1,4 @@
-<StackLayout class="principal-box bg-app">
+<StackLayout *ngIf="status == 'login'" class="principal-box bg-app">
 	<Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
 
   <StackLayout class="formulario">
@@ -12,11 +12,9 @@
 			<TextField hint="Contraseña" secure="true"  [(ngModel)]="user.password"></TextField>
   	</FlexboxLayout> 
   	<Button text="LOGIN" (tap)="login()" class="my-button" ></Button>
-  	<!-- <FlexboxLayout alignItems="center" class="newUser" justifyContent="space-between"> -->
-			<Label text=""></Label>
-			<Label text="¿Nuevo usuario? Regístrate aquí" class="link mt-5" (tap)="signUp()" textAlignment="center"></Label>
+		<Label text=""></Label>
+		<Label text="¿Nuevo usuario? Regístrate aquí" class="link mt-5" (tap)="status = 'regUser'" textAlignment="center"></Label>
 
-  	<!-- </FlexboxLayout> -->
 	</StackLayout>
 	<Label text=""></Label>
 	<Label text="O regístrate usando tus redes sociales" class="align-center black"></Label>
@@ -28,7 +26,42 @@
   </FlexboxLayout> 
  
 
-  <Label text="¿Eres un restaurante? Presiona aquí para iniciar sesión o registrarte" class="link-rest align-center" (tap)="changeToRest()"> </Label>
+  <Label text="¿Eres un restaurante? Presiona aquí para registrarte" class="link-rest align-center" (tap)="status = 'regRest'"> </Label>
 
 </StackLayout>
 
+<!-- REGISTRO DE USUARIOS -->
+
+<StackLayout *ngIf="status == 'regUser'" class="principal-box bg-app bigg">
+	<Image row="0" src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
+	<Label text="¡Únete ya y encuentra un nuevo sitio para encantar tu paladar🍽👅!" class="black mt-5" (tap)="status = 'regUser'" textAlignment="center"></Label>
+
+	<StackLayout class="formulario">
+		<FlexboxLayout alignItems="center" class="inputs">
+			<img src="~/assets/images/usuario.png" alt="" class="icono">
+			<TextField hint="E-mail" [(ngModel)]="user.email"></TextField>
+	 	</FlexboxLayout>
+
+		<FlexboxLayout alignItems="center" class="inputs">
+			<img src="~/assets/images/contrasena.png" alt="" class="icono">
+			<TextField hint="Contraseña" secure="true"  [(ngModel)]="user.password"></TextField>
+		</FlexboxLayout> 
+
+		 <Button text="LOGIN" (tap)="login()" class="my-button" ></Button>
+		 <Button text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
+		<Label text=""></Label>
+		<Label text="¿Nuevo usuario? Regístrate aquí" class="link mt-5" (tap)="status = 'regUser'" textAlignment="center"></Label>
+
+ 	</StackLayout>
+
+</StackLayout>
+
+<!-- REGISTRO DE RESTAURANTES -->
+
+<StackLayout *ngIf="status == 'regRest'" class="principal-box bg-app">
+	<Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
+	<Label text="REGISTRO DE RESTAURANTES" textWrap="true"></Label>
+	
+	<Button text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
+		
+</StackLayout>

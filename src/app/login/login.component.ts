@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Page } from "tns-core-modules/ui/page";
-import { Router } from "@angular/router";
-import { User } from '../utils/models/user.model';
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from 'nativescript-angular/router';
-// import * as dialogs from 'tns-core-modules/ui/dialogs';
+
 import { UserService } from "../utils/servicios/user.service";
+import { User } from '../utils/models/user.model';
 
 @Component({
   selector: "ns-login",
@@ -15,18 +14,20 @@ import { UserService } from "../utils/servicios/user.service";
   providers: [UserService]
 })
 
-export class LoginComponent implements OnInit 
+export class LoginComponent implements OnInit
 {
   user: User;
+  status: 'login' | 'regUser' | 'regRest' = 'login';
+  register: string;
 
-  constructor(private page: Page, private router: Router, private routerEx: RouterExtensions, private userService: UserService) 
+  constructor(private page: Page, private routerEx: RouterExtensions, private userService: UserService) 
   { 
     this.user = new User();
   }
 
   ngOnInit() 
   {
-    this.page.actionBarHidden = true;
+		this.page.actionBarHidden = true;
   }
 	
 	login()
@@ -51,26 +52,35 @@ export class LoginComponent implements OnInit
 
 		});
   }
-
-  signUp() 
+  
+  signUpUser() 
   {
 		const registroAlert: AlertOptions =
 		{
 			title: "Registro",
-			message: "Aqui se hace el registro de personas",
+			message: "REGISTRO DE USUARIOS",
 			okButtonText: "Entendido",
 			cancelable: false
 		};
 
 		alert(registroAlert).then(() => {
-      this.routerEx.navigate(['/register'], {
-        transition:
-        {
-          name: 'fade',
-          duration: 250,
-          curve: 'linear'
-        }
-      });
+			status = 'regUser';
+			this.page.actionBarHidden = false;
+		});
+  }
+  
+  signUpRest() 
+  {
+		const registroAlert: AlertOptions =
+		{
+			title: "Registro",
+			message: "REGISTRO DE RESTAURANTES",
+			okButtonText: "Entendido",
+			cancelable: false
+		};
+
+		alert(registroAlert).then(() => {
+      status = 'regRest';
 		});
 	}
 	
@@ -86,9 +96,9 @@ export class LoginComponent implements OnInit
 
     alert(registroAlert);
     
-  //  this.userService.login().subscribe((resp: any) => {
-    //  console.log(resp)
-    //});
+		this.userService.login().subscribe((resp: any) => {
+			console.log(resp)
+		});
   }
   
   Facebook()
@@ -106,27 +116,5 @@ export class LoginComponent implements OnInit
   //  this.userService.login().subscribe((resp: any) => {
     //  console.log(resp)
     //});
-  }
-  
-  changeToRest()
-  {
-    const ChangeToAlert: AlertOptions =
-		{
-			title: "Cambio de login",
-			message: "Aqui se hace el cambio de login a login de restaurantes",
-			okButtonText: "OK",
-			cancelable: false
-		};
-
-		alert(ChangeToAlert).then(() => {
-      this.routerEx.navigate(['/loginRestaurant'], {
-        transition:
-        {
-          name: 'fade',
-          duration: 250,
-          curve: 'linear'
-        }
-      });
-		});
   }
 }

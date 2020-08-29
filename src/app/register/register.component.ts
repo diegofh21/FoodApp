@@ -1,13 +1,6 @@
-import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Page } from "tns-core-modules/ui/page";
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  // ...
-} from '@angular/animations';
+import { typeOfRegisterService } from '../utils/servicios/typeOfRegister.service';
 //import { RouterExtensions } from 'nativescript-angular';
 //import { TextField } from 'ui/text-field';
 //import { EventData } from 'data/observable';
@@ -16,18 +9,7 @@ import {
 @Component({
 	selector: 'register',
 	templateUrl: './register.component.html',
-	styleUrls: ['./register.component.css'],
-	animations: [
-		trigger('ShowSection', [
-			transition(':enter', [
-				style({ opacity: 0 }),
-				animate('100ms', style({ opacity: 1 })),
-			]),
-			transition(':leave', [
-				animate('100ms', style({ opacity: 0 }))
-			])
-		]),
-	]
+	styleUrls: ['./register.component.css']
 })
 
 export class RegisterComponent implements OnInit {
