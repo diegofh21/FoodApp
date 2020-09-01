@@ -18,6 +18,9 @@ import { RegisterComponent } from "./register/register.component";
 // Inicio
 import { HomeComponent } from "./home/home.component";
 
+// Servicios
+import { AuthService } from './utils/servicios/auth.service';
+
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -45,7 +48,7 @@ import { HomeComponent } from "./home/home.component";
         ItemsComponent,
         ItemDetailComponent
     ],
-    providers: [],
+    providers: [AuthService],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

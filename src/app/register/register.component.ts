@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Page } from "tns-core-modules/ui/page";
-import { typeOfRegisterService } from '../utils/servicios/typeOfRegister.service';
 //import { RouterExtensions } from 'nativescript-angular';
 //import { TextField } from 'ui/text-field';
 //import { EventData } from 'data/observable';
@@ -39,6 +38,4 @@ export class RegisterComponent implements OnInit {
   {
     this.page.actionBarHidden = true;
 	}
-	
-	
 }

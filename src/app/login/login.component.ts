@@ -3,15 +3,16 @@ import { Page } from "tns-core-modules/ui/page";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from 'nativescript-angular/router';
 
-import { UserService } from "../utils/servicios/user.service";
+// Servicios
+import { AuthService } from '../utils/servicios/auth.service';
 import { User } from '../utils/models/user.model';
+import { ITnsOAuthTokenResult } from "nativescript-oauth2";
 
 @Component({
   selector: "ns-login",
   templateUrl: "./login.component.html",
   moduleId: module.id,
-  styleUrls: ["./login.component.css", "../../assets/css/margin-padding.css"],
-  providers: [UserService]
+  styleUrls: ["./login.component.css", "../../assets/css/margin-padding.css"]
 })
 
 export class LoginComponent implements OnInit
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit
   status: 'login' | 'regUser' | 'regRest' = 'login';
   register: string;
 
-  constructor(private page: Page, private routerEx: RouterExtensions, private userService: UserService) 
+  constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService) 
   { 
     this.user = new User();
   }
@@ -86,19 +87,13 @@ export class LoginComponent implements OnInit
 	
 	google()
 	{
-		const registroAlert: AlertOptions =
+		this.authService.tnsOauthLogin('google').then((tokenResult: ITnsOAuthTokenResult) => 
 		{
-			title: "Inicio con Google",
-			message: "Con esta parte se iniciaría sesión o se registraría con google",
-			okButtonText: "Entendido",
-			cancelable: false
-		};
+			console.log("Login Exitoso, el tokenResult es el siguiente" + tokenResult);
+			this.routerEx.navigate(['/home']).then(() => console.log("navigated to /home"))
+			.catch(err => console.log("error navigating to /home: " + err));
 
-    alert(registroAlert);
-    
-		this.userService.login().subscribe((resp: any) => {
-			console.log(resp)
-		});
+		}).catch(err => console.error("Error" + err));
   }
   
   Facebook()
