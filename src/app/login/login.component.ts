@@ -17,9 +17,10 @@ import { ITnsOAuthTokenResult } from "nativescript-oauth2";
 
 export class LoginComponent implements OnInit
 {
-  user: User;
-  status: 'login' | 'regUser' | 'regRest' = 'login';
-  register: string;
+	user: User;
+	
+	status: 'login' | 'regUser' | 'regRest' = 'login';
+	paso: string = '1';
 
   constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService) 
   { 
@@ -33,64 +34,41 @@ export class LoginComponent implements OnInit
 	
 	login()
 	{
-		const loginAlert: AlertOptions = {
-			title: "Inicio de Sesión",
-			message: "Iniciando sesión",
-			okButtonText: "OK",
-			cancelable: false
-		};
-
-		alert(loginAlert).then(() => {
-        this.routerEx.navigate(['/home'], {
-          animated: true,
-          transition:
-          {
-            name: 'fade',
-            duration: 250,
-            curve: 'linear'
-          }
-        })
-
+		this.routerEx.navigate(['/home'], {
+			animated: true,
+			transition:
+			{
+				name: 'fade',
+				duration: 250,
+				curve: 'linear'
+			}
 		});
+		// const loginAlert: AlertOptions = {
+		// 	title: "Inicio de Sesión",
+		// 	message: "Iniciando sesión",
+		// 	okButtonText: "OK",
+		// 	cancelable: false
+		// };
+
+		// alert(loginAlert).then(() => {
+		// });
   }
   
   signUpUser() 
   {
-		const registroAlert: AlertOptions =
-		{
-			title: "Registro",
-			message: "REGISTRO DE USUARIOS",
-			okButtonText: "Entendido",
-			cancelable: false
-		};
-
-		alert(registroAlert).then(() => {
-			status = 'regUser';
-			this.page.actionBarHidden = false;
-		});
+		status = 'regUser';
   }
   
   signUpRest() 
   {
-		const registroAlert: AlertOptions =
-		{
-			title: "Registro",
-			message: "REGISTRO DE RESTAURANTES",
-			okButtonText: "Entendido",
-			cancelable: false
-		};
-
-		alert(registroAlert).then(() => {
-      status = 'regRest';
-		});
+    status = 'regRest';
 	}
 	
 	google()
 	{
 		this.authService.tnsOauthLogin('google').then((tokenResult: ITnsOAuthTokenResult) => 
 		{
-			console.log("Login Exitoso, el tokenResult es el siguiente" + tokenResult);
-			this.routerEx.navigate(['/home']).then(() => console.log("navigated to /home"))
+			this.routerEx.navigate(['home']).then(() => console.log("navigated to /home"))
 			.catch(err => console.log("error navigating to /home: " + err));
 
 		}).catch(err => console.error("Error" + err));
@@ -107,9 +85,5 @@ export class LoginComponent implements OnInit
 		};
 
     alert(registroAlert);
-    
-  //  this.userService.login().subscribe((resp: any) => {
-    //  console.log(resp)
-    //});
   }
 }

@@ -34,7 +34,7 @@
 
 <StackLayout *ngIf="status == 'regUser'" class="principal-box bg-app bigg">
 	<Image row="0" src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
-	<Label text="¡Únete ya y encuentra un nuevo sitio para encantar tu paladar🍽👅!" class="black mt-5" (tap)="status = 'regUser'" textAlignment="center"></Label>
+	<Label text="¡Únete ya y encuentra un nuevo sitio para encantar tu paladar🍽👅!" class="black mt-5" textAlignment="center"></Label>
 
 	<StackLayout class="formulario">
 		<FlexboxLayout alignItems="center" class="inputs">
@@ -60,8 +60,97 @@
 
 <StackLayout *ngIf="status == 'regRest'" class="principal-box bg-app">
 	<Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
-	<Label text="REGISTRO DE RESTAURANTES" textWrap="true"></Label>
+	<Label text="¡Únete y da a conocer tu sitio de comida en la ciudad!🍔😋" class="black mt-5" textAlignment="center"></Label>
+
+	<!-- PASO 1 -->
+	<StackLayout class="formulario-registro" *ngIf="paso == '1'">
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" alt="" class="icono">
+			<TextField hint="E-maill" [(ngModel)]="user.email"></TextField>
+	 	</FlexboxLayout>
+
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/contrasena.png" class="icono">
+			<TextField hint="Contraseña"  [(ngModel)]="user.password"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" class="icono">
+			<TextField hint="RIF"  [(ngModel)]="user.password"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" class="icono">
+			<TextField hint="Nombre de comercio" [(ngModel)]="user.password"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout flexDirection="row" class="next-back-btn">
+			<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
+		</FlexboxLayout>
+	</StackLayout>
+
+ 	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '1'">
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+	</FlexboxLayout>
+	 
+	 <!-- PASO 2 -->
+	<StackLayout class="" *ngIf="paso == '2'">
+		<FlexboxLayout alignItems="center" alignContent="center" flexDirection="column">
+			<Label text="" textWrap="true" textAlignment="center"></Label>
+			<Label text="Escoge donde estas ubicado para que las personas sepan a donde ir!" textWrap="true" class="medium-text black" textAlignment="center"></Label>
+			<Image src="~/assets/images/mapa-custom-3.png" class="map-icon"></Image>
+
+			<Button text="Escoger lugar" class="map-btn"></Button>
+		</FlexboxLayout>
 	
-	<Button text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
+		<FlexboxLayout flexDirection="row" class="">
+			<Button flexGrow="1" text="Atrás" (tap)="paso = '1'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Siguiente" (tap)="paso = '3'" class="next-btn" ></Button>
+		</FlexboxLayout>
 		
+	</StackLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '2'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+	</FlexboxLayout>
+
+		<!-- PASO 3 -->
+	<StackLayout class="formulario-registro" *ngIf="paso == '3'">
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" alt="" class="icono">
+			<TextField hint="E-mail de paso 3" [(ngModel)]="user.email"></TextField>
+		</FlexboxLayout>
+	
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/contrasena.png" class="icono">
+			<TextField hint="Contraseña"  [(ngModel)]="user.password"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" class="icono">
+			<TextField hint="RIF"  [(ngModel)]="user.password"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" class="icono">
+			<TextField hint="Nombre de comercio" [(ngModel)]="user.password"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout flexDirection="row" class="next-back-btn">
+			<Button flexGrow="1" text="Atrás" (tap)="paso = '2'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Registrar" class="next-btn" ></Button>
+		</FlexboxLayout>
+	</StackLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '3'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+	</FlexboxLayout>
+	
 </StackLayout>
