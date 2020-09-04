@@ -6,7 +6,6 @@
 .bg-app
 {
   background-size: cover;
-  /* background: #fff; */
   background-image: url("~/assets/images/bg-app2.jpg");
 }
 
