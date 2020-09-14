@@ -1,13 +1,14 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { NativeScriptFormsModule } from "nativescript-angular/forms"
+import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ItemsComponent } from "./item/items.component";
 import { ItemDetailComponent } from "./item/item-detail.component";
+import { ItemService } from './item/item.service';
 
 // Login
 import { LoginComponent } from "./login/login.component";
@@ -37,8 +38,8 @@ import { AuthService } from './utils/servicios/auth.service';
         NativeScriptModule,
         NativeScriptHttpClientModule,
         AppRoutingModule,
-        // BrowserModule,
-        // BrowserAnimationsModule,
+        TNSCheckBoxModule,
+        NativeScriptFormsModule,
     ],
     declarations: [
         AppComponent,
@@ -48,7 +49,7 @@ import { AuthService } from './utils/servicios/auth.service';
         ItemsComponent,
         ItemDetailComponent
     ],
-    providers: [AuthService],
+    providers: [AuthService, ItemService],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

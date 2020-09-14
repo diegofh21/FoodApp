@@ -1,23 +1,31 @@
-<ActionBar title="Inicio" icon="" class="action-bar black-text">
+<!-- <ActionBar title="Inicio" icon="" class="action-bar black-text">
+</ActionBar> -->
+
+<ActionBar icon="" class="" style="background: rgb(255, 123, 0);">
+  <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="Logout()" class="black-text"></NavigationButton>
+  <Label text="Inicio" position="center" class="medium-text black-text" textWrap="true"></Label>
+  <ActionItem ios.position="right" class="opt-btn">
+    <Button class="opt-btn black-text" text="Opciones"></Button>
+  </ActionItem>
 </ActionBar>
 
 <BottomNavigation selectedIndex="0">
 
   <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
   <TabStrip>
-      <TabStripItem class="home black-text">
+      <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
           <Label text="Inicio"></Label>
-          <Image src="font://&#xf015;" class="fas"></Image>
+          <Image src="~/assets/images/google-logo.png" class=""></Image>
       </TabStripItem>
 
-      <TabStripItem class="special black-text">
-          <Label text="Encontrar restaurantes"></Label>
-          <Image src="font://&#xf007;" class="fas"></Image>
+      <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
+          <Label text="Buscar"></Label>
+          <Image src="~/assets/images/google-logo.png" class="icono"></Image>
       </TabStripItem>
 
-      <TabStripItem class="special black-text">
+      <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
           <Label text="Cuenta"></Label>
-          <Image src="font://&#xf00e;" class="fas"></Image>
+          <Image src="~/assets/images/google-logo.png" class="icono"></Image>
       </TabStripItem>
   </TabStrip>
 

@@ -12,7 +12,7 @@
 .icono
 {
   width: 7%;
-  height: 7%;  
+  height: 7%;
 }
 
 Image 
@@ -35,6 +35,7 @@ TextField
   font-size: 16px;
   width: 80%;
   border-width: 0;
+  height: 100%;
 }
 
 TextField:focus, TextField:active
@@ -70,8 +71,8 @@ TextField:focus, TextField:active
 {
   border-bottom-width: 2;
   border-bottom-color:rgb(255, 123, 0);
-  height: 16%;
-  min-height: 16%;
+  height: 18%;
+  min-height: 18%;
   margin-bottom: 4%;
   width: 80%;
 }
@@ -113,11 +114,11 @@ TextField:focus, TextField:active
 
 .rrss-btn
 {
-    height: 100%;
-    border-radius: 100%;
-    border-width: 5px;
-    border-color: black;
-    background-color: white;
+  height: 100%;
+  border-radius: 100%;
+  border-width: 5px;
+  border-color: black;
+  background-color: white;
 }
 
 .my-button
@@ -162,7 +163,7 @@ TextField:focus, TextField:active
 
 .formulario
 {
-  height: 40%;
+  height: 42%;
   padding-top: 20%;
   margin-top: 3%;
   border-radius: 30px;
@@ -170,9 +171,31 @@ TextField:focus, TextField:active
   background-color: rgba(24, 25, 32, 0.849);
 }
 
-.formulario-registro
+.formulario-registro-usuario
 {
   height: 60%;
+  min-height: 50%;
+  padding-top: 20%;
+  margin-top: 3%;
+  border-radius: 30px;
+  width: 90%;
+  background-color: rgba(24, 25, 32, 0.849);
+}
+
+.formulario-registro-restaurante
+{
+  height: 70%;
+  min-height: 60%;
+  padding-top: 10%;
+  margin-top: 3%;
+  border-radius: 30px;
+  width: 90%;
+  background-color: rgba(24, 25, 32, 0.849);
+}
+
+.form-step3
+{
+  height: 80%;
   min-height: 60%;
   padding-top: 10%;
   margin-top: 3%;
@@ -231,6 +254,45 @@ TextField:focus, TextField:active
   width: 70%;
 }
 
+.profile-picture
+{
+  border-width: 1px;
+  border-color: black;
+  border-radius: 100%;
+  width: 25%;
+  margin-top: 2%;
+}
+
+.mapa
+{
+  width: 90%;
+  height: 77%;
+  margin-bottom: 3%;
+  background: grey;
+  border-radius: 15px;
+}
+
+.logo-registro
+{
+  height: 15%;
+}
+
+.lista-caracteristicas
+{
+  width: 90%;
+  font-size: 15px;
+}
+
+.mt-4p
+{
+  margin-top: 4%;
+}
+
+.mt-5p
+{
+  margin-top: 5%;
+}
+
 /* Estados */
 
 .active
@@ -287,6 +349,16 @@ TextField:focus, TextField:active
 {
   font-size: 17px;
   margin-top: 4%;
+}
+
+.small-text
+{
+  font-size: 14px;
+}
+
+.stretch
+{
+  width: 90%;
 }
 
 /* Colores */
