@@ -61,6 +61,28 @@ export class LoginComponent implements OnInit
 		// alert(loginAlert).then(() => {
 		// });
   }
+
+  loginrestaurante()
+  {
+	  this.routerEx.navigate(['homeRestaurant/', 2], {
+		  animated: true,
+		  transition:
+		  {
+			  name: 'fade',
+			  duration: 250,
+			  curve: 'linear'
+		  }
+	  });
+	  // const loginAlert: AlertOptions = {
+	  // 	title: "Inicio de Sesión",
+	  // 	message: "Iniciando sesión",
+	  // 	okButtonText: "OK",
+	  // 	cancelable: false
+	  // };
+
+	  // alert(loginAlert).then(() => {
+	  // });
+}
 	
 	google()
 	{

@@ -1,0 +1,93 @@
+Button.-primary {
+    font-size: 18;
+}
+
+.primary-profile{
+    
+    width: 80%;
+    height: 434px;
+    border-radius: 100%;
+}
+.icon{
+    height: 75px;
+    width: 75px;
+    margin-right: 10px;
+}
+.estrellas{
+    margin: 0;
+    padding:0;
+}
+.formulario{
+    height: 30%;
+    min-height: 600px;
+padding-top: 10%;
+margin-top: 3%;
+border-radius: 30px;
+width: 90%;
+background-color: rgba(24, 25, 32, 0.849);
+}
+.h3{
+    color: rgb(255, 123, 0);
+    font-weight: bold;
+}
+
+TextView
+{ 
+  border-bottom-color: rgba(0, 0, 0, 0);
+  placeholder-color: rgba(255, 166, 0, 0.548);
+  color: orange;
+  font-size: 16px;
+  width: 80%;
+  border-width: 0;
+    padding-top: 0px;
+    margin-top: 30px;
+}
+
+TextView:focus, TextView:active
+{
+  border-width: 0;
+}
+
+
+.title{
+    font-size: 15;
+    font-weight: bold;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.my-button
+{  width: 70%;
+  color: black;
+  background-color: rgb(255, 123, 0);
+  font-weight: bold;
+  border-radius: 360;
+  letter-spacing: 0.2;
+  padding-bottom: 5%;
+  padding-top: 5%;
+}
+
+.texto{
+    height: 18%;
+    width: 90%;
+    border-color: black;
+}
+
+.img-header{
+    width: 30%;
+    border-radius: 100%;
+}
+
+.restname{
+    font-size: 30;
+
+    color: rgb(65, 65, 65);
+    border-bottom-width: 3px;
+    border-bottom-color: gray;
+    width: 90%;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
