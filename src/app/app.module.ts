@@ -6,9 +6,9 @@ import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ItemsComponent } from "./item/items.component";
-import { ItemDetailComponent } from "./item/item-detail.component";
-import { ItemService } from './item/item.service';
+import { homeRestaurantComponent } from "./homeRestaurant/homeRestaurant.component";
+import { reviewListComponent } from "./homeRestaurant/reviewList.component";
+import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service';
 
 // Login
 import { LoginComponent } from "./login/login.component";
@@ -46,10 +46,10 @@ import { AuthService } from './utils/servicios/auth.service';
         LoginComponent,
         RegisterComponent,
         HomeComponent,
-        ItemsComponent,
-        ItemDetailComponent
+        homeRestaurantComponent,
+        reviewListComponent
     ],
-    providers: [AuthService, ItemService],
+    providers: [AuthService, homeRestaurantservice],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

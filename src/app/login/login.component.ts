@@ -52,6 +52,28 @@ export class LoginComponent implements OnInit
 			}
 		});
   }
+
+  loginrestaurante()
+  {
+	  this.routerEx.navigate(['homeRestaurant/', 2], {
+		  animated: true,
+		  transition:
+		  {
+			  name: 'fade',
+			  duration: 250,
+			  curve: 'linear'
+		  }
+	  });
+	  // const loginAlert: AlertOptions = {
+	  // 	title: "Inicio de Sesión",
+	  // 	message: "Iniciando sesión",
+	  // 	okButtonText: "OK",
+	  // 	cancelable: false
+	  // };
+
+	  // alert(loginAlert).then(() => {
+	  // });
+}
 	
 	google()
 	{
@@ -110,9 +132,9 @@ export class LoginComponent implements OnInit
 		let datos = JSON.stringify(this.restaurante);
 		console.log(datos);
 
-		this.authService.register(datos).subscribe((resp: any) => {
+		// this.authService.register(datos).subscribe((resp: any) => {
 
-		});
+		// });
 		// const registerAlert: AlertOptions = {
 		// 	title: "Registro",
 		// 	message: "Has acabado tu registro, ahora vas a ir a home.component",
