@@ -1,16 +1,26 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { NativeScriptFormsModule } from "nativescript-angular/forms"
+import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ItemsComponent } from "./item/items.component";
-import { ItemDetailComponent } from "./item/item-detail.component";
+import { homeRestaurantComponent } from "./homeRestaurant/homeRestaurant.component";
+import { reviewListComponent } from "./homeRestaurant/reviewList.component";
+import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service';
+
+// Login
 import { LoginComponent } from "./login/login.component";
+
+// Registro
 import { RegisterComponent } from "./register/register.component";
+
+// Inicio
 import { HomeComponent } from "./home/home.component";
+
+// Servicios
+import { AuthService } from './utils/servicios/auth.service';
 
 
 
@@ -28,18 +38,18 @@ import { HomeComponent } from "./home/home.component";
         NativeScriptModule,
         NativeScriptHttpClientModule,
         AppRoutingModule,
-        // BrowserModule,
-        // BrowserAnimationsModule,
+        TNSCheckBoxModule,
+        NativeScriptFormsModule,
     ],
     declarations: [
         AppComponent,
         LoginComponent,
         RegisterComponent,
         HomeComponent,
-        ItemsComponent,
-        ItemDetailComponent
+        homeRestaurantComponent,
+        reviewListComponent
     ],
-    providers: [],
+    providers: [AuthService, homeRestaurantservice],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

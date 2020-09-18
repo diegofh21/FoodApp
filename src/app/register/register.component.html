@@ -1,39 +1,8 @@
-<!-- <FlexboxLayout>
-  <StackLayout class="login-form" [class.dark]="!isLoggingIn">
-		<Image src="~/assets/images/sombrero-logo.png"></Image>
-		<Label text="App Food" class="Logo-Label"></Label>
-		<TextField hint="Nombre y Apellido" keyboardType="email" autocorrect="false" autocapitalizationType="none" class="" [(ngModel)]="user.email"></TextField>
-		<TextField hint="Contraseña" secure="true" class="" [(ngModel)]="user.password"></TextField>
+<StackLayout class="principal-box bg-app">
+  <Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
 
-		<StackLayout class="login-buttons">
-				<Button [text]="Siguiente" class="btn btn-login btn-border" (tap)="processStep()"></Button> -->
-				<!-- <Button class="btn google-btn btn-border fa" (tap)="google()"> -->
-					<!-- <Span class="google-icon align-left" text="&#xf1a0;"></Span> -->
-					<!-- <Span class="text-icon align-right" text="Google"></Span>
-				</Button>
-				<Button [text]="Volver" class="btn sign-up-btn btn-border" (tap)="toggleDisplay()"></Button>
-		</StackLayout>
-  </StackLayout>
-</FlexboxLayout> -->
-
-<FlexboxLayout class="bg-app">
+  <Label *ngIf="registro == 'usuario'" text="REGISTRO DE USUARIOS" textWrap="true"></Label>
+  <Label *ngIf="registro == 'restaurante'" text="REGISTRO DE RESTAURANTES" textWrap="true"></Label>
   
-    <StackLayout *ngIf="Estatus === 'crear'">
-        <Label text="Deseas registrarte como...(LOGIN)" [ngClass]="{'active': Activo == login}" textWrap="true"></Label>
-        <Label text="Deseas registrarte como...(REGISTRO)" [ngClass]="{'active': Activo == registro}" textWrap="true"></Label>
-        <Button text="Usuario" class="btn btn-border user-btn" (tap)="Activo = 'login'"></Button>
-        <Label text="o..." textWrap="true"></Label>
-        <Button text="Restaurante" class="btn btn-border rest-btn" (tap)="Activo = 'registro'"></Button>
-    </StackLayout>
-
-    <StackLayout *ngIf="Estatus === 'usuario'">
-      <Label text="ESTE ES EL REGISTRO DE PERSONAS" textWrap="true"></Label>
-      <Button [text]="Atraas" class="btn btn-border" (tap)="Estatus = 'crear'"></Button>
-    </StackLayout>
-
-    <StackLayout *ngIf="Estatus === 'restaurante'">
-      <Label text="ESTE ES EL REGISTRO DE RESTAURANTES" textWrap="true"></Label>
-      <Button [text]="Atras2" class="btn btn-border" (tap)="Estatus = 'crear'"></Button>
-    </StackLayout>
-
-</FlexboxLayout>
+  
+</StackLayout>

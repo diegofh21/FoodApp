@@ -1,8 +1,8 @@
-<StackLayout class="principal-box bg-app">
-	<Image src="~/assets/images/FindEat-logo-v4.png" class="logo"></Image>
+<StackLayout *ngIf="status == 'login'" class="principal-box bg-app">
+	<Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
 
   <StackLayout class="formulario">
-   	<FlexboxLayout alignItems="center" class="inputs">
+   	<FlexboxLayout alignItems="center" justifyContent="space-around" class="inputs" flexDirection="row">
 			<img src="~/assets/images/usuario.png" alt="" class="icono">
 			<TextField hint="E-mail" [(ngModel)]="user.email"></TextField>
   	</FlexboxLayout>
@@ -12,23 +12,199 @@
 			<TextField hint="Contraseña" secure="true"  [(ngModel)]="user.password"></TextField>
   	</FlexboxLayout> 
   	<Button text="LOGIN" (tap)="login()" class="my-button" ></Button>
-  	<!-- <FlexboxLayout alignItems="center" class="newUser" justifyContent="space-between"> -->
-			<Label text=""></Label>
-			<Label text="¿Nuevo usuario? Regístrate aquí" class="link mt-5" (tap)="signUp()" textAlignment="center"></Label>
+		<Label text=""></Label>
+		<Label text="¿Nuevo usuario? Regístrate aquí" class="link mt-5" (tap)="status = 'regUser'" textAlignment="center"></Label>
 
-  	<!-- </FlexboxLayout> -->
 	</StackLayout>
 	<Label text=""></Label>
 	<Label text="O regístrate usando tus redes sociales" class="align-center black"></Label>
 
 	<FlexboxLayout alignItems="center" justifyContent="space-between" class="RRSS">
-		<img src="~/assets/images/google-logo.png" (tap)="google()" alt="" class="rrss-btn">
+		<img src="~/assets/images/google-logo.png" (tap)="google()" alt="" class="google-btn">
 		<Label text="" class="v-divider"></Label>
-		<img src="~/assets/images/facebook-logo.png" (tap)="Facebook()" alt="" class="rrss-btn">
+		<img src="~/assets/images/facebook-logo.png" (tap)="Facebook()" alt="" class="facebook-btn">
   </FlexboxLayout> 
- 
+  
+ <!-- <Button text="toca aqui para probar el perfil de restaurante" (tap)="loginrestaurante()" ></Button> -->
 
-  <Label text="¿Eres un restaurante? Presiona aquí para iniciar sesión o registrarte" class="link-rest align-center" (tap)="login()"> </Label>
+  <Label text="¿Eres un restaurante? Presiona aquí para registrarte" class="link-rest align-center" (tap)="status = 'regRest'"> </Label>
 
 </StackLayout>
 
+<!-- REGISTRO DE USUARIOS -->
+
+<StackLayout *ngIf="status == 'regUser'" class="principal-box bg-app">
+	<Image src="~/assets/images/logo-app.png" class="logo-registro"></Image>
+	<Label text="¡Únete ya y encuentra un nuevo sitio para encantar tu paladar🍽👅!" class="black" textAlignment="center"></Label>
+
+	<!-- PASO 1: RELLENAR INFORMACIÓN DE USUARIO -->
+	<GridLayout rows="500, 200" *ngIf="paso == '1'">
+		<StackLayout row="0" class="formulario-registro-usuario">
+			<FlexboxLayout alignItems="center" class="inputs-r">
+				<img src="~/assets/images/usuario.png" alt="" class="icono">
+				<TextField hint="E-mail" [(ngModel)]="user.email"></TextField>
+			 </FlexboxLayout>
+	
+			<FlexboxLayout alignItems="center" class="inputs-r">
+				<img src="~/assets/images/contrasena.png" class="icono">
+				<TextField hint="Contraseña" secure="true" [(ngModel)]="user.password"></TextField>
+			</FlexboxLayout> 
+	
+			<FlexboxLayout alignItems="center" class="inputs-r">
+				<img src="~/assets/images/usuario.png" class="icono">
+				<TextField hint="Nombre de usuario" [(ngModel)]="user.nombre"></TextField>
+			</FlexboxLayout>
+	
+			<FlexboxLayout flexDirection="row" class="next-back-btn">
+				<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
+				<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
+			</FlexboxLayout>
+		</StackLayout>
+	
+		 <FlexboxLayout row="1" justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '1'">
+			<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+			<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		</FlexboxLayout>
+	</GridLayout>
+	
+	<!-- PASO 2: ESCOGER FOTO DE PERFIL E INTERESES DEL USUARIO -->
+	<StackLayout *ngIf="paso == '2'">
+			
+		<GridLayout rows="85, 20, 70, 70, * auto" class="form-step3">
+			<Image src="~/assets/images/buhos-foto-perfil.jpg" row="0" class="profile-picture" (tap)="choosePic()"></Image>
+			<Label row="2" text="Dale estilo a tu perfil escogiendo una foto de perfil y algunas caracteristicas para saber que es lo que te interesa!" textWrap="true" textAlignment="center" class="small-text stretch"></Label>
+			<Label row="3" text="Me interesa..." class="medium-text" textWrap="true" textAlignment="center"></Label>
+			
+			<ScrollView row="4" orientation="vertical">
+				<StackLayout orientation="vertical">
+					<StackLayout class="lista-caracteristicas">
+						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
+						<CheckBox *ngFor="let caract of caracteristicas" text="{{ caract.name }}" checked="false" fillColor="orange" (checkedChange)="checkedChange($event)"></CheckBox>
+					</StackLayout>  
+				</StackLayout>
+			</ScrollView>	
+		</GridLayout>
+
+		<FlexboxLayout flexDirection="row">
+			<Button flexGrow="1" text="Atrás" (tap)="paso = '1'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" ></Button>
+		</FlexboxLayout>
+
+	</StackLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '2'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+	</FlexboxLayout>
+
+</StackLayout>
+<!-- FIN REGISTRO DE USUARIOS -->
+
+<!-- REGISTRO DE RESTAURANTES -->
+<StackLayout *ngIf="status == 'regRest'" class="principal-box bg-app">
+	<Image src="~/assets/images/logo-app.png" class="logo-registro"></Image>
+	<Label text="¡Únete y da a conocer tu sitio de comida en la ciudad!🍔😋" class="black mt-5" textAlignment="center" *ngIf="paso == '1'"></Label>
+
+	<!-- PASO 1: RELLENAR INFORMACIÓN -->
+	<StackLayout class="formulario-registro-restaurante" *ngIf="paso == '1'">
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" alt="" class="icono">
+			<TextField hint="E-mail" [(ngModel)]="restaurante.email"></TextField>
+	 	</FlexboxLayout>
+
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/contrasena.png" class="icono">
+			<TextField hint="Contraseña" secure="true" [(ngModel)]="restaurante.password"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" class="icono">
+			<TextField hint="RIF" [(ngModel)]="restaurante.rif"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" class="icono">
+			<TextField hint="Nombre de comercio" [(ngModel)]="restaurante.nombre_comercio"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout flexDirection="row" class="next-back-btn">
+			<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
+		</FlexboxLayout>
+	</StackLayout>
+
+ 	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '1'">
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+	</FlexboxLayout>
+	 
+	<!-- PASO 2: ESCOGER UBICACIÓN -->
+	<StackLayout class="" *ngIf="paso == '2'">
+		<FlexboxLayout alignItems="center" alignContent="center" flexDirection="column" *ngIf="pasoMapa == 'showBtn'" class="">
+			<Label text="" textWrap="true"></Label>
+			<Label text="Escoge donde estas ubicado para que las personas sepan a donde ir!" textWrap="true" class="medium-text black" textAlignment="center"></Label>
+			<Label text="" textWrap="true" textAlignment="center"></Label>
+			<Image src="~/assets/images/mapa-custom-3.png" class="map-icon mt-5p"></Image>
+
+			<Button text="Escoger lugar" (tap)="pasoMapa = 'showMap'" class="map-btn"></Button>
+		</FlexboxLayout>
+
+		<FlexboxLayout class="mapa mt-4p" alignContent="center" *ngIf="pasoMapa == 'showMap'">
+		<!-- Aqui va el componente MapView del plugin nativescript-google-maps-sdk -->
+				
+		</FlexboxLayout>
+	
+		<FlexboxLayout flexDirection="row" class="">
+			<Button flexGrow="1" text="Atrás" (tap)="paso = '1'" *ngIf="pasoMapa == 'showBtn'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Atrás" (tap)="pasoMapa = 'showBtn'" *ngIf="pasoMapa == 'showMap'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Siguiente" (tap)="paso = '3'" class="next-btn" ></Button>
+		</FlexboxLayout>
+		
+	</StackLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '2' && pasoMapa == 'showBtn'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+	</FlexboxLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '2' && pasoMapa == 'showMap'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+	</FlexboxLayout>
+
+	<!-- PASO 3: ESCOGER FOTO DE PERFIL Y CARACTERISTICAS -->
+	<StackLayout *ngIf="paso == '3'">
+			
+		<GridLayout rows="85, 20, 70, 70, * auto" class="form-step3">
+			<Image src="~/assets/images/buhos-foto-perfil.jpg" row="0" class="profile-picture" (tap)="choosePic()"></Image>
+			<Label row="2" text="Es hora de darle algo de estilo a tu perfil, escoge una foto de perfil y escoge las caracteristicas que representen lo que ofreces!" textWrap="true" textAlignment="center" class="small-text stretch"></Label>
+			<Label row="3" text="Lista de Caracteristicas" class="medium-text" textWrap="true" textAlignment="center"></Label>
+			
+			<ScrollView row="4" orientation="vertical">
+				<StackLayout orientation="vertical">
+					<StackLayout class="lista-caracteristicas">
+						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
+						<CheckBox *ngFor="let caract of caracteristicas" text="{{ caract.name }}" checked="false" fillColor="orange" (checkedChange)="checkedChange($event)"></CheckBox>
+					</StackLayout>  
+				</StackLayout>
+			</ScrollView>	
+		</GridLayout>
+
+		<FlexboxLayout flexDirection="row">
+			<Button flexGrow="1" text="Atrás" (tap)="paso = '2'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" ></Button>
+		</FlexboxLayout>
+
+	</StackLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '3'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+	</FlexboxLayout>
+	
+</StackLayout>
+<!-- FIN REGISTRO DE RESTAURANTES -->

@@ -3,6 +3,10 @@ import { platformNativeScriptDynamic } from "nativescript-angular/platform";
 
 import { AppModule } from "./app/app.module";
 
+import { configureOAuthProviders } from "./app/utils/config-auth-providers";
+
+configureOAuthProviders();
+
 // A traditional NativeScript application starts by initializing global objects,
 // setting up global CSS rules, creating, and navigating to the main page.
 // Angular applications need to take care of their own initialization:
