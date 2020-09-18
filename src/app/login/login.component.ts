@@ -51,39 +51,47 @@ export class LoginComponent implements OnInit
 				curve: 'linear'
 			}
 		});
-		// const loginAlert: AlertOptions = {
-		// 	title: "Inicio de Sesión",
-		// 	message: "Iniciando sesión",
-		// 	okButtonText: "OK",
-		// 	cancelable: false
-		// };
-
-		// alert(loginAlert).then(() => {
-		// });
   }
 	
 	google()
 	{
-		this.authService.tnsOauthLogin('google').then((tokenResult: ITnsOAuthTokenResult) => 
+		this.authService.tnsOauthLogin('google').then((tokenResult) => 
 		{
-			this.routerEx.navigate(['/home']).then(() => console.log("navigated to /home"))
-			.catch(err => console.log("error navigating to /home: " + err));
-
+			// console.log("login exitoso tokenResult es:" + JSON.stringify(tokenResult));
+			this.authService.login(tokenResult).subscribe((resp: any) => {
+				console.log("resp es", resp.email);
+			});
+			this.routerEx.navigate(['../home'], {
+				animated: true,
+				transition:
+				{
+					name: 'fade',
+					duration: 250,
+					curve: 'linear'
+				}
+			});
 		}).catch(err => console.error("Error" + err));
   }
   
   Facebook()
 	{
-		const registroAlert: AlertOptions =
+		this.authService.tnsOauthLogin('facebook').then((tokenResult) => 
 		{
-			title: "Inicio con Facebook",
-			message: "Con esta parte se iniciaría sesión o se registraría con Facebook",
-			okButtonText: "Entendido",
-			cancelable: false
-		};
-
-    alert(registroAlert);
-	}
+			// console.log("Login de Facebook Exitoso, el tokenResult es el siguiente" + resp);
+			this.authService.login(tokenResult).subscribe((resp: any) => {
+				console.log("resp es", resp);
+			});
+			this.routerEx.navigate(['../home'], {
+				animated: true,
+				transition:
+				{
+					name: 'fade',
+					duration: 250,
+					curve: 'linear'
+				}
+			});
+		}).catch(err => console.error("Error" + err));
+  }
 	
 	choosePic()
 	{
@@ -99,24 +107,30 @@ export class LoginComponent implements OnInit
 
 	register()
 	{
-		const registerAlert: AlertOptions = {
-			title: "Registro",
-			message: "Has acabado tu registro, ahora vas a ir a home.component",
-			okButtonText: "OK",
-			cancelable: false
-		};
+		let datos = JSON.stringify(this.restaurante);
+		console.log(datos);
 
-		alert(registerAlert).then(() => {
-			this.routerEx.navigate(['/home'], {
-				animated: true,
-				transition:
-				{
-					name: 'fade',
-					duration: 250,
-					curve: 'linear'
-				}
-			});
+		this.authService.register(datos).subscribe((resp: any) => {
+
 		});
+		// const registerAlert: AlertOptions = {
+		// 	title: "Registro",
+		// 	message: "Has acabado tu registro, ahora vas a ir a home.component",
+		// 	okButtonText: "OK",
+		// 	cancelable: false
+		// };
+
+		// alert(registerAlert).then(() => {
+		// 	this.routerEx.navigate(['/home'], {
+		// 		animated: true,
+		// 		transition:
+		// 		{
+		// 			name: 'fade',
+		// 			duration: 250,
+		// 			curve: 'linear'
+		// 		}
+		// 	});
+		// });
 	}
 
 	checkedChange(event) 

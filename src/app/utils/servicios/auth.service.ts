@@ -1,12 +1,15 @@
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-
+import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { TnsOAuthClient, ITnsOAuthTokenResult } from "nativescript-oauth2";
+
+import { Config } from '../config';
 
 @Injectable()
 export class AuthService {
   private client: TnsOAuthClient = null;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   public tnsOauthLogin(providerType): Promise<ITnsOAuthTokenResult> 
   {
@@ -51,6 +54,13 @@ export class AuthService {
         resolve();
       }
     });
+  }
+
+  public login(data)
+  {
+    return this.http.post(
+      Config.apiUrl + '/login',data
+    );
   }
 }
 
