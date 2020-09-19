@@ -15,7 +15,12 @@
             <Label text="Inicio"></Label>
             <Image src="~/assets/images/google-logo.png" class=""></Image>
         </TabStripItem>
-  
+        
+        <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
+          <Label text="Inicio"></Label>
+          <Image src="~/assets/images/google-logo.png" class=""></Image>
+      </TabStripItem>
+
         <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
             <Label text="Buscar"></Label>
             <Image src="~/assets/images/google-logo.png" class="icono"></Image>
@@ -33,15 +38,54 @@
         <Stacklayout>
         <Label text="Página de Inicio" class="h2 text-center black-text"></Label>
         <Label [text]="profile.name" class="h2 text-center black-text"></Label>
-        <Button text="Ver mis reviews"  [nsRouterLink]="['reviewList', profile.id]" ></Button>
+
         <Button text="Logout" (tap)="Logout()" class="btn btn-primary btn-active"></Button>
       </Stacklayout>
       </GridLayout>
     </TabContentItem>
+
+    <TabContentItem>
+
+      <Stacklayout>
+        <ScrollView>
+              <GridLayout class="page2">
+                <StackLayout justifyContent="center" alignContent="center" >
+                  <Image [src]="profile.profilePicture" class="img-header"   
+                  margin="10"
+                  androidElevation="12"
+                  backgroundColor="white"></Image>
+                  <Label text="reseñas..."  class="title"></Label>
+                  <Label [text]="profile.name" class="restname" >  </Label>
+                  
+                  <StackLayout *ngFor="let review of reviews">
+                    <StackLayout class="review-card">
+                      <StackLayout justifyContent="center" alignContent="center"  class="user-data">
+                        <FlexboxLayout alignItems="center" justifyContent="space-between">
+                          <Label text=""></Label>
+                          <Image [src]="getProfilepicURL(review.userID)" class="user-pic" ></Image>
+                          <Button class="report" text="!" (tap)="reportReview(review.id)"></Button>
+                        </FlexboxLayout>
+                        
+                    <Image [src]="getStars(review.rate)" class="stars" ></Image>
+                    <Label [text]="getNameUser(review.userID)" class="user-name" ></Label>
+                    
+                  </StackLayout>
+                    <Label [text]="review.reviewText"  class="review-content"></Label>
+                  </StackLayout>
+                  </StackLayout>
+                
+                  
+                
+                  
+                </StackLayout>
+              </GridLayout>
+            </ScrollView>
+              </Stacklayout>
+          </TabContentItem>
   
     <TabContentItem>
 <Stacklayout>
-        <GridLayout class="page2">
+        <GridLayout class="page3">
             <Label text="Página para encontrar restaurantes" class="h2 text-center black-text"></Label>
             <Label [text]="profile.name" class="h2 text-center black-text"></Label>
         </GridLayout>
@@ -50,7 +94,7 @@
   
     <TabContentItem>
       <Stacklayout>
-        <GridLayout class="page3">
+        <GridLayout class="page4">
             <Label text="Página de cuenta" class="h2 text-center black-text"></Label>
             <Label [text]="profile.name" class="h2 text-center black-text"></Label>
         </GridLayout>
