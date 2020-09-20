@@ -11,41 +11,41 @@
   
     <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
     <TabStrip>
-        <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
-            <Label text="Inicio"></Label>
-            <Image src="~/assets/images/google-logo.png" class=""></Image>
-        </TabStripItem>
-  
-        <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-            <Label text="Buscar"></Label>
-            <Image src="~/assets/images/google-logo.png" class="icono"></Image>
-        </TabStripItem>
-  
-        <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-            <Label text="Cuenta"></Label>
-            <Image src="~/assets/images/google-logo.png" class="icono"></Image>
-        </TabStripItem>
+      <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
+          <Label text="Inicio"></Label>
+          <Image src="~/assets/images/google-logo.png" class=""></Image>
+      </TabStripItem>
+
+      <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
+          <Label text="Buscar"></Label>
+          <Image src="~/assets/images/google-logo.png" class="icono"></Image>
+      </TabStripItem>
+
+      <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
+          <Label text="Cuenta"></Label>
+          <Image src="~/assets/images/google-logo.png" class="icono"></Image>
+      </TabStripItem>
     </TabStrip>
   
     <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
     <TabContentItem>
       <GridLayout class="page">
         <Stacklayout>
-        <Label text="Página de Inicio" class="h2 text-center black-text"></Label>
-        <Label [text]="profile.name" class="h2 text-center black-text"></Label>
-        <Button text="Ver mis reviews"  [nsRouterLink]="['reviewList', profile.id]" ></Button>
-        <Button text="Logout" (tap)="Logout()" class="btn btn-primary btn-active"></Button>
-      </Stacklayout>
+          <Label text="Página de Inicio" class="h2 text-center black-text"></Label>
+          <Label [text]="profile.name" class="h2 text-center black-text"></Label>
+          <Button text="Ver mis reviews"  [nsRouterLink]="['reviewList', profile.id]" ></Button>
+          <Button text="Logout" (tap)="Logout()" class="btn btn-primary btn-active"></Button>
+        </Stacklayout>
       </GridLayout>
     </TabContentItem>
   
     <TabContentItem>
-<Stacklayout>
+      <Stacklayout>
         <GridLayout class="page2">
             <Label text="Página para encontrar restaurantes" class="h2 text-center black-text"></Label>
             <Label [text]="profile.name" class="h2 text-center black-text"></Label>
         </GridLayout>
-        </Stacklayout>
+      </Stacklayout>
     </TabContentItem>
   
     <TabContentItem>
@@ -54,7 +54,7 @@
             <Label text="Página de cuenta" class="h2 text-center black-text"></Label>
             <Label [text]="profile.name" class="h2 text-center black-text"></Label>
         </GridLayout>
-          </Stacklayout>
+      </Stacklayout>
     </TabContentItem>
   
   </BottomNavigation>

@@ -59,7 +59,14 @@ export class AuthService {
   public login(data)
   {
     return this.http.post(
-      Config.apiUrl + '/login',data
+      Config.apiUrl + '/login', data
+    );
+  }
+
+  public register(data)
+  {
+    return this.http.post(
+      Config.apiUrl + '/register', data
     );
   }
 }

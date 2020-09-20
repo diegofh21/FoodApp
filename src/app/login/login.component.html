@@ -1,6 +1,6 @@
 <StackLayout *ngIf="status == 'login'" class="principal-box bg-app">
 	<Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
-
+	
   <StackLayout class="formulario">
    	<FlexboxLayout alignItems="center" justifyContent="space-around" class="inputs" flexDirection="row">
 			<img src="~/assets/images/usuario.png" alt="" class="icono">
@@ -13,7 +13,7 @@
   	</FlexboxLayout> 
   	<Button text="LOGIN" (tap)="login()" class="my-button" ></Button>
 		<Label text=""></Label>
-		<Label text="¿Nuevo usuario? Regístrate aquí" class="link mt-5" (tap)="status = 'regUser'" textAlignment="center"></Label>
+		<Label text="¿Nuevo usuario? Regístrate aquí" class="link mt-5" (tap)="setStatus('regUser')" textAlignment="center"></Label>
 
 	</StackLayout>
 	<Label text=""></Label>
@@ -24,19 +24,31 @@
 		<Label text="" class="v-divider"></Label>
 		<img src="~/assets/images/facebook-logo.png" (tap)="Facebook()" alt="" class="facebook-btn">
   </FlexboxLayout> 
-<<<<<<< HEAD
- 
-=======
-  
+
  <!-- <Button text="toca aqui para probar el perfil de restaurante" (tap)="loginrestaurante()" ></Button> -->
+  <Label text="¿Eres un restaurante? Presiona aquí para registrarte" class="link-rest align-center" (tap)="setStatus('restReg')"> </Label>
+	
+	
+	
+</StackLayout>
 
->>>>>>> 0145faf5d79a60a80869add4b803dde22f8ac472
-  <Label text="¿Eres un restaurante? Presiona aquí para registrarte" class="link-rest align-center" (tap)="status = 'regRest'"> </Label>
+<StackLayout *ngIf="status == 'selectReg'" class="principal-box bg-app">
+	<Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
 
+  <StackLayout class="">
+   	<FlexboxLayout alignItems="center" justifyContent="space-around" class="inputs" flexDirection="column">
+			<Label text="Indica lo siguiente para continuar con tu registro" textWrap="true" textAlignment="center" class="medium-text black"></Label>
+			<Label text="Tu cuenta es de..." textWrap="true" textAlignment="center" class="medium-text black"></Label>
+		</FlexboxLayout>
+		
+		<Button text="Usuario" class="user-btn" (tap)="setStatus('userReg'); paso = '2'"></Button>
+		<Button text="Restaurante" class="rest-btn" (tap)="setStatus('restReg')"></Button>
+		<Button text="Volver al inicio" (tap)="setLogin()" class="back-btn" ></Button>
+		
+	</StackLayout>
 </StackLayout>
 
 <!-- REGISTRO DE USUARIOS -->
-
 <StackLayout *ngIf="status == 'regUser'" class="principal-box bg-app">
 	<Image src="~/assets/images/logo-app.png" class="logo-registro"></Image>
 	<Label text="¡Únete ya y encuentra un nuevo sitio para encantar tu paladar🍽👅!" class="black" textAlignment="center"></Label>
@@ -51,7 +63,7 @@
 	
 			<FlexboxLayout alignItems="center" class="inputs-r">
 				<img src="~/assets/images/contrasena.png" class="icono">
-				<TextField hint="Contraseña" secure="true" [(ngModel)]="user.password"></TextField>
+				<TextField hint="Contraseña" secure="true" [(ngModel)]="user.email"></TextField>
 			</FlexboxLayout> 
 	
 			<FlexboxLayout alignItems="center" class="inputs-r">
@@ -60,7 +72,7 @@
 			</FlexboxLayout>
 	
 			<FlexboxLayout flexDirection="row" class="next-back-btn">
-				<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
+				<Button flexGrow="1" text="Volver al inicio" (tap)="setStatus('login')" class="back-btn"></Button>
 				<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
 			</FlexboxLayout>
 		</StackLayout>
@@ -90,7 +102,8 @@
 		</GridLayout>
 
 		<FlexboxLayout flexDirection="row">
-			<Button flexGrow="1" text="Atrás" (tap)="paso = '1'" class="back-btn"></Button>
+			<Button *ngIf="googleLogin == false" flexGrow="1" text="Atrás" (tap)="paso = '1'" class="back-btn"></Button>
+			<Button *ngIf="googleLogin == true" flexGrow="1" text="Volver al inicio" (tap)="paso = '1'; setStatus('login')" class="back-btn"></Button>
 			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" ></Button>
 		</FlexboxLayout>
 
@@ -113,12 +126,13 @@
 	<StackLayout class="formulario-registro-restaurante" *ngIf="paso == '1'">
 		<FlexboxLayout alignItems="center" class="inputs-r">
 			<img src="~/assets/images/usuario.png" alt="" class="icono">
-			<TextField hint="E-mail" [(ngModel)]="restaurante.email"></TextField>
+			<TextField hint="E-mail" *ngIf="checkGoogleLogin == false" [(ngModel)]="restaurante.email"></TextField>
+			<TextField editable="false" hint="E-mail" *ngIf="checkGoogleLogin == true" [(ngModel)]="restaurante.email" ></TextField>
 	 	</FlexboxLayout>
 
-		<FlexboxLayout alignItems="center" class="inputs-r">
+		<FlexboxLayout alignItems="center" class="inputs-r" *ngIf="googleLogin == false">
 			<img src="~/assets/images/contrasena.png" class="icono">
-			<TextField hint="Contraseña" secure="true" [(ngModel)]="restaurante.password"></TextField>
+			<TextField hint="Contraseña" [(ngModel)]="restaurante.email" secure="true"></TextField>
 		</FlexboxLayout> 
 
 		<FlexboxLayout alignItems="center" class="inputs-r">
@@ -132,7 +146,7 @@
 		</FlexboxLayout> 
 
 		<FlexboxLayout flexDirection="row" class="next-back-btn">
-			<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Volver al inicio" (tap)="setStatus('login')" class="back-btn"></Button>
 			<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
 		</FlexboxLayout>
 	</StackLayout>

@@ -150,15 +150,18 @@ TextField:focus, TextField:active
   margin-left: 2%;
 }
 
-.rest-button
+.user-btn
 {
-  color: rgb(255, 123, 0);
-  font-size: 14px;
-  background-color: rgba(24, 25, 32, 0.849);
-  font-weight: bold;
-  border-radius: 360;
-  padding-bottom: 5%;
-  padding-top: 5%;
+  color: white;
+  background-color: #3498db;
+  border-radius: 15px;
+}
+
+.rest-btn
+{
+  color: white;
+  background-color:  rgb(255, 123, 0);
+  border-radius: 15px;
 }
 
 .formulario
@@ -366,4 +369,9 @@ TextField:focus, TextField:active
 .black
 {
   color: black;
+}
+
+.white
+{
+  color: white;
 }
