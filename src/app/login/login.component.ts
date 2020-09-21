@@ -1,15 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Page } from "tns-core-modules/ui/page";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ITnsOAuthTokenResult } from "nativescript-oauth2";
-import { getBoolean, setBoolean, getString, setString, remove, clear } from 'tns-core-modules/application-settings';
 
 // Servicios
 import { AuthService } from '../utils/servicios/auth.service';
-import { User } from '../utils/models/user.model';
-import { Restaurante } from '../utils/models/restaurante.model';
-import { Caracteristicas } from './caracteristicas';
+import { Cliente, Restaurante } from '../utils/models/user.model';
+
 import { caracteristica } from './mock-caracteristicas';
 
 @Component({
@@ -21,55 +19,39 @@ import { caracteristica } from './mock-caracteristicas';
 
 export class LoginComponent implements OnInit
 {
-	user: User;
+	cliente: Cliente;
 	restaurante: Restaurante;
 	
-	status: string = 'login';
+	status: 'login' | 'restReg' | 'userReg' = 'login';
 	paso: string = '1';
 	pasoMapa: 'showBtn' | 'showMap' = 'showBtn';
-	googleLogin: boolean = false;
+	socialLogin: boolean;
 
 	caracteristicas = caracteristica;
 
   constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService) 
   { 
-		this.user = new User();
+		this.cliente = new Cliente();
 		this.restaurante = new Restaurante();
   }
 
   ngOnInit() 
   {
 		this.page.actionBarHidden = true;
-		console.log("la aplicacion inicio");
+		console.log("La aplicación inicio y estas sincronizado.");
   }
 	
 	login()
 	{
-		const alerta: AlertOptions = 
-		{
-			title: 'cambio de variable',
-			message: 'get variable googleLogin',
-			okButtonText: 'OK',
-			cancelable: false
-		};
-
-		alert(alerta).then(() => {
-			this.googleLogin = getBoolean("googleLogin");
-			this.status = getString("status");
-
-			alert("la variable seteada googleLogin es: " + this.googleLogin)
-			alert("la variable seteada status es : " + this.status)
+		this.routerEx.navigate(['/home'], {
+			animated: true,
+			transition:
+			{
+				name: 'fade',
+				duration: 250,
+				curve: 'linear'
+			}
 		});
-		
-		// this.routerEx.navigate(['/home'], {
-		// 	animated: true,
-		// 	transition:
-		// 	{
-		// 		name: 'fade',
-		// 		duration: 250,
-		// 		curve: 'linear'
-		// 	}
-		// });
 	}
 
   loginrestaurante()
@@ -88,31 +70,27 @@ export class LoginComponent implements OnInit
 	// INICIO DE SESIÓN CON GOOGLE 
 	google()
 	{
-		setBoolean("googleLogin", true);
-		setString("status", "selectReg");
 		this.authService.tnsOauthLogin('google').then((tokenResult) => 
 		{
-			
-			// console.log("login exitoso tokenResult es:" + JSON.stringify(tokenResult));
 			this.authService.login(tokenResult).subscribe((resp: any) => {
-				console.log("resp es", resp.email);
+				console.log("email devuelto es", resp.email);
+				this.cliente.email = resp.email;
+				this.cliente.nombre = resp.name;
+
 				this.restaurante.email = resp.email;
 				
 				setTimeout(() => {
 					console.log("entre en el timeout");
-					const googleReg: AlertOptions = {
-						title: "cambio de registro",
-						message: 'vas a ir a la pantalla de seleccion de registro',
-						okButtonText: 'OK',
-						cancelable: false
-					};
-
-					alert(googleReg).then(() => {
-						getBoolean("googleLogin");
-						getString("status");
-						console.log("valores de googleLogin y status:.", this.googleLogin, this.status);
+					this.routerEx.navigate(['/register'], {
+						animated: true,
+						transition:
+						{
+							name: 'fade',
+							duration: 250,
+							curve: 'linear'
+						}
 					});
-				}, 3000); //Timeout
+				}, 2000); // 2 Segundos de Timeout al volver antes de irse a la pantalla de registro
 			}); //authService.login()
 		}).catch(err => console.error("Error" + err));	//authService.tnsOauthLogin(google)	
 	}
@@ -125,17 +103,25 @@ export class LoginComponent implements OnInit
 			// console.log("Login de Facebook Exitoso, el tokenResult es el siguiente" + resp);
 			this.authService.login(tokenResult).subscribe((resp: any) => {
 				console.log("resp es", resp);
-			});
-			this.routerEx.navigate(['../home'], {
-				animated: true,
-				transition:
-				{
-					name: 'fade',
-					duration: 250,
-					curve: 'linear'
-				}
-			});
-		}).catch(err => console.error("Error" + err));
+				this.cliente.email = resp.email;
+				this.cliente.nombre = resp.name;
+
+				this.restaurante.email = resp.email;
+
+				setTimeout(() => {
+					console.log("entre en el timeout");
+					this.routerEx.navigate(['/register'], {
+						animated: true,
+						transition:
+						{
+							name: 'fade',
+							duration: 250,
+							curve: 'linear'
+						}
+					});
+				}, 2000); // 2 Segundos de Timeout al volver antes de irse a la pantalla de registro
+			}); // authService.login()
+		}).catch(err => console.error("Error" + err)); // authService.tnsOauthLogin(facebook)
   }
 	
 	// ESCOGER UNA IMAGEN DE PERFIL EN EL REGISTRO DE USUARIO / RESTAURANTE
@@ -164,7 +150,8 @@ export class LoginComponent implements OnInit
 
 			let datos = {
 				name: this.restaurante.nombre_comercio,
-				rif: this.restaurante.rif
+				rif: this.restaurante.rif,
+				typeUser: this.restaurante.type
 			};
 
 			console.log("los datos guardados: ", JSON.stringify(datos));
@@ -201,25 +188,5 @@ export class LoginComponent implements OnInit
 			}
 		// }
 		
-	}
-
-
-	// LOGIN SCREEN STATES
-	setStatus(state: string)
-	{
-		switch (state) {
-			case 'login':
-				setString("status", "login");
-				break;
-			case 'userReg':
-				setString("status", "userReg");
-				break;
-			case 'restReg':
-				setString("status", "restReg");
-				break;
-			case 'selectReg':
-				setString("status", "selectReg");
-				break;
-		}
 	}
 }

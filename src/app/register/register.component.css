@@ -1,3 +1,20 @@
+*
+{
+  font-family: 'Nunito', sans-serif;
+}
+
+.bg-app
+{
+  background-size: cover;
+  background-image: url("~/assets/images/bg-app2.jpg");
+}
+
+.icono
+{
+  width: 7%;
+  height: 7%;
+}
+
 Image 
 {
   margin-top: 2%;
@@ -18,6 +35,7 @@ TextField
   font-size: 16px;
   width: 80%;
   border-width: 0;
+  height: 100%;
 }
 
 TextField:focus, TextField:active
@@ -33,14 +51,327 @@ TextField:focus, TextField:active
   justify-content: center;
 }
 
-.bg-app
+.btn
 {
-  background-size: cover;
-  background-image: url("~/assets/images/bg-app2.jpg");
+  margin-left: 0;
+  margin-right: 0;
 }
 
-.icono
+.inputs
 {
-  width: 7%;
-  height: 7%;  
+  border-bottom-width: 2;
+  border-bottom-color:rgb(255, 123, 0);
+  height: 20%;
+  min-height: 18%;
+  margin-bottom: 7%;
+  width: 80%;
+}
+
+.inputs-r
+{
+  border-bottom-width: 2;
+  border-bottom-color:rgb(255, 123, 0);
+  height: 18%;
+  min-height: 18%;
+  margin-bottom: 4%;
+  width: 80%;
+}
+
+.newUser
+{
+  margin-top:10%;
+  width: 90%;
+}
+
+.link
+{
+  color: rgb(255, 123, 0);
+  text-decoration: underline;
+}
+
+.link-rest
+{
+  margin-top: 2%;
+  color: rgb(255, 123, 0);
+  text-decoration: underline;
+  align-content: center;
+}
+
+.v-divider
+{
+  width: 4px;
+  height: 80%;
+  border-width: 2px;
+  border-color: rgb(71, 71, 71);
+}
+
+.RRSS
+{
+  height: 8%;
+  width: 50%;
+  margin: 2% 10%;
+}
+
+.rrss-btn
+{
+  height: 100%;
+  border-radius: 100%;
+  border-width: 5px;
+  border-color: black;
+  background-color: white;
+}
+
+.my-button
+{
+  color: black;
+  background-color: rgb(255, 123, 0);
+  font-weight: bold;
+  border-radius: 360;
+  letter-spacing: 0.5;
+  padding-bottom: 5%;
+  padding-top: 5%;
+}
+
+.back-btn
+{
+  color: white;
+  background-color: rgb(195, 0, 0);
+  border-radius: 15px;
+  padding-bottom: 5%;
+  padding-top: 5%;
+  margin-right: 2%;
+}
+
+.next-btn
+{
+  color: white;
+  background-color: #3498db;
+  border-radius: 15px;
+  margin-left: 2%;
+}
+
+.user-btn
+{
+  color: white;
+  background-color: #3498db;
+  border-radius: 15px;
+}
+
+.rest-btn
+{
+  color: white;
+  background-color:  rgb(255, 123, 0);
+  border-radius: 15px;
+}
+
+.formulario
+{
+  height: 42%;
+  padding-top: 20%;
+  margin-top: 3%;
+  border-radius: 30px;
+  width: 90%;
+  background-color: rgba(24, 25, 32, 0.849);
+}
+
+.formulario-registro-usuario
+{
+  height: 60%;
+  min-height: 50%;
+  padding-top: 20%;
+  margin-top: 3%;
+  border-radius: 30px;
+  width: 90%;
+  background-color: rgba(24, 25, 32, 0.849);
+}
+
+.formulario-registro-restaurante
+{
+  height: 70%;
+  min-height: 60%;
+  padding-top: 10%;
+  margin-top: 3%;
+  border-radius: 30px;
+  width: 90%;
+  background-color: rgba(24, 25, 32, 0.849);
+}
+
+.form-step3
+{
+  height: 80%;
+  min-height: 60%;
+  padding-top: 10%;
+  margin-top: 3%;
+  border-radius: 30px;
+  width: 90%;
+  background-color: rgba(24, 25, 32, 0.849);
+}
+
+.next-back-btn
+{
+  height: 100%;
+}
+
+.btn-border
+{
+  border-radius: 360;
+}
+
+.google-btn
+{
+  height: 90%;
+  border-radius: 100%;
+  border-width: 2px;
+  border-color: black;
+  background-color: white;
+}
+
+.facebook-btn
+{
+  height: 90%;
+  border-radius: 100%;
+  border-width: 2px;
+  border-color: black;
+  background-color: rgb(60,90,153);
+}
+
+.step-dots
+{
+  height: 5%;
+  margin: 0 auto;
+}
+
+.map-icon
+{
+  height: 40%;
+  margin-bottom: 4%;
+}
+
+.map-btn
+{
+  border-radius: 20px;
+  background: #0984e3;
+  color: white;
+  margin-top: -5%;
+  margin-bottom: 7%;
+  width: 70%;
+}
+
+.profile-picture
+{
+  border-width: 1px;
+  border-color: black;
+  border-radius: 100%;
+  width: 25%;
+  margin-top: 2%;
+}
+
+.mapa
+{
+  width: 90%;
+  height: 77%;
+  margin-bottom: 3%;
+  background: grey;
+  border-radius: 15px;
+}
+
+.logo-registro
+{
+  height: 15%;
+}
+
+.lista-caracteristicas
+{
+  width: 90%;
+  font-size: 15px;
+}
+
+.mt-4p
+{
+  margin-top: 4%;
+}
+
+.mt-5p
+{
+  margin-top: 5%;
+}
+
+/* Estados */
+
+.active
+{
+  border-color: black;
+  border-top-width: 4px;
+}
+
+.inactive
+{
+  color: rgb(160, 160, 160);
+}
+
+.step-active
+{
+  transition: 0.5s all;
+  opacity: 1;
+  margin: 0 2%;
+}
+
+.step-inactive
+{
+  transition: 0.5s all;
+  opacity: 0.7;
+  margin: 0 2%;
+}
+
+/* Estilos de justificacion de texto */
+
+.align-center
+{
+  text-align: center;
+}
+
+.align-left
+{
+  text-align: left;
+}
+
+.align-right
+{
+  text-align: right;
+}
+
+/* Tamaños de texto */
+
+.big-text
+{
+  font-size: 22px;
+  margin-top: 4%;
+}
+
+.medium-text
+{
+  font-size: 17px;
+  margin-top: 4%;
+}
+
+.small-text
+{
+  font-size: 14px;
+}
+
+.stretch
+{
+  width: 90%;
+}
+
+/* Colores */
+
+.black
+{
+  color: black;
+}
+
+.white
+{
+  color: white;
 }

@@ -29,7 +29,7 @@ export function configureOAuthProviderFacebook(): TnsOaProvider {
     clientId: "326079631832863",
     clientSecret: "b02bbd1764565ac3e53a9143b5339f2f",
     redirectUri: "https://www.facebook.com/connect/login_success.html",
-    scopes: ["email"]
+    scopes: ["email", "profile"]
   };
   const facebookProvider = new TnsOaProviderFacebook(facebookProviderOptions);
   return facebookProvider;
