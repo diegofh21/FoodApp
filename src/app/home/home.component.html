@@ -15,17 +15,17 @@
   <TabStrip>
       <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
           <Label text="Inicio"></Label>
-          <Image src="~/assets/images/google-logo.png" class=""></Image>
+          <Image src="~/assets/images/home_filled.png" class=""></Image>
       </TabStripItem>
 
       <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
           <Label text="Buscar"></Label>
-          <Image src="~/assets/images/google-logo.png" class="icono"></Image>
+          <Image src="~/assets/images/loupe_empty.png" class="icono"></Image>
       </TabStripItem>
 
       <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
           <Label text="Cuenta"></Label>
-          <Image src="~/assets/images/google-logo.png" class="icono"></Image>
+          <Image src="~/assets/images/usuario_tabstrip.png" class="icono"></Image>
       </TabStripItem>
   </TabStrip>
 
@@ -40,7 +40,10 @@
 
   <TabContentItem>
       <GridLayout class="page2">
+        <StackLayout>
           <Label text="Página para encontrar restaurantes" class="h2 text-center black-text"></Label>
+            <Button class="btn btn-primary btn-active" text="Mi ubicación actual" (tap)="updateLocation()"></Button>
+        </StackLayout>
       </GridLayout>
   </TabContentItem>
 
