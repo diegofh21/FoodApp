@@ -135,7 +135,23 @@
 		</FlexboxLayout>
 
 		<FlexboxLayout class="mapa mt-4p" alignContent="center" *ngIf="pasoMapa == 'showMap'">
-		<!-- Aqui va el componente MapView del plugin nativescript-google-maps-sdk -->
+		
+<StackLayout class="page">
+	<SearchBar hint="Location search string" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
+   
+	<GridLayout class="map">
+	  <MapView #mapView [latitude]="latitude" [longitude]="longitude"
+			   [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+			   [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+			   (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
+			   (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
+			   (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+			   (cameraChanged)="onCameraChanged($event)"
+			   (cameraMove)="onCameraMove($event)" (coordinateLongPress)="onCoordinateLongPress($event)"></MapView>
+	</GridLayout>
+	<Button text="Confirmar ubicación!" (tap)="Map()"></Button> 
+  </StackLayout>
+  
 				
 		</FlexboxLayout>
 	

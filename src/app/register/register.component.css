@@ -9,6 +9,12 @@
   background-image: url("~/assets/images/bg-app2.jpg");
 }
 
+.map 
+{ margin-top: 100px;
+  width: 90%;
+  height: 70%;
+}
+
 .icono
 {
   width: 7%;
