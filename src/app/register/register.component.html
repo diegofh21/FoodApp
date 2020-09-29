@@ -8,7 +8,7 @@
 		</FlexboxLayout>
 		
 		<Button text="Usuario" class="user-btn" (tap)="status = 'userReg'; paso = '2'; socialLogin = true"></Button>
-		<Button text="Restaurante" class="rest-btn" (tap)="status = 'restReg'; socialLogin = true"></Button>
+		<Button text="Restaurante" class="rest-btn" (tap)="status = 'restReg'; paso = '1'; socialLogin = true"></Button>
     <Button text="Volver al inicio" (tap)="Login()" class="back-btn" ></Button>
     
     <Label [(ngModel)]="this.restaurante.name" textWrap="true"></Label>
@@ -26,21 +26,21 @@
 		<StackLayout row="0" class="formulario-registro-usuario">
 			<FlexboxLayout alignItems="center" class="inputs-r">
 				<img src="~/assets/images/usuario.png" alt="" class="icono">
-				<TextField hint="E-mail" [(ngModel)]="user.email"></TextField>
+				<TextField hint="E-mail" [(ngModel)]="cliente.email" editable="false"></TextField>
 			 </FlexboxLayout>
 	
 			<FlexboxLayout alignItems="center" class="inputs-r">
 				<img src="~/assets/images/contrasena.png" class="icono">
-				<TextField hint="Contraseña" secure="true" [(ngModel)]="user.email"></TextField>
+				<TextField hint="Contraseña" secure="true" [(ngModel)]="cliente.password" editable="false"></TextField>
 			</FlexboxLayout> 
 	
 			<FlexboxLayout alignItems="center" class="inputs-r">
 				<img src="~/assets/images/usuario.png" class="icono">
-				<TextField hint="Nombre de usuario" [(ngModel)]="user.nombre"></TextField>
+				<TextField hint="Nombre de usuario" [(ngModel)]="cliente.nombre"></TextField>
 			</FlexboxLayout>
 	
 			<FlexboxLayout flexDirection="row" class="next-back-btn">
-				<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
+				<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'selectReg'" class="back-btn"></Button>
 				<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
 			</FlexboxLayout>
 		</StackLayout>
@@ -63,15 +63,14 @@
 				<StackLayout orientation="vertical">
 					<StackLayout class="lista-caracteristicas">
 						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
-						<CheckBox *ngFor="let caract of caracteristicas" text="{{ caract.name }}" checked="false" fillColor="orange" (checkedChange)="checkedChange($event)"></CheckBox>
+						<CheckBox *ngFor="let caract of caracteristicas" text="{{ caract.name }}" checked="false" fillColor="orange" (checkedChange)="caract.select ? false : true"></CheckBox>
 					</StackLayout>  
 				</StackLayout>
 			</ScrollView>	
 		</GridLayout>
 
 		<FlexboxLayout flexDirection="row">
-			<Button *ngIf="googleLogin == false" flexGrow="1" text="Atrás" (tap)="paso = '1'" class="back-btn"></Button>
-			<Button *ngIf="googleLogin == true" flexGrow="1" text="Volver al inicio" (tap)="paso = '1'; status = 'login'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Volver al inicio" (tap)="paso = '1'; status = 'selectReg'" class="back-btn"></Button>
 			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" ></Button>
 		</FlexboxLayout>
 
@@ -94,13 +93,12 @@
 	<StackLayout class="formulario-registro-restaurante" *ngIf="paso == '1'">
 		<FlexboxLayout alignItems="center" class="inputs-r">
 			<img src="~/assets/images/usuario.png" alt="" class="icono">
-			<TextField hint="E-mail" *ngIf="checkGoogleLogin == false" [(ngModel)]="restaurante.email"></TextField>
-			<TextField editable="false" hint="E-mail" *ngIf="checkGoogleLogin == true" [(ngModel)]="restaurante.email" ></TextField>
+			<TextField editable="false" hint="E-mail" [(ngModel)]="restaurante.email" ></TextField>
 	 	</FlexboxLayout>
 
-		<FlexboxLayout alignItems="center" class="inputs-r" *ngIf="googleLogin == false">
+		<FlexboxLayout alignItems="center" class="inputs-r">
 			<img src="~/assets/images/contrasena.png" class="icono">
-			<TextField hint="Contraseña" [(ngModel)]="restaurante.email" secure="true"></TextField>
+			<TextField hint="Contraseña (no requerida)" [(ngModel)]="restaurante.email" secure="true" editable="false"></TextField>
 		</FlexboxLayout> 
 
 		<FlexboxLayout alignItems="center" class="inputs-r">
@@ -114,7 +112,7 @@
 		</FlexboxLayout> 
 
 		<FlexboxLayout flexDirection="row" class="next-back-btn">
-			<Button flexGrow="1" text="Volver al inicio" (tap)="status == 'login'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Volver al inicio" (tap)="status == 'selectReg'" class="back-btn"></Button>
 			<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
 		</FlexboxLayout>
 	</StackLayout>

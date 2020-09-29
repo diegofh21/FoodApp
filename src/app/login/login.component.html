@@ -4,14 +4,14 @@
   <StackLayout class="formulario">
    	<FlexboxLayout alignItems="center" justifyContent="space-around" class="inputs" flexDirection="row">
 			<img src="~/assets/images/usuario.png" alt="" class="icono">
-			<TextField hint="E-mail" [(ngModel)]="user.email"></TextField>
+			<TextField hint="E-mail" [(ngModel)]="cliente.email"></TextField>
   	</FlexboxLayout>
 
   	<FlexboxLayout alignItems="center" class="inputs">
 			<img src="~/assets/images/contrasena.png" alt="" class="icono">
-			<TextField hint="Contraseña" secure="true"  [(ngModel)]="user.password"></TextField>
+			<TextField hint="Contraseña" secure="true" [(ngModel)]="cliente.password"></TextField>
   	</FlexboxLayout> 
-  	<Button text="LOGIN" (tap)="login()" class="my-button" ></Button>
+  	<Button text="LOGIN" (tap)="login()" class="my-button"></Button>
 		<Label text=""></Label>
 		<!-- LINK A REGISTRO DE USUARIO -->
 		<Label text="¿Nuevo usuario? Regístrate aquí" class="link mt-5" (tap)="status = 'userReg'" textAlignment="center"></Label>
@@ -35,23 +35,6 @@
   <Label text="¿Eres un restaurante? Presiona aquí para registrarte" class="link-rest align-center" (tap)="status = 'restReg'"> </Label>
 </StackLayout>
 
-<!-- SELECCION DE REGISTRO LUEGO DE INICIAR CON UNA RED SOCIAL -->
-<StackLayout *ngIf="socialLogin == true" class="principal-box bg-app">
-	<Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
-
-  <StackLayout class="">
-   	<FlexboxLayout alignItems="center" justifyContent="space-around" class="inputs" flexDirection="column">
-			<Label text="Indica lo siguiente para continuar con tu registro" textWrap="true" textAlignment="center" class="medium-text black"></Label>
-			<Label text="Tu cuenta es de..." textWrap="true" textAlignment="center" class="medium-text black"></Label>
-		</FlexboxLayout>
-		
-		<Button text="Usuario" class="user-btn" (tap)="status = 'userReg'; paso = '2'"></Button>
-		<Button text="Restaurante" class="rest-btn" (tap)="status = 'restReg'"></Button>
-		<Button text="Volver al inicioo" (tap)="status = 'login'" class="back-btn" ></Button>
-		
-	</StackLayout>
-</StackLayout>
-
 <!-- REGISTRO DE USUARIOS -->
 <StackLayout *ngIf="status == 'userReg'" class="principal-box bg-app">
 	<Image src="~/assets/images/logo-app.png" class="logo-registro"></Image>
@@ -62,17 +45,17 @@
 		<StackLayout row="0" class="formulario-registro-usuario">
 			<FlexboxLayout alignItems="center" class="inputs-r">
 				<img src="~/assets/images/usuario.png" alt="" class="icono">
-				<TextField hint="E-mail" [(ngModel)]="user.email"></TextField>
+				<TextField hint="E-mail" [(ngModel)]="cliente.email"></TextField>
 			 </FlexboxLayout>
 	
 			<FlexboxLayout alignItems="center" class="inputs-r">
 				<img src="~/assets/images/contrasena.png" class="icono">
-				<TextField hint="Contraseña" secure="true" [(ngModel)]="user.email"></TextField>
+				<TextField hint="Contraseña" secure="true" [(ngModel)]="cliente.password"></TextField>
 			</FlexboxLayout> 
 	
 			<FlexboxLayout alignItems="center" class="inputs-r">
 				<img src="~/assets/images/usuario.png" class="icono">
-				<TextField hint="Nombre de usuario" [(ngModel)]="user.nombre"></TextField>
+				<TextField hint="Nombre de usuario" [(ngModel)]="cliente.nombre"></TextField>
 			</FlexboxLayout>
 	
 			<FlexboxLayout flexDirection="row" class="next-back-btn">
@@ -106,8 +89,7 @@
 		</GridLayout>
 
 		<FlexboxLayout flexDirection="row">
-			<Button *ngIf="googleLogin == false" flexGrow="1" text="Atrás" (tap)="paso = '1'" class="back-btn"></Button>
-			<Button *ngIf="googleLogin == true" flexGrow="1" text="Volver al inicio" (tap)="paso = '1'; status = 'login'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Atrás" (tap)="paso = '1'" class="back-btn"></Button>
 			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" ></Button>
 		</FlexboxLayout>
 
@@ -130,13 +112,12 @@
 	<StackLayout class="formulario-registro-restaurante" *ngIf="paso == '1'">
 		<FlexboxLayout alignItems="center" class="inputs-r">
 			<img src="~/assets/images/usuario.png" alt="" class="icono">
-			<TextField hint="E-mail" *ngIf="checkGoogleLogin == false" [(ngModel)]="restaurante.email"></TextField>
-			<TextField editable="false" hint="E-mail" *ngIf="checkGoogleLogin == true" [(ngModel)]="restaurante.email" ></TextField>
+			<TextField hint="E-mail" [(ngModel)]="restaurante.email"></TextField>
 	 	</FlexboxLayout>
 
-		<FlexboxLayout alignItems="center" class="inputs-r" *ngIf="googleLogin == false">
+		<FlexboxLayout alignItems="center" class="inputs-r">
 			<img src="~/assets/images/contrasena.png" class="icono">
-			<TextField hint="Contraseña" [(ngModel)]="restaurante.email" secure="true"></TextField>
+			<TextField hint="Contraseña" [(ngModel)]="restaurante.password" secure="true"></TextField>
 		</FlexboxLayout> 
 
 		<FlexboxLayout alignItems="center" class="inputs-r">
@@ -150,7 +131,7 @@
 		</FlexboxLayout> 
 
 		<FlexboxLayout flexDirection="row" class="next-back-btn">
-			<Button flexGrow="1" text="Volver al inicio" (tap)="status == 'login'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'login'" class="back-btn"></Button>
 			<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
 		</FlexboxLayout>
 	</StackLayout>
@@ -232,7 +213,7 @@
 				<StackLayout orientation="vertical">
 					<StackLayout class="lista-caracteristicas">
 						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
-						<CheckBox *ngFor="let caract of caracteristicas" text="{{ caract.name }}" checked="false" fillColor="orange" (checkedChange)="checkedChange($event)"></CheckBox>
+						<CheckBox *ngFor="let data of caracteristicas" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)"></CheckBox>
 					</StackLayout>  
 				</StackLayout>
 			</ScrollView>	

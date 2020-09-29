@@ -2,18 +2,18 @@ import { NgModule } from "@angular/core";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes } from "@angular/router";
 
-import { homeRestaurantComponent } from "./homeRestaurant/homeRestaurant.component";
-import { reviewListComponent } from "./homeRestaurant/reviewList.component";
-
 // Login
 import { LoginComponent } from "./login/login.component";
 
 // Registro
 import { RegisterComponent } from "./register/register.component";
 
-// Inicio
+// Inicios
 import { HomeComponent } from "./home/home.component";
+import { homeRestaurantComponent } from "./homeRestaurant/homeRestaurant.component";
 
+// Reviews
+import { reviewListComponent } from "./homeRestaurant/reviewList.component";
 
 const routes: Routes = [
     { 
@@ -26,7 +26,7 @@ const routes: Routes = [
 			component: LoginComponent
 		},
 		{
-			path: "register",
+			path: "register/:id",
 			component: RegisterComponent
 		},
 		{

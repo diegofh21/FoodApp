@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { Page } from "tns-core-modules/ui/page";
+import { isUserInteractionEnabledProperty, Page } from "tns-core-modules/ui/page";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from 'nativescript-angular/router';
+import { ActivatedRoute } from "@angular/router";
 import { ITnsOAuthTokenResult } from "nativescript-oauth2";
 
 import { registerElement } from 'nativescript-angular/element-registry';
@@ -37,9 +38,16 @@ public location = new geocoding.Location();
 	pasoMapa: 'showBtn' | 'showMap' = 'showBtn';
 	socialLogin: boolean;
 
+	checkboxs = {
+		data: "",
+		id: 0
+	}
+
+	array = new Array();
+
 	caracteristicas = caracteristica;
 
-  constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService) 
+  constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService, private route: ActivatedRoute) 
   { 
 		this.cliente = new Cliente();
 		this.restaurante = new Restaurante();
@@ -83,15 +91,15 @@ public location = new geocoding.Location();
 		this.authService.tnsOauthLogin('google').then((tokenResult) => 
 		{
 			this.authService.login(tokenResult).subscribe((resp: any) => {
-				console.log("email devuelto es", resp.email);
-				this.cliente.email = resp.email;
-				this.cliente.nombre = resp.name;
+				console.log("id:", resp.id);
+				console.log("email:", resp.email);
+				console.log("nombre:", resp.name);
 
-				this.restaurante.email = resp.email;
+				var userID = resp.id;
 				
 				setTimeout(() => {
 					console.log("entre en el timeout");
-					this.routerEx.navigate(['/register'], {
+					this.routerEx.navigate(['/register', userID], {
 						animated: true,
 						transition:
 						{
@@ -129,7 +137,7 @@ public location = new geocoding.Location();
 							curve: 'linear'
 						}
 					});
-				}, 2000); // 2 Segundos de Timeout al volver antes de irse a la pantalla de registro
+				}, 1000); // 1 Segundos de Timeout al volver antes de irse a la pantalla de registro
 			}); // authService.login()
 		}).catch(err => console.error("Error" + err)); // authService.tnsOauthLogin(facebook)
   }
@@ -150,54 +158,109 @@ public location = new geocoding.Location();
 	// METODO DE REGISTRO DEPEDIENDO DEL TYPEUSER REGISTRA AL USUARIO O AL RESTAURANTE
 	register()
 	{
-		// if(typeUser == 'CLIENTE')
-		// {
-			// EJECUTAR CODIGO PARA REGISTRAR AL CLIENTE
-		// }
-		// else if(typeUser == 'RESTAURANTE')
-		// {
-			// EJECUTAR CODIGO PARA REGISTRAR AL RESTAURANTE
+		if(this.status == 'userReg')
+		{
+			let datos_user = {
+				name: this.cliente.nombre,
+				email: this.cliente.email,
+				password: this.cliente.password,
+				typeUser: this.cliente.type
+			};
 
-			let datos = {
+			console.log("los datos_user son:", JSON.stringify(datos_user));
+
+			this.authService.login(datos_user).subscribe((resp: any) => {
+				console.log("Respuesta para login user:", resp);
+
+				const regAlert: AlertOptions = {
+					title: "FindEat",
+					message: "¡Gracias por registrarte en nuestra aplicación!\nA continuación vas a ser redireccionado al inicio.",
+					okButtonText: "OK",
+					cancelable: false
+				}
+
+				alert(regAlert).then(() => {
+					setTimeout(() => {
+						this.routerEx.navigate(['/home'], {
+							animated: true,
+							transition:
+							{
+								name: 'fade',
+								duration: 250,
+								curve: 'linear'
+							}
+						});
+					}, 1000);
+				});
+			});
+		}
+		else if(this.status == 'restReg')
+		{
+			let datos_user = {
+				name: this.restaurante.nombre_comercio,
+				email: this.restaurante.email,
+				password: this.restaurante.password
+			};
+
+			console.log("los datos_user son:", JSON.stringify(datos_user));
+
+			this.authService.login(datos_user).subscribe((resp: any) => {
+				console.log("Respuesta para login user:", resp);
+				this.restaurante.id = resp.id;
+			});
+
+			let datos_rest = {
 				name: this.restaurante.nombre_comercio,
 				rif: this.restaurante.rif,
+				id: this.restaurante.id,
 				typeUser: this.restaurante.type
 			};
 
-			console.log("los datos guardados: ", JSON.stringify(datos));
+			console.log("los datos_rest son: ", JSON.stringify(datos_rest));
 
-			this.authService.register(datos).subscribe((resp: any) => 
+			this.authService.register(datos_rest).subscribe((resp: any) => 
 			{
-				console.log("resp es:::::::::", resp);
+				console.log("La respuesta para registro de restaurante es:", resp);
 	
-				this.routerEx.navigate(['/home'], {
-					animated: true,
-					transition:
-					{
-						name: 'fade',
-						duration: 250,
-						curve: 'linear'
-					}
+				const regAlert: AlertOptions = {
+					title: "FindEat",
+					message: "¡Gracias por registrarte en nuestra aplicación! \nA continuación vas a ser redireccionado al inicio.",
+					okButtonText: "OK",
+					cancelable: false
+				}
+
+				alert(regAlert).then(() => {
+					setTimeout(() => {
+						this.routerEx.navigate(['/homeRestaurant'], {
+							animated: true,
+							transition:
+							{
+								name: 'fade',
+								duration: 250,
+								curve: 'linear'
+							}
+						});
+					}, 1000);
 				});
 			});
-		// }
+		}
 	}
 
-	checkedChange(event) 
+	checkedChange(event, data, id) 
 	{
-		// for (let i = 0; i < this.caracteristicas.length; i++) {
-		// 	const element = this.caracteristicas[i];
-			// console.log(element.name);
-			if(event.value)
-			{
-				console.log("acabo de ser checkeadoo");
-			}
-			else
-			{
-				console.log("acabo de ser descheckeado");
-			}
-		// }
-		
+		console.log("event.value", event.value);
+		console.log("data", data);
+		console.log("id", id);
+
+		// this.checkboxs = {
+		// 	data: data,
+		// 	id: id
+		// }	
+	}
+
+	itemTap(e)
+	{
+		console.log(e);
 	}
 
 		

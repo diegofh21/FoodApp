@@ -66,7 +66,7 @@ export class AuthService {
   public register(data)
   {
     return this.http.post(
-      Config.apiUrl + '/register', data
+      Config.apiUrl + '/registrar', data
     );
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Page } from "tns-core-modules/ui/page";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from 'nativescript-angular/router';
+import { ActivatedRoute } from "@angular/router";
 import { ITnsOAuthTokenResult } from "nativescript-oauth2";
 
 
@@ -34,8 +35,9 @@ export class RegisterComponent implements OnInit {
 
 	status: 'selectReg' | 'restReg' | 'userReg' = 'selectReg';
 	socialLogin: boolean;
+	id: number;
 
-	constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService) 
+	constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService, private routeAct: ActivatedRoute) 
 	{ 
 		this.cliente = new Cliente();
 		this.restaurante = new Restaurante();
@@ -43,7 +45,19 @@ export class RegisterComponent implements OnInit {
 
 	ngOnInit() 
   {
-    this.page.actionBarHidden = true;
+		this.page.actionBarHidden = true;
+		
+		if(typeof (this.routeAct.snapshot.params.id) !== 'undefined') 
+		{
+			this.id = +this.routeAct.snapshot.params.id;
+			console.log("el id es:", this.id);
+		}
+		this.restaurante.id = this.id;
+		this.cliente.id = this.id;
+		console.log("restaurante.id:", this.restaurante.id);
+
+		console.log("los datos que tiene restaurante para esta estancia son:", this.restaurante);
+		console.log("los datos que tiene cliente para esta estancia son: ", this.cliente);
 	}
 
 	// ESCOGER UNA IMAGEN DE PERFIL EN EL REGISTRO DE USUARIO / RESTAURANTE
@@ -75,7 +89,7 @@ export class RegisterComponent implements OnInit {
 // METODO DE REGISTRO DEPEDIENDO DEL TYPEUSER REGISTRA AL USUARIO O AL RESTAURANTE
 	register()
 	{
-		if(status == 'userReg')
+		if(this.status == 'userReg')
 		{
 			let datos = {
 				// name: this.cliente.nombre,
@@ -87,23 +101,36 @@ export class RegisterComponent implements OnInit {
 			this.authService.register(datos).subscribe((resp: any) => 
 			{
 				console.log("resp es:::::::::", resp);
-	
-				this.routerEx.navigate(['/home'], {
-					animated: true,
-					transition:
-					{
-						name: 'fade',
-						duration: 250,
-						curve: 'linear'
-					}
+				
+				const regAlert: AlertOptions = {
+					title: "FindEat",
+					message: "¡Gracias por registrarte en nuestra aplicación! \n A continuación vas a ser redireccionado al inicio.",
+					okButtonText: "OK",
+					cancelable: false
+				}
+
+				alert(regAlert).then(() => {
+					setTimeout(() => {
+						this.routerEx.navigate(['/home'], {
+							animated: true,
+							transition:
+							{
+								name: 'fade',
+								duration: 250,
+								curve: 'linear'
+							}
+						});
+					}, 2000);
 				});
+				
 			});
 		}
-		else if(status == 'restReg')
+		else if(this.status == 'restReg')
 		{
 			let datos = {
 				name: this.restaurante.nombre_comercio,
 				rif: this.restaurante.rif,
+				id: this.restaurante.id,
 				typeUser: this.restaurante.type
 			};
 	
@@ -113,14 +140,25 @@ export class RegisterComponent implements OnInit {
 			{
 				console.log("resp es:::::::::", resp);
 	
-				this.routerEx.navigate(['/home'], {
-					animated: true,
-					transition:
-					{
-						name: 'fade',
-						duration: 250,
-						curve: 'linear'
-					}
+				const regAlert: AlertOptions = {
+					title: "FindEat",
+					message: "¡Gracias por registrarte en nuestra aplicación! \nA continuación vas a ser redireccionado al inicio.",
+					okButtonText: "OK",
+					cancelable: false
+				}
+
+				alert(regAlert).then(() => {
+					setTimeout(() => {
+						this.routerEx.navigate(['/home'], {
+							animated: true,
+							transition:
+							{
+								name: 'fade',
+								duration: 250,
+								curve: 'linear'
+							}
+						});
+					}, 2000);
 				});
 			});
 		}
