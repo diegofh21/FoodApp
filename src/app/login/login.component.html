@@ -21,12 +21,16 @@
 	<Label text="O regístrate usando tus redes sociales" class="align-center black"></Label>
 
 	<FlexboxLayout alignItems="center" justifyContent="space-between" class="RRSS">
-		<img src="~/assets/images/google-logo.png" (tap)="google()" alt="" class="google-btn">
+		<img margin="10"
+		androidElevation="5"
+		backgroundColor="white" src="~/assets/images/google-logo.png" (tap)="google()" alt="" class="google-btn">
 		<Label text="" class="v-divider"></Label>
-		<img src="~/assets/images/facebook-logo.png" (tap)="Facebook()" alt="" class="facebook-btn">
+		<img margin="10"
+		androidElevation="5"
+		backgroundColor="white" src="~/assets/images/facebook-logo.png" (tap)="Facebook()" alt="" class="facebook-btn">
   </FlexboxLayout> 
 
- <!-- <Button text="toca aqui para probar el perfil de restaurante" (tap)="loginrestaurante()" ></Button> -->
+  <Button text="toca aqui para probar el perfil de restaurante" (tap)="loginrestaurante()" ></Button> 
  <!-- LINK A REGISTRO DE RESTAURANTE -->
   <Label text="¿Eres un restaurante? Presiona aquí para registrarte" class="link-rest align-center" (tap)="status = 'restReg'"> </Label>
 </StackLayout>
@@ -174,8 +178,12 @@
 		
 
 			<StackLayout class="page" *ngIf="pasoMapa == 'showMap'">
-				<SearchBar hint="Location search string" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
-			   
+				<FlexboxLayout class="busqueda"margin="10"
+                  androidElevation="12"
+                  backgroundColor="white">
+					<Image src="~/assets/images/mapsIcon.png" class="iconmap"></Image>
+					<SearchBar hint="Busca aquí" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
+				</FlexboxLayout>
 				<GridLayout class="map" >
 				  <MapView #mapView [latitude]="latitude" [longitude]="longitude"
 						   [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
@@ -186,7 +194,7 @@
 						   (cameraChanged)="onCameraChanged($event)"
 						   (cameraMove)="onCameraMove($event)" (coordinateLongPress)="onCoordinateLongPress($event)"></MapView>
 				</GridLayout>
-				<Button text="Confirmar ubicación!" (tap)="Map()"></Button> 
+				<Button text="Confirmar ubicación!" class="mapconfirmation" (tap)="Map()"></Button> 
 			  </StackLayout>
 			  
 			  

@@ -11,24 +11,24 @@
   
     <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
     <TabStrip>
-        <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
-            <Label text="Inicio"></Label>
-            <Image src="~/assets/images/homerest_filled.png" class=""></Image>
+        <TabStripItem (tap)="switchView('home')" class="home black-text" style="background: rgb(255, 123, 0);">
+            
+            <Image [src]="home_actual" class=""></Image>
         </TabStripItem>
         
-        <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
-          <Label text="Reseñas"></Label>
-          <Image src="~/assets/images/reviewIcon.png" class=""></Image>
+        <TabStripItem (tap)="switchView('review')"  class="home black-text" style="background: rgb(255, 123, 0);">
+          
+          <Image [src]="review_actual" class=""></Image>
       </TabStripItem>
 
-        <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-            <Label text="Buscar"></Label>
-            <Image src="~/assets/images/google-logo.png" class="icono"></Image>
+        <TabStripItem (tap)="switchView('photo')"  class="special black-text" style="background: rgb(255, 123, 0);">
+            
+            <Image [src]="photo_actual" class="icono"></Image>
         </TabStripItem>
   
-        <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-            <Label text="Cuenta"></Label>
-            <Image src="~/assets/images/google-logo.png" class="icono"></Image>
+        <TabStripItem (tap)="switchView('account')"  class="special black-text" style="background: rgb(255, 123, 0);">
+    
+            <Image [src]="account_actual"  class="icono"></Image>
         </TabStripItem>
     </TabStrip>
   
@@ -58,19 +58,14 @@
                   <Label [text]="profile.name" class="restname" >  </Label>
                   
                   <StackLayout *ngFor="let review of reviews">
-                    <StackLayout class="review-card">
+ <!--este tap debería ser long Press--> <StackLayout  (tap)="reportReview(review.id)" class="review-card">
                       <StackLayout justifyContent="center" alignContent="center"  class="user-data">
-                        <FlexboxLayout alignItems="center" justifyContent="space-between">
-                          <Label text=""></Label>
                           <Image [src]="getProfilepicURL(review.userID)" class="user-pic" ></Image>
-                          <Button class="report" text="!" (tap)="reportReview(review.id)"></Button>
-                        </FlexboxLayout>
-                        
                     <Image [src]="getStars(review.rate)" class="stars" ></Image>
-                    <Label [text]="getNameUser(review.userID)" class="user-name" ></Label>
+                    <Label lineHeight="5" [text]="getNameUser(review.userID)" class="user-name" ></Label>
                     
                   </StackLayout>
-                    <Label [text]="review.reviewText"  class="review-content"></Label>
+                    <Label textWrap="true" [text]="review.reviewText"  class="review-content"></Label>
                   </StackLayout>
                   </StackLayout>
                 
@@ -87,8 +82,10 @@
       
 <Stacklayout>
         <GridLayout class="page3">
+          <Stacklayout>
             <Label text="Página para encontrar restaurantes" class="h2 text-center black-text"></Label>
             <Label [text]="profile.name" class="h2 text-center black-text"></Label>
+                  </Stacklayout>
         </GridLayout>
       </Stacklayout>
     </TabContentItem>
@@ -96,8 +93,10 @@
     <TabContentItem>
       <Stacklayout>
         <GridLayout class="page4">
+<Stacklayout>
             <Label text="Página de cuenta" class="h2 text-center black-text"></Label>
             <Label [text]="profile.name" class="h2 text-center black-text"></Label>
+                  </Stacklayout>
         </GridLayout>
       </Stacklayout>
     </TabContentItem>

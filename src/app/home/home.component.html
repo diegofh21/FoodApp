@@ -13,19 +13,18 @@
 
   <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
   <TabStrip>
-      <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
-          <Label text="Inicio"></Label>
-          <Image src="~/assets/images/home_filled.png" class=""></Image>
+      <TabStripItem (tap)="switchView('home')" class="home black-text" style="background: rgb(255, 123, 0);">
+          
+          <Image [src]="home_actual" class="icono"></Image>
       </TabStripItem>
 
-      <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-          <Label text="Buscar"></Label>
-          <Image src="~/assets/images/loupe_empty.png" class="icono"></Image>
+      <TabStripItem (tap)="switchView('search')" class="special black-text" style="background: rgb(255, 123, 0);">
+  
+          <Image [src]="search_actual" class="icono"></Image>
       </TabStripItem>
 
-      <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-          <Label text="Cuenta"></Label>
-          <Image src="~/assets/images/usuario_tabstrip.png" class="icono"></Image>
+      <TabStripItem (tap)="switchView('account')"  class="special black-text" style="background: rgb(255, 123, 0);">
+          <Image [src]="account_actual" class="icono"></Image>
       </TabStripItem>
   </TabStrip>
 

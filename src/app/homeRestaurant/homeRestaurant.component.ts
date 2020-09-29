@@ -8,7 +8,7 @@ import { EventData, fromObject } from "tns-core-modules/data/observable";
 import { Page } from "tns-core-modules/ui/page";
 import * as email from "nativescript-email";
 import { ListPicker } from "tns-core-modules/ui/list-picker/list-picker";
-
+import { GestureEventData } from "tns-core-modules/ui/gestures";
 @Component({
     selector: "ns-items",
     templateUrl: "./homeRestaurant.component.html",
@@ -24,6 +24,23 @@ export class homeRestaurantComponent implements OnInit {
     star3;
     star4;
     star5;
+
+    //icono seleccionado actualmente
+    home_actual = "~/assets/images/homerest_filled.png";
+    review_actual = "~/assets/images/reviewIcon_empty.png";
+    photo_actual="~/assets/images/add_photo_empty.png";
+    account_actual="~/assets/images/user_config_empty.png";
+
+    //iconos activados
+    home_empty = "~/assets/images/homerest_empty.png";
+    review_empty ="~/assets/images/reviewIcon_empty.png";
+    photo_empty="~/assets/images/add_photo_empty.png";
+    account_empty="~/assets/images/user_config_empty.png";
+    //iconos desactivados
+    home_filled = "~/assets/images/homerest_filled.png";
+    review_filled ="~/assets/images/reviewIcon.png";
+    photo_filled ="~/assets/images/add_photo_filled.png";
+    account_filled ="~/assets/images/user_config_filled.png";
 
 
     constructor(private itemService: homeRestaurantservice,
@@ -42,6 +59,45 @@ export class homeRestaurantComponent implements OnInit {
         this.star5 = "~/assets/images/5star.png";
         this.rate = 0;
     }
+
+
+    
+    switchView(tab){
+      switch(tab){
+          case "home":{
+              this.home_actual=this.home_filled;
+              this.review_actual =this.review_empty;
+              this.photo_actual = this.photo_empty;
+              this.account_actual = this.account_empty;
+              break;
+          }
+
+          case "review":{
+              this.home_actual = this.home_empty;
+              this.review_actual = this.review_filled;
+              this.photo_actual = this.photo_empty;
+              this.account_actual = this.account_empty;
+              break;
+          }
+
+          case "photo":{
+            this.home_actual = this.home_empty;
+            this.review_actual = this.review_empty;
+            this.photo_actual = this.photo_filled;
+            this.account_actual = this.account_empty;
+            break;
+        }
+
+
+          case "account":{
+              this.home_actual = this.home_empty;
+              this.review_actual = this.review_empty;
+              this.photo_actual = this.photo_empty;
+              this.account_actual = this.account_filled;
+              break;
+          }
+      }
+  }
 
     reportReview(id){
       var reviewData = this.itemService.getReview(id);

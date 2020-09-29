@@ -19,7 +19,20 @@ export class HomeComponent implements OnInit {
     public latitude: number;
     public longitude: number;
     private watchId: number;
-	
+    //iconos a mostrar
+    home_actual = "~/assets/images/home_filled.png";
+    search_actual="~/assets/images/loupe_empty.png";
+    account_actual="~/assets/images/usuario_empty.png";
+
+    //iconos activados
+    home_empty = "~/assets/images/home_empty.png";
+    search_empty="~/assets/images/loupe_empty.png";
+    account_empty="~/assets/images/usuario_empty.png";
+    //iconos desactivados
+    home_filled = "~/assets/images/home_filled.png";
+    search_filled="~/assets/images/loupe_filled.png";
+    account_filled="~/assets/images/usuario_filled.png";
+    
 	constructor(private routerEx: RouterExtensions, private authService: AuthService,private zone: NgZone) {
         this.latitude = 0;
         this.longitude = 0;
@@ -32,6 +45,31 @@ export class HomeComponent implements OnInit {
 		this.authService.tnsOauthLogout().then(() => {
 			this.routerEx.back();
 		}).catch(err => console.log("Error: " + err));
+    }
+
+    switchView(tab){
+        switch(tab){
+            case "home":{
+                this.home_actual=this.home_filled;
+                this.search_actual=this.search_empty;
+                this.account_actual = this.account_empty;
+                break;
+            }
+
+            case "search":{
+                this.home_actual = this.home_empty;
+                this.search_actual = this.search_filled;
+                this.account_actual = this.account_empty;
+                break;
+            }
+
+            case "account":{
+                this.home_actual = this.home_empty;
+                this.search_actual = this.search_empty;
+                this.account_actual = this.account_filled;
+                break;
+            }
+        }
     }
     
 
