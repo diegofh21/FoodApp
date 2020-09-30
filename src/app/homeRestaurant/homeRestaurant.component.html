@@ -1,6 +1,6 @@
 
 <ActionBar icon="" class="" style="background: rgb(255, 123, 0);">
-    <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="Logout()" class="black-text"></NavigationButton>
+    <NavigationButton text="Back" android.systemIcon="ic_menu_back" class="black-text"></NavigationButton>
     <Label text="Inicio" position="center" class="medium-text black-text" textWrap="true"></Label>
     <ActionItem ios.position="right" class="opt-btn">
       <Button class="opt-btn black-text" text="Opciones"></Button>
@@ -39,7 +39,7 @@
         <Label text="Página de Inicio" class="h2 text-center black-text"></Label>
         <Label [text]="profile.name" class="h2 text-center black-text"></Label>
 
-        <Button text="Logout" (tap)="Logout()" class="btn btn-primary btn-active"></Button>
+        <Button text="Logout" class="btn btn-primary btn-active"></Button>
       </Stacklayout>
       </GridLayout>
     </TabContentItem>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from 'nativescript-angular';
-import { Item } from "./item";
 import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service";
 import { ActivatedRoute } from "@angular/router";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
@@ -12,10 +11,10 @@ import { ListPicker } from "tns-core-modules/ui/list-picker/list-picker";
 import { GestureEventData } from "tns-core-modules/ui/gestures";
 @Component({
     selector: "ns-items",
-    templateUrl: "./homeRestaurant.component.html",
-    styleUrls: ["./homeRestaurant.component.css", "../../assets/css/margin-padding.css"]
+    templateUrl: "./profileReviewList.component.html",
+    styleUrls: ["../profileRestaurant/profileRestaurant.component.css", "../../assets/css/margin-padding.css"]
 })
-export class homeRestaurantComponent implements OnInit {
+export class profileReviewList implements OnInit {
   composeOptions: email.ComposeOptions;
     profile;
      reviews;
@@ -25,24 +24,6 @@ export class homeRestaurantComponent implements OnInit {
     star3;
     star4;
     star5;
-
-    //icono seleccionado actualmente
-    home_actual = "~/assets/images/homerest_filled.png";
-    review_actual = "~/assets/images/reviewIcon_empty.png";
-    photo_actual="~/assets/images/add_photo_empty.png";
-    account_actual="~/assets/images/user_config_empty.png";
-
-    //iconos activados
-    home_empty = "~/assets/images/homerest_empty.png";
-    review_empty ="~/assets/images/reviewIcon_empty.png";
-    photo_empty="~/assets/images/add_photo_empty.png";
-    account_empty="~/assets/images/user_config_empty.png";
-    //iconos desactivados
-    home_filled = "~/assets/images/homerest_filled.png";
-    review_filled ="~/assets/images/reviewIcon.png";
-    photo_filled ="~/assets/images/add_photo_filled.png";
-    account_filled ="~/assets/images/user_config_filled.png";
-
 
     constructor(private itemService: homeRestaurantservice,
         private route: ActivatedRoute) { }
@@ -61,44 +42,6 @@ export class homeRestaurantComponent implements OnInit {
         this.rate = 0;
     }
 
-
-    
-    switchView(tab){
-      switch(tab){
-          case "home":{
-              this.home_actual=this.home_filled;
-              this.review_actual =this.review_empty;
-              this.photo_actual = this.photo_empty;
-              this.account_actual = this.account_empty;
-              break;
-          }
-
-          case "review":{
-              this.home_actual = this.home_empty;
-              this.review_actual = this.review_filled;
-              this.photo_actual = this.photo_empty;
-              this.account_actual = this.account_empty;
-              break;
-          }
-
-          case "photo":{
-            this.home_actual = this.home_empty;
-            this.review_actual = this.review_empty;
-            this.photo_actual = this.photo_filled;
-            this.account_actual = this.account_empty;
-            break;
-        }
-
-
-          case "account":{
-              this.home_actual = this.home_empty;
-              this.review_actual = this.review_empty;
-              this.photo_actual = this.photo_empty;
-              this.account_actual = this.account_filled;
-              break;
-          }
-      }
-  }
 
     reportReview(id){
       var reviewData = this.itemService.getReview(id);
@@ -129,19 +72,6 @@ export class homeRestaurantComponent implements OnInit {
           }
           console.log("Dialog result: " + result);
       });
-
-     /* this.composeOptions={
-        to: ['ajperezm99@gmail.com'],
-        subject: 'Reporte de una review a restaurante: '+ restaurante.name +'.',
-        body: 'la review del usuario '+ ActualUser.name + ' id='+ ActualUser.id +' fue reportada. el contenido de la review es: '+ reviewData.reviewText + '.'
-      }
-
-      email.available().then(available=>{
-        if (available){
-          email.compose(this.composeOptions).then(result=>{console.log(result)}).catch(error=>{console.log(error)}
-          )
-      }}).catch(error=>{console.log(error)})
-*/
     }
 
     getStars(rate){
@@ -151,6 +81,7 @@ export class homeRestaurantComponent implements OnInit {
       if (rate===4){return this.star4}
       if (rate===5){return this.star5}
     }
+    
   getProfilepicURL(id){
     var ActualUser =  this.itemService.getUsers(id);
     return ActualUser.profilePic;

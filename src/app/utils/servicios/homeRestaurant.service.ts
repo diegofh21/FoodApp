@@ -14,7 +14,9 @@ export class homeRestaurantservice {
         name: "BurguerQueen",
         profilePicture: "~/assets/images/hamburguesa.jpg",
         info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
-        caracteristicas:["hamburguesas", "Para niños", "Americana"]
+        caracteristicas:["hamburguesas", "Para niños", "Americana"],
+        rate: 4.51,
+        location: [10.5591979,-71.6215107]
         
 
     },{
@@ -23,6 +25,8 @@ export class homeRestaurantservice {
         profilePicture: "~/assets/images/pizza.jpg",
         info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
         caracteristicas:["Pizza", "Calzone", "Italiana"],
+        rate: 5,
+        location: [10.6764301,-71.6165829]
         
 
     },{
@@ -30,7 +34,9 @@ export class homeRestaurantservice {
         name: "PastaPasta",
         profilePicture: "~/assets/images/pasta.jpg",
         info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
-        caracteristicas:["Pasta", "Italiana"]
+        caracteristicas:["Pasta", "Italiana"],
+        rate: 2,
+        location: [10.6711271,-71.622708]
 
     }
 ];

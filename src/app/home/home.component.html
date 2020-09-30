@@ -31,9 +31,12 @@
   <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
   <TabContentItem>
     <GridLayout class="page">
+      <StackLayout>
       <Label text="Página de Inicio" class="h2 text-center black-text"></Label>
       <Label text="You're authenticated! 💪"></Label>
       <Button text="Logout" (tap)="Logout()" class="btn btn-primary btn-active"></Button>
+      <Button text="Ver perfil" (tap)="goToProfile(1)" class="btn btn-primary btn-active"></Button>
+    </StackLayout>
     </GridLayout>
   </TabContentItem>
 

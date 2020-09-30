@@ -22,7 +22,9 @@ import { HomeComponent } from "./home/home.component";
 // Servicios
 import { AuthService } from './utils/servicios/auth.service';
 
-
+import {ProfileRestaurantComponent} from './profileRestaurant/profileRestaurant.component';
+import { newReviewComponent } from "./profileRestaurant/newReview.component";
+import { profileReviewList } from "./profileReviewList/profileReviewList.component";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -47,7 +49,10 @@ import { AuthService } from './utils/servicios/auth.service';
         RegisterComponent,
         HomeComponent,
         homeRestaurantComponent,
-        reviewListComponent
+        reviewListComponent,
+        ProfileRestaurantComponent,
+        newReviewComponent,
+        profileReviewList
     ],
     providers: [AuthService, homeRestaurantservice],
     schemas: [

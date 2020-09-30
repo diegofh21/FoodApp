@@ -71,6 +71,18 @@ export class HomeComponent implements OnInit {
             }
         }
     }
+
+    goToProfile(id){
+        this.routerEx.navigate(['profileRestaurant/', id], {
+            animated: true,
+            transition:
+            {
+                name: 'fade',
+                duration: 250,
+                curve: 'linear'
+            }
+        });
+    }
     
 
     private getDeviceLocation(): Promise<any> {

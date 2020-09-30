@@ -1,0 +1,30 @@
+<StackLayout justifyContent="center" alignContent="center" >
+
+    <Label text="Nueva reseña"  class="title"></Label>
+    <Image [src]="profile.profilePicture" class="img-header"   margin="10"
+  
+    androidElevation="12"
+    backgroundColor="white"></Image>
+    <Label [text]="profile.name" class="restname" >  </Label>
+  <StackLayout class="formulario">
+    <FlexboxLayout alignItems="center" class="estrellas" justifyContent="space-between" width="60%">
+  
+        <Image [src]="starURL1" class="icon" (tap)="starRate(1)"></Image>
+        <Image [src]="starURL2" class="icon" (tap)="starRate(2)"></Image>
+        <Image [src]="starURL3" class="icon" (tap)="starRate(3)"></Image>
+        <Image [src]="starURL4" class="icon" (tap)="starRate(4)"></Image>
+        <Image [src]="starURL5" class="icon" (tap)="starRate(5)"></Image>
+  
+    </FlexboxLayout> 
+    <TextView hint="¿Qué te pareció?" 
+    class="texto">
+  </TextView>
+  </StackLayout>
+  
+  <button text="Postear" (tap)="postear()" class="my-button"></button>
+    
+  
+    
+  </StackLayout>
+      
+  
