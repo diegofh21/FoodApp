@@ -4,6 +4,8 @@ import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from "@angular/router";
 import { ITnsOAuthTokenResult } from "nativescript-oauth2";
+import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
+import { EventData } from "tns-core-modules/data/observable";
 
 import { registerElement } from 'nativescript-angular/element-registry';
 import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
@@ -13,10 +15,13 @@ import * as geocoding from 'nativescript-geocoding';
 
 // Servicios
 import { AuthService } from '../utils/servicios/auth.service';
+import { HelperService } from '../utils/servicios/helper.service'
+// Utils
 import { Cliente, Restaurante } from '../utils/models/user.model';
-
 import { caracteristica } from './mock-caracteristicas';
+
 registerElement('MapView', () => MapView); 
+
 @Component({
   selector: "ns-login",
   templateUrl: "./login.component.html",
@@ -38,16 +43,12 @@ public location = new geocoding.Location();
 	pasoMapa: 'showBtn' | 'showMap' = 'showBtn';
 	socialLogin: boolean;
 
-	checkboxs = {
-		data: "",
-		id: 0
-	}
-
-	array = new Array();
+	checkboxs: any = [];
+	private checkboxData: any = []
 
 	caracteristicas = caracteristica;
 
-  constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService, private route: ActivatedRoute) 
+  constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService, private helper: HelperService) 
   { 
 		this.cliente = new Cliente();
 		this.restaurante = new Restaurante();
@@ -57,7 +58,12 @@ public location = new geocoding.Location();
   {
 		this.page.actionBarHidden = true;
 		console.log("La aplicación inicio y estas sincronizado.");
-  }
+		// this.getCheckboxData();
+	}
+	
+	isBusy: boolean = false;
+
+	
 	
 	login()
 	{
@@ -91,24 +97,59 @@ public location = new geocoding.Location();
 		this.authService.tnsOauthLogin('google').then((tokenResult) => 
 		{
 			this.authService.login(tokenResult).subscribe((resp: any) => {
+				
 				console.log("id:", resp.id);
 				console.log("email:", resp.email);
 				console.log("nombre:", resp.name);
+				console.log("typeUser:", resp.typeUser);
 
-				var userID = resp.id;
-				
-				setTimeout(() => {
-					console.log("entre en el timeout");
-					this.routerEx.navigate(['/register', userID], {
-						animated: true,
-						transition:
-						{
-							name: 'fade',
-							duration: 250,
-							curve: 'linear'
-						}
-					});
-				}, 2000); // 2 Segundos de Timeout al volver antes de irse a la pantalla de registro
+				switch (resp.typeUser) 
+				{
+					case 'CLIENTE':
+
+						setTimeout(() => {
+							this.routerEx.navigate(['home']), {
+								animated: true,
+								transition:
+								{
+									name: 'fade',
+									duration: 250,
+									curve: 'linear'
+								}
+							}
+						}, 1000)
+						break;
+
+					case 'RESTAURANTE':
+						setTimeout(() => {
+							this.routerEx.navigate(['homeRestaurant']), {
+								animated: true,
+								transition:
+								{
+									name: 'fade',
+									duration: 250,
+									curve: 'linear'
+								}
+							}
+						});
+						break;
+
+					case null:
+						var userID = resp.id;
+						setTimeout(() => {
+							console.log("entre en el timeout");
+							this.routerEx.navigate(['/register', userID], {
+								animated: true,
+								transition:
+								{
+									name: 'fade',
+									duration: 250,
+									curve: 'linear'
+								}
+							});
+						}, 1000); // 1 Segundo de Timeout al volver antes de irse a la pantalla de registro
+						break;
+				}
 			}); //authService.login()
 		}).catch(err => console.error("Error" + err));	//authService.tnsOauthLogin(google)	
 	}
@@ -118,26 +159,62 @@ public location = new geocoding.Location();
 	{
 		this.authService.tnsOauthLogin('facebook').then((tokenResult) => 
 		{
-			// console.log("Login de Facebook Exitoso, el tokenResult es el siguiente" + resp);
 			this.authService.login(tokenResult).subscribe((resp: any) => {
 				console.log("resp es", resp);
 				this.cliente.email = resp.email;
 				this.cliente.nombre = resp.name;
 
 				this.restaurante.email = resp.email;
+				console.log("el tipo de usuario es:", resp.typeUser)
 
-				setTimeout(() => {
-					console.log("entre en el timeout");
-					this.routerEx.navigate(['/register'], {
-						animated: true,
-						transition:
-						{
-							name: 'fade',
-							duration: 250,
-							curve: 'linear'
-						}
-					});
-				}, 1000); // 1 Segundos de Timeout al volver antes de irse a la pantalla de registro
+				switch (resp.typeUser) 
+				{
+					case 'USUARIO':
+
+						setTimeout(() => {
+							this.routerEx.navigate(['home']), {
+								animated: true,
+								transition:
+								{
+									name: 'fade',
+									duration: 250,
+									curve: 'linear'
+								}
+							}
+						}, 1000)
+						break;
+
+					case 'RESTAURANTE':
+						setTimeout(() => {
+							this.routerEx.navigate(['homeRestaurant']), {
+								animated: true,
+								transition:
+								{
+									name: 'fade',
+									duration: 250,
+									curve: 'linear'
+								}
+							}
+						});
+						break;
+						
+					case null:
+						var userID = resp.id;
+						var user = resp;
+						setTimeout(() => {
+							console.log("entre en el timeout");
+							this.routerEx.navigate(['/register', user], {
+								animated: true,
+								transition:
+								{
+									name: 'fade',
+									duration: 250,
+									curve: 'linear'
+								}
+							});
+						}, 1000); // 1 Segundo de Timeout al volver antes de irse a la pantalla de registro
+						break;
+				}
 			}); // authService.login()
 		}).catch(err => console.error("Error" + err)); // authService.tnsOauthLogin(facebook)
   }
@@ -152,7 +229,27 @@ public location = new geocoding.Location();
 			cancelable: false
 		};
 
-		alert(ProfilePicAlert);
+		this.isBusy = true;
+		console.log("tap!");
+
+		setTimeout(() => {
+			alert(ProfilePicAlert).then(() => {
+				this.isBusy = false;
+			})
+			// this.isBusy = false;
+		}, 3000);
+
+		// this.isBusy = false;
+	}
+
+	processStep3()
+	{
+		// Aqui llamamos el getCheckboxData()
+		this.getCheckboxData()
+
+		setTimeout(() => {
+			this.paso = '3';
+		}, 5000);
 	}
 
 	// METODO DE REGISTRO DEPEDIENDO DEL TYPEUSER REGISTRA AL USUARIO O AL RESTAURANTE
@@ -160,6 +257,7 @@ public location = new geocoding.Location();
 	{
 		if(this.status == 'userReg')
 		{
+			this.isBusy = true;
 			let datos_user = {
 				name: this.cliente.nombre,
 				email: this.cliente.email,
@@ -196,6 +294,7 @@ public location = new geocoding.Location();
 		}
 		else if(this.status == 'restReg')
 		{
+			this.isBusy = true;
 			let datos_user = {
 				name: this.restaurante.nombre_comercio,
 				email: this.restaurante.email,
@@ -221,17 +320,18 @@ public location = new geocoding.Location();
 			this.authService.register(datos_rest).subscribe((resp: any) => 
 			{
 				console.log("La respuesta para registro de restaurante es:", resp);
-	
+				
 				const regAlert: AlertOptions = {
 					title: "FindEat",
-					message: "¡Gracias por registrarte en nuestra aplicación! \nA continuación vas a ser redireccionado al inicio.",
+					message: "¡Gracias por registrarte en nuestra aplicación!\nA continuación vas a ser redireccionado al inicio.",
 					okButtonText: "OK",
 					cancelable: false
 				}
 
+				this.isBusy = false;
 				alert(regAlert).then(() => {
 					setTimeout(() => {
-						this.routerEx.navigate(['/homeRestaurant'], {
+						this.routerEx.navigate(['/homeRestaurant', datos_rest.id], {
 							animated: true,
 							transition:
 							{
@@ -251,18 +351,18 @@ public location = new geocoding.Location();
 		console.log("event.value", event.value);
 		console.log("data", data);
 		console.log("id", id);
-
-		// this.checkboxs = {
-		// 	data: data,
-		// 	id: id
-		// }	
 	}
 
-	itemTap(e)
+	getCheckboxData()
 	{
-		console.log(e);
+		this.isBusy = true
+		this.helper.getCaracteristicas().subscribe((resp: any) => {
+			this.checkboxData = resp;
+			console.log("la data recogida de la api es: ", JSON.stringify(resp));
+			console.log("checkboxData: ", this.checkboxData)
+			this.isBusy = false;
+		});
 	}
-
 		
 	//variables del mapa
 	latitude =  10.6417;

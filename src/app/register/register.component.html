@@ -136,23 +136,21 @@
 
 		<FlexboxLayout class="mapa mt-4p" alignContent="center" *ngIf="pasoMapa == 'showMap'">
 		
-<StackLayout class="page">
-	<SearchBar hint="Location search string" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
-   
-	<GridLayout class="map">
-	  <MapView #mapView [latitude]="latitude" [longitude]="longitude"
-			   [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
-			   [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
-			   (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
-			   (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
-			   (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
-			   (cameraChanged)="onCameraChanged($event)"
-			   (cameraMove)="onCameraMove($event)" (coordinateLongPress)="onCoordinateLongPress($event)"></MapView>
-	</GridLayout>
-	<Button text="Confirmar ubicación!" (tap)="Map()"></Button> 
-  </StackLayout>
-  
-				
+			<StackLayout class="page">
+				<SearchBar hint="Location search string" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
+		
+				<GridLayout class="map">
+					<MapView #mapView [latitude]="latitude" [longitude]="longitude"
+							[zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+							[tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+							(markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
+							(markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
+							(markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+							(cameraChanged)="onCameraChanged($event)"
+							(cameraMove)="onCameraMove($event)" (coordinateLongPress)="onCoordinateLongPress($event)"></MapView>
+				</GridLayout>
+				<Button text="Confirmar ubicación!" (tap)="Map()"></Button> 
+			</StackLayout>
 		</FlexboxLayout>
 	
 		<FlexboxLayout flexDirection="row" class="">
@@ -187,7 +185,7 @@
 				<StackLayout orientation="vertical">
 					<StackLayout class="lista-caracteristicas">
 						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
-						<CheckBox *ngFor="let caract of caracteristicas" text="{{ caract.name }}" checked="false" fillColor="orange" (checkedChange)="checkedChange($event)"></CheckBox>
+						<CheckBox *ngFor="let data of caracteristicas" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)"></CheckBox>
 					</StackLayout>  
 				</StackLayout>
 			</ScrollView>	

@@ -9,6 +9,12 @@
   background-image: url("~/assets/images/bg-app2.jpg");
 }
 
+.round
+{
+  border-radius: 50;
+  background: #fff;
+}
+
 .icono
 {
   width: 7%;

@@ -4,7 +4,7 @@ export class Cliente
   password: string;
   nombre: string;
   id: number;
-  type: string = "CLIENTE";
+  type: string = "USUARIO";
 }
 
 export class Restaurante

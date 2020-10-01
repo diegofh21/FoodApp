@@ -34,6 +34,8 @@ export class RegisterComponent implements OnInit {
 	caracteristicas = caracteristica;
 
 	status: 'selectReg' | 'restReg' | 'userReg' = 'selectReg';
+	paso: string = '1';
+	pasoMapa: 'showBtn' | 'showMap' = 'showBtn';
 	socialLogin: boolean;
 	id: number;
 
@@ -104,7 +106,7 @@ export class RegisterComponent implements OnInit {
 				
 				const regAlert: AlertOptions = {
 					title: "FindEat",
-					message: "¡Gracias por registrarte en nuestra aplicación! \n A continuación vas a ser redireccionado al inicio.",
+					message: "¡Gracias por registrarte en nuestra aplicación!\nA continuación vas a ser redireccionado al inicio.",
 					okButtonText: "OK",
 					cancelable: false
 				}
@@ -120,7 +122,7 @@ export class RegisterComponent implements OnInit {
 								curve: 'linear'
 							}
 						});
-					}, 2000);
+					}, 1000);
 				});
 				
 			});
@@ -139,17 +141,19 @@ export class RegisterComponent implements OnInit {
 			this.authService.register(datos).subscribe((resp: any) => 
 			{
 				console.log("resp es:::::::::", resp);
+				console.log("restaurante id:", resp.userID)
+				console.log("restaurante nombre:", resp.name)
 	
 				const regAlert: AlertOptions = {
 					title: "FindEat",
-					message: "¡Gracias por registrarte en nuestra aplicación! \nA continuación vas a ser redireccionado al inicio.",
+					message: "¡Gracias por registrarte en nuestra aplicación!\nA continuación vas a ser redireccionado al inicio.",
 					okButtonText: "OK",
 					cancelable: false
 				}
 
 				alert(regAlert).then(() => {
 					setTimeout(() => {
-						this.routerEx.navigate(['/home'], {
+						this.routerEx.navigate(['/homeRestaurant', datos.id], {
 							animated: true,
 							transition:
 							{
@@ -158,27 +162,22 @@ export class RegisterComponent implements OnInit {
 								curve: 'linear'
 							}
 						});
-					}, 2000);
+					}, 1000);
 				});
 			});
 		}
 	}
 
-	checkedChange(event) 
+	checkedChange(event, data, id) 
 	{
-	// for (let i = 0; i < this.caracteristicas.length; i++) {
-	// 	const element = this.caracteristicas[i];
-		// console.log(element.name);
-		if(event.value)
-		{
-			console.log("acabo de ser checkeadoo");
-		}
-		else
-		{
-			console.log("acabo de ser descheckeado");
-		}
-	// }
-	
+		console.log("event.value", event.value);
+		console.log("data", data);
+		console.log("id", id);
+
+		// this.checkboxs = {
+		// 	data: data,
+		// 	id: id
+		// }	
 	}
 	
 	//variables del mapa
