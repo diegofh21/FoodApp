@@ -9,6 +9,7 @@
         androidElevation="12"
         backgroundColor="white"></Image>
         <Label [text]="profile.name" textWrap="true" class="restname" >  </Label>
+        <Label [text]="profile.info" textWrap="true" class="restInfo" >  </Label>
         <FlexboxLayout class="flexstars" alignItems="center" justifyContent="center">
           <Label [text]="profile.rate" class="rate" >  </Label> 
           <Image [src]="getStars(profile.rate)" class="stars" ></Image>

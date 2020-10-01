@@ -5,7 +5,7 @@
     <Image [src]="profile.profilePicture" class="img-header" margin="10" androidElevation="12" backgroundColor="white">
     </Image>
     <Label text="reseñas..." class="title"></Label>
-    <Label [text]="profile.name" class="restname"> </Label>
+    <Label [text]="profile.name" class="review-restname"> </Label>
 
     <StackLayout *ngFor="let review of reviews">
         <!--este tap debería ser long Press-->

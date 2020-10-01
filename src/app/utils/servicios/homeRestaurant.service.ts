@@ -23,7 +23,7 @@ export class homeRestaurantservice {
         id: 2,
         name: "Pizza Planeta",
         profilePicture: "~/assets/images/pizza.jpg",
-        info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
+        info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
         caracteristicas:["Pizza", "Calzone", "Italiana"],
         rate: 5,
         location: [10.6764301,-71.6165829]
@@ -41,9 +41,11 @@ export class homeRestaurantservice {
     }
 ];
 
-private users = [{id: 1, name: "francesco virgolini", profilePic: "~/assets/images/profile1.jpg" },
-                 {id: 2, name: "pulpo paul", profilePic: "~/assets/images/profile2.jpg" },
-                 {id: 3, name: "esteban julio ricardo montolla", profilePic: "~/assets/images/profile3.jpg" }]
+private users = [
+  {id: 1, name: "francesco virgolini", profilePic: "~/assets/images/profile1.jpg" },
+  {id: 2, name: "pulpo paul", profilePic: "~/assets/images/profile2.jpg" },
+  {id: 3, name: "esteban julio ricardo montolla", profilePic: "~/assets/images/profile3.jpg" }
+]
 
 private  reviews = [
   { id: 1,
@@ -216,10 +218,10 @@ private  reviews = [
     date: "12/09/2020, 10:00pm",
   }];
 
-    getProfiles() {
+  
+getProfiles() {
     return this.items;
 }
-
 
 getUsers(userID){
 

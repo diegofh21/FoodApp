@@ -31,12 +31,23 @@
   <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
   <TabContentItem>
     <GridLayout class="page">
-      <StackLayout>
-      <Label text="Página de Inicio" class="h2 text-center black-text"></Label>
-      <Label text="You're authenticated! 💪"></Label>
+      <ScrollView>
+      <StackLayout alignItems="center" justifyContent="center">
+      <Label text="Recomendaciones para ti..." class="h3 text-center black-text"></Label>
       <Button text="Logout" (tap)="Logout()" class="btn btn-primary btn-active"></Button>
-      <Button text="Ver perfil" (tap)="goToProfile(1)" class="btn btn-primary btn-active"></Button>
+        
+      <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.id)">
+        <Image [src]="profile.profilePicture" class="cardImg"></Image>
+        <StackLayout class="card-Text">
+        <Label class="card-title" text={{profile.name}}></Label>
+        <Label  textWrap="true" class="card-info" text={{profile.info}}></Label>
+        <FlexboxLayout >
+          <Label *ngFor=" let item of profile.caracteristicas" class="carac" text={{item}}></Label>
+        </FlexboxLayout>
+      </StackLayout>
+      </FlexboxLayout>
     </StackLayout>
+  </ScrollView>
     </GridLayout>
   </TabContentItem>
 

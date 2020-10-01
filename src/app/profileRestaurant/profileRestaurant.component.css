@@ -115,6 +115,15 @@ TextView:focus, TextView:active
   padding-top: 5%;
 }
 
+.restInfo{
+    font-size: 16;
+    width: 90%;
+    color: rgb(37, 37, 37);
+    text-align: center;
+    border-bottom-width: 3px;
+    border-bottom-color: gray;
+}
+
 .carac{
     color: white;
     font-weight: lighter;
@@ -161,12 +170,23 @@ TextView:focus, TextView:active
     margin-top: 3%;
 }
 
-.restname{
+.review-restname{
     font-size: 30;
 
     color: rgb(65, 65, 65);
     border-bottom-width: 3px;
     border-bottom-color: gray;
+    width: 90%;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.restname{
+    font-size: 30;
+
+    color: rgb(65, 65, 65);
+    border-width: 0;
     width: 90%;
     align-items: center;
     align-content: center;
@@ -232,14 +252,3 @@ TextView:focus, TextView:active
     border-radius: 100%;
 }
 
-.restname{
-    font-size: 30;
-
-    color: rgb(65, 65, 65);
-    border-bottom-width: 3px;
-    border-bottom-color: gray;
-    width: 90%;
-    align-items: center;
-    align-content: center;
-    text-align: center;
-}

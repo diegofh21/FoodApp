@@ -5,6 +5,7 @@ import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import * as Geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
 import { NgZone } from "@angular/core";
+import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service";
 //import { TextField } from 'ui/text-field';
 //import { EventData } from 'data/observable';
 //import { ActivatedRoute } from '@angular/router';
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
     public latitude: number;
     public longitude: number;
     private watchId: number;
+    feedList;
     //iconos a mostrar
     home_actual = "~/assets/images/home_filled.png";
     search_actual="~/assets/images/loupe_empty.png";
@@ -33,12 +35,14 @@ export class HomeComponent implements OnInit {
     search_filled="~/assets/images/loupe_filled.png";
     account_filled="~/assets/images/usuario_filled.png";
     
-	constructor(private routerEx: RouterExtensions, private authService: AuthService,private zone: NgZone) {
+	constructor(private itemService: homeRestaurantservice, private routerEx: RouterExtensions, private authService: AuthService,private zone: NgZone) {
         this.latitude = 0;
         this.longitude = 0;
      }
 
-	ngOnInit() { }
+	ngOnInit() { 
+        this.feedList = this.itemService.getProfiles();
+    }
 
 	Logout()
 	{
