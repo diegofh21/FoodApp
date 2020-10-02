@@ -14,24 +14,24 @@ Button.-primary {
     margin-right: 10px;
 }
 
-.formulario{
-    height: 30%;
-    min-height: 600px;
+.new-review{
+    height: 40%;
 padding-top: 10%;
 margin-top: 3%;
-border-radius: 30px;
 width: 90%;
-background-color: rgba(24, 25, 32, 0.849);
+margin:10;
+background-color: white;
+android-elevation: 10;
 }
 
 TextView
-{ 
-  border-bottom-color: rgba(0, 0, 0, 0);
-  placeholder-color: rgba(255, 166, 0, 0.548);
-  color: orange;
+{ height: auto;
+  border-bottom-color: rgba(0, 0, 0, 0.37);
+  placeholder-color: rgba(0, 0, 0, 0.548);
+  color: rgb(0, 0, 0);
   font-size: 16px;
   width: 80%;
-  border-width: 0;
+  border-bottom-width: 0;
     padding-top: 0px;
     margin-top: 30px;
 }
@@ -79,14 +79,7 @@ TextView:focus, TextView:active
     margin-bottom: 15px;
 }
 
-.report{
-    color: red;
-    background-color: black;
-    font-weight: bold;
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-}
+
 
 .user-name{
     color: rgb(255, 123, 0);
@@ -186,6 +179,7 @@ TextView:focus, TextView:active
     font-size: 30;
 
     color: rgb(65, 65, 65);
+    font-weight: bold;
     border-width: 0;
     width: 90%;
     align-items: center;

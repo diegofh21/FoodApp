@@ -12,7 +12,7 @@ import { GestureEventData } from "tns-core-modules/ui/gestures";
 @Component({
     selector: "ns-items",
     templateUrl: "./profileReviewList.component.html",
-    styleUrls: ["../profileRestaurant/profileRestaurant.component.css", "../../assets/css/margin-padding.css"]
+    styleUrls: ["../homeRestaurant/homeRestaurant.component.css", "../../assets/css/margin-padding.css"]
 })
 export class profileReviewList implements OnInit {
   composeOptions: email.ComposeOptions;
