@@ -55,19 +55,5 @@ export class AuthService {
       }
     });
   }
-
-  public login(data)
-  {
-    return this.http.post(
-      Config.apiUrl + '/login', data
-    );
-  }
-
-  public register(data)
-  {
-    return this.http.post(
-      Config.apiUrl + '/registrar', data
-    );
-  }
 }
 

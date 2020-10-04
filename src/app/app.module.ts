@@ -27,8 +27,11 @@ import { profileReviewList } from "./profileReviewList/profileReviewList.compone
 
 // Servicios
 import { AuthService } from './utils/servicios/auth.service';
-import { HelperService } from './utils/servicios/helper.service'
+import { UserService } from './utils/servicios/user.service';
+import { HelperService } from './utils/servicios/helper.service';
 import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service';
+
+import { FotoComponent } from './pruebaFoto/foto.component';
 
 @NgModule({
     bootstrap: [
@@ -50,9 +53,10 @@ import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service'
         reviewListComponent,
         ProfileRestaurantComponent,
         newReviewComponent,
-        profileReviewList
+        profileReviewList,
+        FotoComponent
     ],
-    providers: [AuthService, homeRestaurantservice, HelperService],
+    providers: [AuthService, UserService, homeRestaurantservice, HelperService],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

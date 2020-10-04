@@ -7,11 +7,12 @@
 			<Label text="Tu cuenta es de..." textWrap="true" textAlignment="center" class="medium-text black"></Label>
 		</FlexboxLayout>
 		
-		<Button text="Usuario" class="user-btn" (tap)="status = 'userReg'; paso = '2'; socialLogin = true"></Button>
-		<Button text="Restaurante" class="rest-btn" (tap)="status = 'restReg'; paso = '1'; socialLogin = true"></Button>
+		<Button text="Usuario" class="user-btn" (tap)="status = 'userReg'; paso = '1'; getCheckboxData();"></Button>
+		<Button text="Restaurante" class="rest-btn" (tap)="status = 'restReg'; paso = '1';"></Button>
+		<Label text="" textWrap="true"></Label>
+		<Label text="-- O --" textWrap="true" textAlignment="center" class="medium-text black"></Label>
+		<Label text="" textWrap="true"></Label>
     <Button text="Volver al inicio" (tap)="Login()" class="back-btn" ></Button>
-    
-    <Label [(ngModel)]="this.restaurante.name" textWrap="true"></Label>
     
 	</StackLayout>
 </StackLayout>
@@ -21,57 +22,27 @@
 	<Image src="~/assets/images/logo-app.png" class="logo-registro"></Image>
 	<Label text="¡Únete ya y encuentra un nuevo sitio para encantar tu paladar🍽👅!" class="black" textAlignment="center"></Label>
 
-	<!-- PASO 1: RELLENAR INFORMACIÓN DE USUARIO -->
-	<GridLayout rows="500, 200" *ngIf="paso == '1'">
-		<StackLayout row="0" class="formulario-registro-usuario">
-			<FlexboxLayout alignItems="center" class="inputs-r">
-				<img src="~/assets/images/usuario.png" alt="" class="icono">
-				<TextField hint="E-mail" [(ngModel)]="cliente.email" editable="false"></TextField>
-			 </FlexboxLayout>
-	
-			<FlexboxLayout alignItems="center" class="inputs-r">
-				<img src="~/assets/images/contrasena.png" class="icono">
-				<TextField hint="Contraseña" secure="true" [(ngModel)]="cliente.password" editable="false"></TextField>
-			</FlexboxLayout> 
-	
-			<FlexboxLayout alignItems="center" class="inputs-r">
-				<img src="~/assets/images/usuario.png" class="icono">
-				<TextField hint="Nombre de usuario" [(ngModel)]="cliente.nombre"></TextField>
-			</FlexboxLayout>
-	
-			<FlexboxLayout flexDirection="row" class="next-back-btn">
-				<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'selectReg'" class="back-btn"></Button>
-				<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
-			</FlexboxLayout>
-		</StackLayout>
-	
-		 <FlexboxLayout row="1" justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '1'">
-			<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
-			<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
-		</FlexboxLayout>
-	</GridLayout>
-	
-	<!-- PASO 2: ESCOGER FOTO DE PERFIL E INTERESES DEL USUARIO -->
-	<StackLayout *ngIf="paso == '2'">
+	<!-- PASO 1: ESCOGER FOTO DE PERFIL E INTERESES DEL USUARIO -->
+	<StackLayout *ngIf="paso == '1'">
 			
 		<GridLayout rows="85, 20, 70, 70, * auto" class="form-step3">
-			<Image src="~/assets/images/buhos-foto-perfil.jpg" row="0" class="profile-picture" (tap)="choosePic()"></Image>
+			<Image src="{{ saveImage }}" backgroundColor="white" stretch="aspectFill" row="0" class="profile-picture" (tap)="choosePic()"></Image>
+			<ActivityIndicator *ngIf="isBusy == true" row="0" width="50" height="50" [busy]="isBusy" class="activity-indicator" color="orange" style="z-index: 99999;"></ActivityIndicator>
 			<Label row="2" text="Dale estilo a tu perfil escogiendo una foto de perfil y algunas caracteristicas para saber que es lo que te interesa!" textWrap="true" textAlignment="center" class="small-text stretch"></Label>
 			<Label row="3" text="Me interesa..." class="medium-text" textWrap="true" textAlignment="center"></Label>
 			
 			<ScrollView row="4" orientation="vertical">
 				<StackLayout orientation="vertical">
 					<StackLayout class="lista-caracteristicas">
-						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
-						<CheckBox *ngFor="let caract of caracteristicas" text="{{ caract.name }}" checked="false" fillColor="orange" (checkedChange)="caract.select ? false : true"></CheckBox>
+						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)"></CheckBox>
 					</StackLayout>  
 				</StackLayout>
 			</ScrollView>	
 		</GridLayout>
 
 		<FlexboxLayout flexDirection="row">
-			<Button flexGrow="1" text="Volver al inicio" (tap)="paso = '1'; status = 'selectReg'" class="back-btn"></Button>
-			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" ></Button>
+			<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'selectReg'" class="back-btn" isEnabled="{{ BtnDispo }}"></Button>
+			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" isEnabled="{{ BtnDispo }}"></Button>
 		</FlexboxLayout>
 
 	</StackLayout>
@@ -92,28 +63,23 @@
 	<!-- PASO 1: RELLENAR INFORMACIÓN -->
 	<StackLayout class="formulario-registro-restaurante" *ngIf="paso == '1'">
 		<FlexboxLayout alignItems="center" class="inputs-r">
-			<img src="~/assets/images/usuario.png" alt="" class="icono">
-			<TextField editable="false" hint="E-mail" [(ngModel)]="restaurante.email" ></TextField>
-	 	</FlexboxLayout>
-
-		<FlexboxLayout alignItems="center" class="inputs-r">
-			<img src="~/assets/images/contrasena.png" class="icono">
-			<TextField hint="Contraseña (no requerida)" [(ngModel)]="restaurante.email" secure="true" editable="false"></TextField>
+			<img src="~/assets/images/usuario.png" class="icono">
+			<TextField hint="Nombre de comercio" [(ngModel)]="restaurante.nombre_comercio" minlength="16" maxlength="255"></TextField>
 		</FlexboxLayout> 
 
 		<FlexboxLayout alignItems="center" class="inputs-r">
 			<img src="~/assets/images/usuario.png" class="icono">
-			<TextField hint="RIF" [(ngModel)]="restaurante.rif"></TextField>
+			<TextField hint="RIF" [(ngModel)]="restaurante.rif" keyboardType="number" minlength="9" maxlength="9"></TextField>
 		</FlexboxLayout> 
 
-		<FlexboxLayout alignItems="center" class="inputs-r">
-			<img src="~/assets/images/usuario.png" class="icono">
-			<TextField hint="Nombre de comercio" [(ngModel)]="restaurante.nombre_comercio"></TextField>
-		</FlexboxLayout> 
+		<FlexboxLayout alignItems="center" class="inputs-r" height="25%">
+			<Image src="~/assets/images/usuario.png" class="icono"></Image>
+			<TextField hint="Agrega una pequeña descricpión de tu perfil" [(ngModel)]="restaurante.descripcion" maxlength="255"></TextField>	
+		</FlexboxLayout>
 
 		<FlexboxLayout flexDirection="row" class="next-back-btn">
-			<Button flexGrow="1" text="Volver al inicio" (tap)="status == 'selectReg'" class="back-btn"></Button>
-			<Button flexGrow="1" text="Siguiente" (tap)="paso = '2'" class="next-btn" ></Button>
+			<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'selectReg'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Siguiente" (tap)="processStep1();" class="next-btn" ></Button>
 		</FlexboxLayout>
 	</StackLayout>
 
@@ -129,34 +95,37 @@
 			<Label text="" textWrap="true"></Label>
 			<Label text="Escoge donde estas ubicado para que las personas sepan a donde ir!" textWrap="true" class="medium-text black" textAlignment="center"></Label>
 			<Label text="" textWrap="true" textAlignment="center"></Label>
+			<ActivityIndicator *ngIf="isBusy == true" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
 			<Image src="~/assets/images/mapa-custom-3.png" class="map-icon mt-5p"></Image>
 
 			<Button text="Escoger lugar" (tap)="pasoMapa = 'showMap'" class="map-btn"></Button>
 		</FlexboxLayout>
 
-		<FlexboxLayout class="mapa mt-4p" alignContent="center" *ngIf="pasoMapa == 'showMap'">
-		
-			<StackLayout class="page">
-				<SearchBar hint="Location search string" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
-		
-				<GridLayout class="map">
-					<MapView #mapView [latitude]="latitude" [longitude]="longitude"
-							[zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
-							[tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
-							(markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
-							(markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
-							(markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
-							(cameraChanged)="onCameraChanged($event)"
-							(cameraMove)="onCameraMove($event)" (coordinateLongPress)="onCoordinateLongPress($event)"></MapView>
+			<!-- Aqui va el componente MapView del plugin nativescript-google-maps-sdk -->
+			<StackLayout class="page" *ngIf="pasoMapa == 'showMap'">
+				<FlexboxLayout class="busqueda"margin="10"
+                  androidElevation="12"
+                  backgroundColor="white">
+					<Image src="~/assets/images/mapsIcon.png" class="iconmap"></Image>
+					<SearchBar hint="Busca aquí" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
+				</FlexboxLayout>
+				<GridLayout class="map" >
+				  <MapView #mapView [latitude]="latitude" [longitude]="longitude"
+						   [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+						   [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+						   (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
+						   (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
+						   (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+						   (cameraChanged)="onCameraChanged($event)"
+						   (cameraMove)="onCameraMove($event)" (coordinateLongPress)="onCoordinateLongPress($event)"></MapView>
 				</GridLayout>
-				<Button text="Confirmar ubicación!" (tap)="Map()"></Button> 
+				<Button text="Confirmar ubicación!" class="mapconfirmation" (tap)="Map()"></Button> 
 			</StackLayout>
-		</FlexboxLayout>
-	
+			  
 		<FlexboxLayout flexDirection="row" class="">
 			<Button flexGrow="1" text="Atrás" (tap)="paso = '1'" *ngIf="pasoMapa == 'showBtn'" class="back-btn"></Button>
 			<Button flexGrow="1" text="Atrás" (tap)="pasoMapa = 'showBtn'" *ngIf="pasoMapa == 'showMap'" class="back-btn"></Button>
-			<Button flexGrow="1" text="Siguiente" (tap)="paso = '3'" class="next-btn" ></Button>
+			<Button flexGrow="1" text="Siguiente" (tap)="processStep2()" class="next-btn" ></Button>
 		</FlexboxLayout>
 		
 	</StackLayout>
@@ -180,20 +149,21 @@
 			<Image src="~/assets/images/buhos-foto-perfil.jpg" row="0" class="profile-picture" (tap)="choosePic()"></Image>
 			<Label row="2" text="Es hora de darle algo de estilo a tu perfil, escoge una foto de perfil y escoge las caracteristicas que representen lo que ofreces!" textWrap="true" textAlignment="center" class="small-text stretch"></Label>
 			<Label row="3" text="Lista de Caracteristicas" class="medium-text" textWrap="true" textAlignment="center"></Label>
+			<ActivityIndicator row="3" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
 			
 			<ScrollView row="4" orientation="vertical">
 				<StackLayout orientation="vertical">
 					<StackLayout class="lista-caracteristicas">
 						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
-						<CheckBox *ngFor="let data of caracteristicas" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)"></CheckBox>
+						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)"></CheckBox>
 					</StackLayout>  
 				</StackLayout>
 			</ScrollView>	
 		</GridLayout>
 
 		<FlexboxLayout flexDirection="row">
-			<Button flexGrow="1" text="Atrás" (tap)="paso = '2'" class="back-btn"></Button>
-			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" ></Button>
+			<Button flexGrow="1" text="Atrás" (tap)="paso = '2'" class="back-btn" isEnabled="{{ BtnDispo }}"></Button>
+			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" isEnabled="{{ BtnDispo }}"></Button>
 		</FlexboxLayout>
 
 	</StackLayout>
@@ -203,6 +173,6 @@
 		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
 		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
 	</FlexboxLayout>
-	
+
 </StackLayout>
 <!-- FIN REGISTRO DE RESTAURANTES -->

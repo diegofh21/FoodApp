@@ -351,6 +351,50 @@ TextField:focus, TextField:active
   margin-top: 5%;
 }
 
+.sign-in-button
+{
+  width: 90%;
+  height: 10%;
+  
+}
+
+.sign-in-img
+{
+  height: 100%;
+  border-radius: 330px;
+  float: left;
+}
+
+.sign-in-label
+{
+  height: 100%;
+  margin-right: 15%;
+  padding-top: 10%;
+}
+
+.border-google
+{
+  border-radius: 360px;
+  border-width: 3px;
+  border-color: rgb(255, 123, 0);
+}
+
+.border-fb
+{
+  border-radius: 360px;
+  border-width: 3px;
+  border-color: rgb(57, 34, 187);
+}
+
+.label-google
+{
+  color: rgb(216, 35, 35);
+}
+
+.label-fb
+{
+  color:rgb(57, 34, 187);
+}
 /* Estados */
 
 .active
