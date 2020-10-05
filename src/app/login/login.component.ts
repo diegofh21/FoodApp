@@ -15,10 +15,10 @@ import { Cliente, Restaurante } from '../utils/models/user.model';
 import { registerLocaleData } from "@angular/common";
 
 @Component({
-  selector: "ns-login",
-  templateUrl: "./login.component.html",
-  moduleId: module.id,
-  styleUrls: ["./login.component.css", "../../assets/css/margin-padding.css"]
+	selector: "ns-login",
+	templateUrl: "./login.component.html",
+	moduleId: module.id,
+	styleUrls: ["./login.component.css", "../../assets/css/margin-padding.css"]
 })
 
 export class LoginComponent implements OnInit
@@ -35,10 +35,9 @@ export class LoginComponent implements OnInit
   { 
 		this.cliente = new Cliente();
 		this.restaurante = new Restaurante();
-  }
+	}
 
-  ngOnInit() 
-  {
+	ngOnInit() {
 		this.page.actionBarHidden = true;
 		console.log("La aplicación inicio y estas sincronizado.");	
 	}
@@ -66,17 +65,16 @@ export class LoginComponent implements OnInit
 		});
 	}
 
-  loginrestaurante()
-  {
-	  this.routerEx.navigate(['homeRestaurant/', 2], {
-		  animated: true,
-		  transition:
-		  {
-			  name: 'fade',
-			  duration: 250,
-			  curve: 'linear'
-		  }
-	  });
+	loginrestaurante() {
+		this.routerEx.navigate(['homeRestaurant/', 2], {
+			animated: true,
+			transition:
+			{
+				name: 'fade',
+				duration: 250,
+				curve: 'linear'
+			}
+		});
 	}
 
 	// INICIO DE SESIÓN CON GOOGLE 
@@ -142,7 +140,7 @@ export class LoginComponent implements OnInit
 			}); //authService.login()
 		}).catch(err => console.error("Error" + err));	//authService.tnsOauthLogin(google)	
 	}
-	
+
 	// INICIO DE SESIÓN CON FACEBOOK (FALTA RUTA PARA OBTENER LOS DATOS)
   Facebook()
 	{
@@ -156,8 +154,7 @@ export class LoginComponent implements OnInit
 				this.restaurante.email = resp.email;
 				console.log("el tipo de usuario es:", resp.typeUser)
 
-				switch (resp.typeUser) 
-				{
+				switch (resp.typeUser) {
 					case 'USUARIO':
 
 						setTimeout(() => {
@@ -186,7 +183,7 @@ export class LoginComponent implements OnInit
 							}
 						});
 						break;
-						
+
 					case null:
 						var userID = resp.id;
 						var user = resp;

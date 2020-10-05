@@ -14,7 +14,7 @@
           <Label [text]="profile.rate" class="rate" >  </Label> 
           <Image [src]="getStars(profile.rate)" class="stars" ></Image>
         </FlexboxLayout>
-        <FlexboxLayout class="flexstars" alignItems="center" justifyContent="center">
+        <FlexboxLayout flexWrap="wrap" class="flexstars" alignItems="center" justifyContent="center">
           <Label  *ngFor="let carac of profile.caracteristicas" (tap)="aber(carac)"  [text]="carac" class="carac" >  </Label> 
         </FlexboxLayout>
         <FlexboxLayout class="row">

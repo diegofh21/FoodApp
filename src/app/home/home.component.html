@@ -41,7 +41,7 @@
         <StackLayout class="card-Text">
         <Label class="card-title" text={{profile.name}}></Label>
         <Label  textWrap="true" class="card-info" text={{profile.info}}></Label>
-        <FlexboxLayout >
+        <FlexboxLayout flexWrap="wrap" >
           <Label *ngFor=" let item of profile.caracteristicas" class="carac" text={{item}}></Label>
         </FlexboxLayout>
       </StackLayout>
@@ -54,9 +54,7 @@
   <TabContentItem>
       <GridLayout class="page2">
         <StackLayout>
-          <Label text="Página para encontrar restaurantes" class="h2 text-center black-text"></Label>
-            <Button class="btn btn-primary btn-active" text="Mi ubicación actual" (tap)="updateLocation()"></Button>
-            <FlexboxLayout height="45">
+             <FlexboxLayout height="5%">
               <FlexboxLayout class="searchbuttons"  (tap)="switchSearch('tag')" >
                 <Label class="h2" text="Nombre"></Label>
                 <Image [src]="Loupe"></Image>
@@ -71,10 +69,15 @@
                 <Label  class="h3" text="aquí puedes buscar restaurantes por su nombre"></Label>
               </StackLayout>
               <StackLayout  *ngIf="searchType=='tag'" >
+                <WrapLayout orientation="horizontal" height="auto" >
+                  <Label (tap)="spliceItem(i)" class="item" *ngFor="let a of selectedData; let i = index" [text]="a.name"></Label>
+                  <Label class="h3" *ngIf="selectedData.length == 0" text="selecciona hasta cinco características..."></Label>
+                  <Button *ngIf="selectedData.length > 0" height="30" (tap)="searchTag()" text="buscar"></Button>
+                </WrapLayout>
                 <ScrollView class="list">
                   <StackLayout>
-                      <Label class="item" *ngFor="let item of checkboxData" [text]="item.name"> </Label>
-                    </StackLayout>
+                    <Label (tap)="pushData(item)"  class="item" *ngFor="let item of checkboxData" [text]="item.name"> </Label>
+                  </StackLayout>
                 </ScrollView>
               </StackLayout>
             </StackLayout>

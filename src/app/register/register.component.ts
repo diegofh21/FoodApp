@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit
 	BtnDispo: boolean = true;
 
 	checkboxFinal: any = [];
-	private checkboxData: any = []
+	checkboxData: any = []
 
 	public bstring ="";
 	public saveImage = "";

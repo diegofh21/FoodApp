@@ -43,7 +43,8 @@ export class HomeComponent implements OnInit {
     account_filled="~/assets/images/usuario_filled.png";
     loupe_filled = "~/assets/images/loupe_filled.png";
     tag_filled ="~/assets/images/label_filled.png";
-    checkboxData: any = []
+    checkboxData: any = [];
+    selectedData = [];
 	constructor(private itemService: homeRestaurantservice, private helper: HelperService, private routerEx: RouterExtensions, private authService: AuthService,private zone: NgZone) {
         this.latitude = 0;
         this.longitude = 0;
@@ -117,9 +118,6 @@ export class HomeComponent implements OnInit {
 
 		this.helper.getCaracteristicas().subscribe((resp: any) => {
 			this.checkboxData = resp;
-			console.log("la data recogida de la api es: ", JSON.stringify(resp));
-			console.log("checkboxData: ", this.checkboxData)
-	
 		});
 	}
 
@@ -134,6 +132,44 @@ export class HomeComponent implements OnInit {
             });
         });
     }
+
+    public pushData(item){
+        if ((this.selectedData.indexOf(item)== -1) && this.selectedData.length<=4){
+            
+            this.selectedData.push(item);
+        }
+        else{
+            console.log("ya está agregado");
+        }
+
+    }
+
+    public spliceItem(index){
+        this.selectedData.splice(index,1);
+        console.log(index);
+    }
+
+    public searchTag(){
+        let idarray = [];
+
+        let idarrayobj = [];
+        if(this.selectedData.length==0){
+            alert("Por favor selecciona al menos una característica");
+            return
+        } else{
+            for (const i of this.selectedData) {
+                let testobj = {id: i.id};
+                idarrayobj.push(testobj);
+
+
+
+                idarray.push(i.id);
+            }
+            console.log(idarrayobj);
+            //en idarray están los id de todas las características seleccionadas 
+        }
+    }
+
 
     public updateLocation() {
         this.getDeviceLocation().then(result => {

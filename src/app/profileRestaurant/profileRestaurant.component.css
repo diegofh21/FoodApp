@@ -44,7 +44,6 @@ TextView:focus, TextView:active
 
 .title{
     font-size: 15;
-    font-weight: lighter;
     align-items: center;
     align-content: center;
     text-align: center;
@@ -92,7 +91,7 @@ TextView:focus, TextView:active
 
 .review-content{
     font-size: 15;
-    font-weight: lighter;
+
     width: 85%;
     height: 100%;
 }
@@ -119,7 +118,7 @@ TextView:focus, TextView:active
 
 .carac{
     color: white;
-    font-weight: lighter;
+
     font-size: 18;
     background-color: rgb(17, 115, 226);
     padding: 2,4;
@@ -149,7 +148,7 @@ TextView:focus, TextView:active
 
 .rate{
     color: rgba(0, 0, 0, 0.664);
-    font-weight: lighter;
+
     font-size: 23;
     margin-top: auto;
     margin-right: 5%;
