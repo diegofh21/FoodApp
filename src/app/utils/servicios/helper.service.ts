@@ -18,10 +18,6 @@ export class HelperService
     return this.http.get(
       Config.apiUrl + '/indexCaracteristicas'
     );
-    // ).subscribe((resp: any) => {
-    //   resp.id = id;
-    //   resp.name = name;
-    // });
   } 
 
   public getUserInfo(id){

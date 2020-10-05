@@ -1,18 +1,19 @@
 export class Cliente
 {
+  id: number;
   email: string;
   password: string;
   nombre: string;
-  id: number;
   type: string = "USUARIO";
 }
 
 export class Restaurante
 {
+  id: number;
   email: string;
   password: string;
-  rif: string;
   nombre_comercio: string;
-  id: number;
+  rif: number;
+  descripcion: string;
   type: string = "RESTAURANTE";
 }
