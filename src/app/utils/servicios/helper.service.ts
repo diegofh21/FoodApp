@@ -13,7 +13,7 @@ export class HelperService
 
   }
 
-  public getCaracteristicas()
+  public getCaracteristicas() 
   {
     return this.http.get(
       Config.apiUrl + '/indexCaracteristicas'
@@ -23,5 +23,9 @@ export class HelperService
     //   resp.name = name;
     // });
   } 
+
+  public getUserInfo(id){
+    return this.http.get(Config.apiUrl + '/registrar/', id);
+  }
 }
 

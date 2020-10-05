@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular';
 import { AuthService } from '../utils/servicios/auth.service';
+import { HelperService } from '../utils/servicios/helper.service'
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import * as Geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
@@ -21,6 +22,10 @@ export class HomeComponent implements OnInit {
     public longitude: number;
     private watchId: number;
     feedList;
+
+    searchType="nombre";
+   Loupe;
+   Tag;
     //iconos a mostrar
     home_actual = "~/assets/images/home_filled.png";
     search_actual="~/assets/images/loupe_empty.png";
@@ -30,18 +35,25 @@ export class HomeComponent implements OnInit {
     home_empty = "~/assets/images/home_empty.png";
     search_empty="~/assets/images/loupe_empty.png";
     account_empty="~/assets/images/usuario_empty.png";
+    loupe_empty ="~/assets/images/loupe_empty.png";
+    tag_empty ="~/assets/images/label_empty.png";
     //iconos desactivados
     home_filled = "~/assets/images/home_filled.png";
     search_filled="~/assets/images/loupe_filled.png";
     account_filled="~/assets/images/usuario_filled.png";
-    
-	constructor(private itemService: homeRestaurantservice, private routerEx: RouterExtensions, private authService: AuthService,private zone: NgZone) {
+    loupe_filled = "~/assets/images/loupe_filled.png";
+    tag_filled ="~/assets/images/label_filled.png";
+    checkboxData: any = []
+	constructor(private itemService: homeRestaurantservice, private helper: HelperService, private routerEx: RouterExtensions, private authService: AuthService,private zone: NgZone) {
         this.latitude = 0;
         this.longitude = 0;
      }
 
 	ngOnInit() { 
         this.feedList = this.itemService.getProfiles();
+        this.Loupe = this.loupe_filled;
+        this.Tag = this.tag_empty;
+        this.getCheckboxData();
     }
 
 	Logout()
@@ -76,6 +88,18 @@ export class HomeComponent implements OnInit {
         }
     }
 
+    switchSearch(type){
+        if (type=="nombre"){
+            this.searchType="tag"
+            this.Tag = this.tag_filled;
+            this.Loupe = this.loupe_empty;
+        } else if (type == "tag") {
+            this.searchType="nombre"
+            this.Tag = this.tag_empty;
+            this.Loupe = this.loupe_filled
+        }
+    }
+
     goToProfile(id){
         this.routerEx.navigate(['profileRestaurant/', id], {
             animated: true,
@@ -88,6 +112,16 @@ export class HomeComponent implements OnInit {
         });
     }
     
+    
+    	getCheckboxData() {
+
+		this.helper.getCaracteristicas().subscribe((resp: any) => {
+			this.checkboxData = resp;
+			console.log("la data recogida de la api es: ", JSON.stringify(resp));
+			console.log("checkboxData: ", this.checkboxData)
+	
+		});
+	}
 
     private getDeviceLocation(): Promise<any> {
         return new Promise((resolve, reject) => {

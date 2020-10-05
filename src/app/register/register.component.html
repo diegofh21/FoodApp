@@ -9,9 +9,9 @@
 		
 		<Button text="Usuario" class="user-btn" (tap)="status = 'userReg'; paso = '2'; socialLogin = true"></Button>
 		<Button text="Restaurante" class="rest-btn" (tap)="status = 'restReg'; paso = '1'; socialLogin = true"></Button>
-    <Button text="Volver al inicio" (tap)="Login()" class="back-btn" ></Button>
+    <Button text="Volver al inicio" (tap)="login()" class="back-btn" ></Button>
     
-    <Label [(ngModel)]="this.restaurante.name" textWrap="true"></Label>
+    <Label [(ngModel)]="this.restaurante.nombre_comercio" textWrap="true"></Label>
     
 	</StackLayout>
 </StackLayout>
@@ -133,25 +133,27 @@
 
 			<Button text="Escoger lugar" (tap)="pasoMapa = 'showMap'" class="map-btn"></Button>
 		</FlexboxLayout>
-
-		<FlexboxLayout class="mapa mt-4p" alignContent="center" *ngIf="pasoMapa == 'showMap'">
-		
-			<StackLayout class="page">
-				<SearchBar hint="Location search string" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
-		
-				<GridLayout class="map">
-					<MapView #mapView [latitude]="latitude" [longitude]="longitude"
-							[zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
-							[tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
-							(markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
-							(markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
-							(markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
-							(cameraChanged)="onCameraChanged($event)"
-							(cameraMove)="onCameraMove($event)" (coordinateLongPress)="onCoordinateLongPress($event)"></MapView>
+			<!-- Aqui va el componente MapView del plugin nativescript-google-maps-sdk -->
+			<StackLayout class="page" *ngIf="pasoMapa == 'showMap'">
+				<FlexboxLayout class="busqueda"margin="10"
+                  androidElevation="12"
+                  backgroundColor="white">
+					<Image src="~/assets/images/mapsIcon.png" class="iconmap"></Image>
+					<SearchBar hint="Busca aquí" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
+				</FlexboxLayout>
+				<GridLayout class="map" >
+				  <MapView #mapView [latitude]="latitude" [longitude]="longitude"
+						   [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+						   [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+						   (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
+						   (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
+						   (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+						   (cameraChanged)="onCameraChanged($event)"
+						   (cameraMove)="onCameraMove($event)" (coordinateLongPress)="onCoordinateLongPress($event)"></MapView>
 				</GridLayout>
-				<Button text="Confirmar ubicación!" (tap)="Map()"></Button> 
-			</StackLayout>
-		</FlexboxLayout>
+				<Button text="Confirmar ubicación!" class="mapconfirmation" (tap)="Map()"></Button> 
+			  </StackLayout>
+			  
 	
 		<FlexboxLayout flexDirection="row" class="">
 			<Button flexGrow="1" text="Atrás" (tap)="paso = '1'" *ngIf="pasoMapa == 'showBtn'" class="back-btn"></Button>

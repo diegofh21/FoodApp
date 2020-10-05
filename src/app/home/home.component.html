@@ -56,6 +56,28 @@
         <StackLayout>
           <Label text="Página para encontrar restaurantes" class="h2 text-center black-text"></Label>
             <Button class="btn btn-primary btn-active" text="Mi ubicación actual" (tap)="updateLocation()"></Button>
+            <FlexboxLayout height="45">
+              <FlexboxLayout class="searchbuttons"  (tap)="switchSearch('tag')" >
+                <Label class="h2" text="Nombre"></Label>
+                <Image [src]="Loupe"></Image>
+            </FlexboxLayout>
+            <FlexboxLayout class="searchbuttons" (tap)="switchSearch('nombre')">
+              <Label class="h2" text="Caracteristica" ></Label>
+              <Image [src]="Tag"></Image>
+            </FlexboxLayout>
+            </FlexboxLayout>
+            <StackLayout >
+              <StackLayout *ngIf="searchType=='nombre'">
+                <Label  class="h3" text="aquí puedes buscar restaurantes por su nombre"></Label>
+              </StackLayout>
+              <StackLayout  *ngIf="searchType=='tag'" >
+                <ScrollView class="list">
+                  <StackLayout>
+                      <Label class="item" *ngFor="let item of checkboxData" [text]="item.name"> </Label>
+                    </StackLayout>
+                </ScrollView>
+              </StackLayout>
+            </StackLayout>
         </StackLayout>
       </GridLayout>
   </TabContentItem>
