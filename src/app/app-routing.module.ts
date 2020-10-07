@@ -13,6 +13,9 @@ import { HomeComponent } from "./home/home.component";
 import { homeRestaurantComponent } from "./homeRestaurant/homeRestaurant.component";
 import { ProfileRestaurantComponent } from "./profileRestaurant/profileRestaurant.component";
 
+//resultado de bpusqueda
+import { SearchResultComponent } from "./SearchResult/SearchResult.component";
+
 // Reviews
 import { newReviewComponent } from "./profileRestaurant/newReview.component";
 import { reviewListComponent } from "./homeRestaurant/reviewList.component";
@@ -30,7 +33,8 @@ const routes: Routes = [
 	{path: "profileRestaurant/:id", component: ProfileRestaurantComponent },
     {path: "newReview/:id", component: newReviewComponent},
     {path: "profileReviewList/:id", component: profileReviewList},
-    {path: "fotoPrueba", component: FotoComponent}
+    {path: "fotoPrueba", component: FotoComponent},
+    {path: "searchResult/:idUser/:Resultado", component: SearchResultComponent}
 ];
 
 @NgModule({

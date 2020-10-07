@@ -6,7 +6,9 @@ import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import * as Geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
 import { NgZone } from "@angular/core";
+import { SearchBar } from 'tns-core-modules/ui/search-bar';
 import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service";
+import { timer } from 'rxjs';
 //import { TextField } from 'ui/text-field';
 //import { EventData } from 'data/observable';
 //import { ActivatedRoute } from '@angular/router';
@@ -18,9 +20,11 @@ import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service
 })
 
 export class HomeComponent implements OnInit {
+    public searchString = '';
     public latitude: number;
     public longitude: number;
     private watchId: number;
+    public id_user=1;
     feedList;
 
     searchType="nombre";
@@ -89,6 +93,27 @@ export class HomeComponent implements OnInit {
         }
     }
 
+    public onSubmit(args) 
+	{
+		let searchBar = <SearchBar>args.object;
+        let parametro = searchBar.text;
+        //aqui se pasa el id del usuario + la respuesta del servidor 
+        this.helper.searchByName(parametro).subscribe((resp: any,) => {
+        
+                    console.log(resp)
+            this.routerEx.navigate(['searchResult/', this.id_user, resp], {
+                   animated: true,
+                   transition:
+                   {
+                       name: 'fade',
+                       duration: 250,
+                       curve: 'linear'
+                   }
+               });
+
+          });
+	}
+
     switchSearch(type){
         if (type=="nombre"){
             this.searchType="tag"
@@ -117,7 +142,7 @@ export class HomeComponent implements OnInit {
     	getCheckboxData() {
 
 		this.helper.getCaracteristicas().subscribe((resp: any) => {
-			this.checkboxData = resp;
+            this.checkboxData = resp;
 		});
 	}
 
@@ -150,8 +175,6 @@ export class HomeComponent implements OnInit {
     }
 
     public searchTag(){
-        let idarray = [];
-
         let idarrayobj = [];
         if(this.selectedData.length==0){
             alert("Por favor selecciona al menos una característica");
@@ -160,13 +183,14 @@ export class HomeComponent implements OnInit {
             for (const i of this.selectedData) {
                 let testobj = {id: i.id};
                 idarrayobj.push(testobj);
-
-
-
-                idarray.push(i.id);
             }
             console.log(idarrayobj);
-            //en idarray están los id de todas las características seleccionadas 
+            this.helper.searchByTags(idarrayobj).subscribe((resp: any,) => {
+                    console.log("probando");
+                    console.log(resp);
+           });
+
+             
         }
     }
 

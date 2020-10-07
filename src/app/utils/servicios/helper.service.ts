@@ -20,6 +20,24 @@ export class HelperService
     );
   } 
 
+
+  public searchByTags (tagList) {
+    let obj: object ={
+      "caracteristicas": tagList
+    }
+    console.log(obj);
+      return this.http.get(Config.apiUrl + '/registrar', obj);
+  }
+
+
+  public searchByName(name){
+    let obj: object ={
+      query: name
+    }
+    return this.http.get(Config.apiUrl + '/registrar', obj);
+  }
+
+
   public getUserInfo(id){
     return this.http.get(Config.apiUrl + '/registrar/', id);
   }

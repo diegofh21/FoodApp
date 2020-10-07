@@ -25,6 +25,9 @@ import { reviewListComponent } from "./homeRestaurant/reviewList.component";
 import { newReviewComponent } from "./profileRestaurant/newReview.component";
 import { profileReviewList } from "./profileReviewList/profileReviewList.component";
 
+//resultado de búsqueda
+import { SearchResultComponent } from "./SearchResult/SearchResult.component";
+
 // Servicios
 import { AuthService } from './utils/servicios/auth.service';
 import { UserService } from './utils/servicios/user.service';
@@ -54,7 +57,8 @@ import { FotoComponent } from './pruebaFoto/foto.component';
         ProfileRestaurantComponent,
         newReviewComponent,
         profileReviewList,
-        FotoComponent
+        FotoComponent,
+        SearchResultComponent
     ],
     providers: [AuthService, UserService, homeRestaurantservice, HelperService],
     schemas: [
