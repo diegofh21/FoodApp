@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular';
 import * as Geolocation from "nativescript-geolocation";
+import { HelperService } from '../utils/servicios/helper.service'
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 //import { TextField } from 'ui/text-field';
 //import { EventData } from 'data/observable';
@@ -17,14 +18,16 @@ export class SearchResultComponent implements OnInit {
     public latitude: number;
 	public longitude: number;
 	public result;
-	constructor(private routerEx: RouterExtensions, private route: ActivatedRoute) { 
+	constructor(private routerEx: RouterExtensions, private helper: HelperService, private route: ActivatedRoute) { 
 		this.latitude = 0;
 		this.longitude = 0;
 	}
 
 	ngOnInit() {
-        const id = +this.route.snapshot.params.idUser
-        this.result = +this.route.snapshot.params.Resultado
+        const id = +this.route.snapshot.params.idUser;
+        this.result = this.helper.ResultadoBusqueda;
+        console.log(this.result.lenght); 
+        this.updateLocation();
 	 }
 
 	 private getDeviceLocation(): Promise<any> {

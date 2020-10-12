@@ -5,41 +5,35 @@ import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { Config } from '../config';
 
 @Injectable()
-export class HelperService 
-{
+export class HelperService {
 
-  constructor(private http: HttpClient)
-  {
+  constructor(private http: HttpClient) {
 
   }
+  public ID_User = 3;
+  public ResultadoBusqueda;
 
-  public getCaracteristicas() 
-  {
+  public getCaracteristicas() {
     return this.http.get(
       Config.apiUrl + '/indexCaracteristicas'
     );
-  } 
+  }
 
 
-  public searchByTags (tagList) {
-    let obj: object ={
+  public searchByTags(tagList) {
+    let obj: object = {
       "caracteristicas": tagList
-    }
-    console.log(obj);
-      return this.http.get(Config.apiUrl + '/registrar', obj);
+    };
+    return this.http.post(Config.apiUrl + '/indexRestaurantes', obj);
+  }
+
+  public searchByName(name) {
+    let obj: object = { "query": name };
+    return this.http.post(Config.apiUrl + '/indexRestaurantes', obj);
   }
 
 
-  public searchByName(name){
-    let obj: object ={
-      query: name
-    }
-    return this.http.get(Config.apiUrl + '/registrar', obj);
-  }
-
-
-  public getUserInfo(id){
+  public getUserInfo(id) {
     return this.http.get(Config.apiUrl + '/registrar/', id);
   }
 }
-

@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
     feedList;
 
     searchType="nombre";
+    public dataUser;
    Loupe;
    Tag;
     //iconos a mostrar
@@ -57,6 +58,9 @@ export class HomeComponent implements OnInit {
 	ngOnInit() { 
         this.feedList = this.itemService.getProfiles();
         this.Loupe = this.loupe_filled;
+        this.dataUser = {name: "Roberto Martinez", 
+        profilePic: "~/assets/images/profile2.jpg", 
+        intereses: ["parrilla", "tortas", "helado", "gourmet", "zona para fumadores", "cócteles", "vegano"] }
         this.Tag = this.tag_empty;
         this.getCheckboxData();
     }
@@ -100,16 +104,17 @@ export class HomeComponent implements OnInit {
         //aqui se pasa el id del usuario + la respuesta del servidor 
         this.helper.searchByName(parametro).subscribe((resp: any,) => {
         
-                    console.log(resp)
-            this.routerEx.navigate(['searchResult/', this.id_user, resp], {
+                    console.log(resp);
+                    this.helper.ResultadoBusqueda = resp;
+         this.routerEx.navigate(['searchResult'], {
                    animated: true,
                    transition:
                    {
                        name: 'fade',
                        duration: 250,
-                       curve: 'linear'
+                      curve: 'linear'
                    }
-               });
+                });
 
           });
 	}
@@ -186,8 +191,17 @@ export class HomeComponent implements OnInit {
             }
             console.log(idarrayobj);
             this.helper.searchByTags(idarrayobj).subscribe((resp: any,) => {
-                    console.log("probando");
-                    console.log(resp);
+                this.helper.ResultadoBusqueda = resp;
+
+                this.routerEx.navigate(['searchResult'], {
+                    animated: true,
+                    transition:
+                    {
+                        name: 'fade',
+                        duration: 250,
+                       curve: 'linear'
+                    }
+                 });
            });
 
              

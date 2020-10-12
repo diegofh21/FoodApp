@@ -34,7 +34,8 @@ const routes: Routes = [
     {path: "newReview/:id", component: newReviewComponent},
     {path: "profileReviewList/:id", component: profileReviewList},
     {path: "fotoPrueba", component: FotoComponent},
-    {path: "searchResult/:idUser/:Resultado", component: SearchResultComponent}
+    
+    {path: "searchResult", component: SearchResultComponent}
 ];
 
 @NgModule({

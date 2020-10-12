@@ -1,3 +1,52 @@
 .SearchResult {
 
 }
+.cardImg{
+    border-radius: 100%;
+    margin: 5;
+    width: 25%;
+    background-color: white;
+    android-elevation: 10;
+  }
+  
+.list{
+border-top-width: 2;
+border-top-color: black;
+}
+
+  .card-title{
+    font-weight: bold;
+    font-size: 20;
+    color: black;
+  }
+  .carac{
+    color: white;
+  
+    font-size: 14;
+    background-color: rgb(17, 115, 226);
+    padding: 2,4;
+    margin: 2, 5;
+    border-radius: 4;
+  }
+  .card-info{
+  font-size: 14;
+  color: rgb(37, 37, 37);
+  line-height: 2;
+  }
+  
+  .card-Text{
+    align-items: flex-start;
+  padding-bottom: 5;
+    width: 71%;
+    height: 100%;
+    align-items: flex-start;
+  }
+  
+  .card{
+    width: 90%;
+    margin-bottom: 5;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom-width: 3px;
+    border-bottom-color: rgb(37, 37, 37);
+  }

@@ -477,8 +477,8 @@ export class RegisterComponent implements OnInit
 	}
 
 	public CreateMarker(latitud, longitud, nombre_restaurante)
-	{	this.confirmedLatitude = this.location.latitude;
-		this.confirmedLongitude = this.location.longitude;
+	{	this.confirmedLatitude = latitud;
+		this.confirmedLongitude = longitud;
 		this.confirmedName = nombre_restaurante;
 		var marker = new Marker();
 		marker.position = Position.positionFromLatLng(latitud, longitud);
