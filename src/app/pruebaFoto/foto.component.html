@@ -1,7 +1,0 @@
-<StackLayout>
-  <image *ngIf="saveImage" class="imageCss"
-  src="{{ saveImage }}" stretch="aspectFill"> </image>
-  <button class="btn btn-outline" text="Actualizar Imagen"
-  (tap)="getPicture()"></button>
-  <ActivityIndicator width="50" height="50" [busy]="isBusy" class="activity-indicator" color="orange" style="z-index: 99999;"></ActivityIndicator>
-</StackLayout>  

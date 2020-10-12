@@ -53,13 +53,22 @@ export class RegisterComponent implements OnInit
 	isBusy: boolean = false;
 	BtnDispo: boolean = true;
 
+	CheckCount: number = 0
+	CheckLimit: boolean = true
+	CheckboxChecked: boolean = false;
 	checkboxFinal: any = [];
 	checkboxData: any = []
 
 	public bstring ="";
 	public saveImage = "";
+	public userImage = "";
 	public picHeight = 0; 
 	public imagen = null;
+<<<<<<< Updated upstream
+=======
+	public finalPath = null;
+	public respCode = 0
+>>>>>>> Stashed changes
 
 	constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService, private routeAct: ActivatedRoute, private helper: HelperService, private userService: UserService, private http: HttpClient) 
 	{ 
@@ -74,14 +83,8 @@ export class RegisterComponent implements OnInit
 		if(typeof (this.routeAct.snapshot.params.id) !== 'undefined') 
 		{
 			this.id = +this.routeAct.snapshot.params.id;
-			console.log("el id es:", this.id);
 		}
-		this.restaurante.id = this.id;
 		this.cliente.id = this.id;
-		console.log("restaurante.id:", this.restaurante.id);
-
-		console.log("los datos que tiene restaurante para esta estancia son:", this.restaurante);
-		console.log("los datos que tiene cliente para esta estancia son: ", this.cliente);
 	}
 
 	login()
@@ -102,49 +105,73 @@ export class RegisterComponent implements OnInit
 	{
 		if(this.status == 'userReg')
 		{
-			this.checkboxFinal = this.checkboxData.filter(e => e.select === true);
-
 			this.isBusy = true;
 			this.BtnDispo = false;
 
-			let datos_user = {
-				name: this.cliente.nombre,
-				email: this.cliente.email,
-				password: this.cliente.password,
+			let datosUsuario = {
+				id: this.cliente.id,
 				typeUser: this.cliente.type
-			};
+			}
 
-			console.log("los datos_user son:", JSON.stringify(datos_user));
+			var Caracteristicas = this.checkboxData.filter(e => e.select === true);
 
-			this.userService.login(datos_user).subscribe((resp: any) => {
-				console.log("Respuesta para login user:", resp);
+			this.userService.register(datosUsuario).subscribe((resp: any) => {
+				console.log("La respuesta para el registro de usuarios es", resp)
+			});
+			
+			const regAlert: AlertOptions = 
+			{
+				title: "FindEat",
+				message: "Estamos registrandolo en la aplicación, espere un momento por favor😋⌚.",
+				okButtonText: "OK",
+				cancelable: false
+			}
 
-				const regAlert: AlertOptions = {
-					title: "FindEat",
-					message: "¡Gracias por registrarte en nuestra aplicación!\nA continuación vas a ser redireccionado al inicio.",
-					okButtonText: "OK",
-					cancelable: false
-				}
+			alert(regAlert).then(() => {
+				setTimeout(() => {
+					let caracteristicasUsuario = {
+						userID: this.cliente.id,
+						caracteristicasID: Caracteristicas
+					};
 
-				alert(regAlert).then(() => {
-					this.isBusy = false;
-					setTimeout(() => {
-						this.routerEx.navigate(['/home'], {
-							animated: true,
-							transition:
+					this.userService.storeCaracteristicas(caracteristicasUsuario).subscribe((resp: any) => 
+					{
+						console.log("caracteristicas de usuario registradas bajo el id:", caracteristicasUsuario.userID);
+						if(caracteristicasUsuario.userID != null || undefined)
+						{
+							// Guardamos las caracteristicas en el servicio (caché)
+							this.userService.Datos_Usuario.caracteristicas = Caracteristicas;
+							const regAlert: AlertOptions = 
 							{
-								name: 'fade',
-								duration: 250,
-								curve: 'linear'
+								title: "FindEat",
+								message: "¡Gracias por registrarte en nuestra aplicación!🤩🍔🥤\nA continuación vas a ser redireccionado al inicio.",
+								okButtonText: "¡Gracias!",
+								cancelable: false
 							}
-						});
-					}, 1000);
-				});
-				this.BtnDispo = true;
+							alert(regAlert).then(() => 
+							{
+								setTimeout(() => {
+									this.routerEx.navigate(['/home', this.cliente.id], {
+										animated: true,
+										transition:
+										{
+											name: 'fade',
+											duration: 250,
+											curve: 'linear'
+										}
+									});
+								}, 1000);
+							});
+							this.isBusy = false;
+							this.BtnDispo = true;
+						}
+					});
+				}, 5000);
 			});
 		}
 		else if(this.status == 'restReg')
 		{
+<<<<<<< Updated upstream
 			var Caracteristicas = this.checkboxData.filter(e => e.select === true);
 
 			this.isBusy = true;
@@ -186,9 +213,112 @@ export class RegisterComponent implements OnInit
 				console.log("los datos de caracteristicas son:", JSON.stringify(caracteriscticasRestaurante));
 
 				this.userService.storeCaracteristicas(caracteriscticasRestaurante).subscribe((resp: any) => 
+=======
+			this.isBusy = true;
+			this.BtnDispo = false;
+
+			if(this.finalPath != null || undefined)
+			{
+				var Caracteristicas = this.checkboxData.filter(e => e.select === true);
+
+				let datosRestaurante = {
+					typeUser: this.restaurante.type,
+					name: this.restaurante.nombre_comercio,
+					rif: this.restaurante.rif,
+					descripcion: this.restaurante.descripcion,
+					id: this.cliente.id,
+					longitud: this.confirmedLongitude,
+					latitud: this.confirmedLatitude,
+				};
+	
+				console.log("los datos_rest son: ", JSON.stringify(datosRestaurante));
+	
+				this.userService.register(datosRestaurante).subscribe((resp: any) => 
 				{
-					console.log("caracteristicas registradas bajo el id:", caracteriscticasRestaurante.userID);
+					console.log("La respuesta para registro de restaurante es:", resp);
+					this.restaurante.id = resp
+					console.log("restaurante.id", this.restaurante.id)
+	
+					if(this.restaurante.id != null || undefined)
+					{
+						console.log("entre a savePicture");
+						this.savePicture(this.finalPath);
+
+						const regAlert: AlertOptions = 
+						{
+							title: "FindEat",
+							message: "Estamos registrandolo en la aplicación, espere un momento por favor😋⌚.",
+							okButtonText: "OK",
+							cancelable: false
+						}
+						alert(regAlert).then(() => {
+							setTimeout(() => {
+								let caracteristicasRestaurante = {
+									userID: this.restaurante.id,
+									caracteristicasID: Caracteristicas,
+									typeUser: this.restaurante.type
+								};
+	
+								this.userService.storeCaracteristicas(caracteristicasRestaurante).subscribe((resp: any) => 
+								{
+									console.log("caracteristicas registradas bajo el id:", caracteristicasRestaurante.userID);
+									if(caracteristicasRestaurante.userID != null || undefined)
+									{
+										// Guardamos las caracteristicas en el servicio (caché)
+										this.userService.Datos_Restaurante.caracteristicas = Caracteristicas;
+										const regAlert: AlertOptions = 
+										{
+											title: "FindEat",
+											message: "¡Gracias por registrarte en nuestra aplicación!🤩🍔🥤\nA continuación vas a ser redireccionado al inicio.",
+											okButtonText: "¡Gracias!",
+											cancelable: false
+										}
+										alert(regAlert).then(() => 
+										{
+											setTimeout(() => {
+												this.routerEx.navigate(['/homeRestaurant', this.restaurante.id], {
+													animated: true,
+													transition:
+													{
+														name: 'fade',
+														duration: 250,
+														curve: 'linear'
+													}
+												});
+											}, 1000);
+										});
+										this.isBusy = false;
+										this.BtnDispo = true;
+									}
+								});
+							}, 10000);
+						});
+					}
+					else
+					{
+						console.log("ha ocurrido un error");
+						this.isBusy = false;
+						this.BtnDispo = true;
+					}
 				});
+			}
+			else
+			{
+				const regAlert: AlertOptions = 
+>>>>>>> Stashed changes
+				{
+					title: "FindEat",
+					message: "Por favor escoge una imagen📸",
+					okButtonText: "Entendido",
+					cancelable: false
+				}
+				alert(regAlert).then(() => {
+					setTimeout(() => {
+						this.isBusy = false;
+						this.BtnDispo = true;
+					}, 2000);
+				});
+<<<<<<< Updated upstream
 				
 				const regAlert: AlertOptions = {
 					title: "FindEat",
@@ -213,6 +343,9 @@ export class RegisterComponent implements OnInit
 				});
 				this.BtnDispo = true;
 			});
+=======
+			}
+>>>>>>> Stashed changes
 		}
 	}
 
@@ -246,7 +379,11 @@ export class RegisterComponent implements OnInit
 												console.log(that.imagen);
 												that.saveImage = path;
 												that.picHeight = imgSrc.height;  
+<<<<<<< Updated upstream
 												that.savePicture(folder)
+=======
+												that.finalPath = folder;
+>>>>>>> Stashed changes
 										} 
 										else 
 										{
@@ -274,7 +411,7 @@ export class RegisterComponent implements OnInit
 
 		var session = bghttp.session("file-upload");
 		var request = {
-		url: Config.apiUrl + '/registrar',
+		url: Config.apiUrl + '/fotoRestaurante',
 		method: "POST",
 		headers: {
 				"Content-Type": "application/octet-stream",
@@ -282,12 +419,21 @@ export class RegisterComponent implements OnInit
 		},
 		description: "{ 'uploading': " + "photo.png" + " }"
 				};
+<<<<<<< Updated upstream
 		let params = [{
 				name: "foto", mimeType: "image/jpeg", filename: this.saveImage
 		}, {
 				name: "dd", value: "Aqui esta la data"
 		},
 		];
+=======
+		let params = [
+			{ name: "id", value: this.restaurante.id },
+			{ name: "foto", mimeType: "image/jpeg", filename: this.saveImage }
+		];
+		// Se guarda la imagen en el servicio (caché para probar si sirve posteriormente)
+		this.userService.Datos_Restaurante.foto = this.saveImage;
+>>>>>>> Stashed changes
 		var task = session.multipartUpload(params, request);
 		task.on("progress", logEvent);
 		task.on("error", logEvent);
@@ -296,7 +442,7 @@ export class RegisterComponent implements OnInit
 		task.on("cancelled", logEvent);
 		function logEvent(e) 
 		{
-				console.log(e);
+				// console.log(e);
 				console.log("----------------");
 				console.log('Status: ' + e.eventName);
 				if (e.totalBytes !== undefined) 
@@ -304,7 +450,12 @@ export class RegisterComponent implements OnInit
 						console.log('current bytes transfered: ' + e.currentBytes);
 						console.log('Total bytes to transfer: ' + e.totalBytes);
 				}
+<<<<<<< Updated upstream
 				this.isBusy = false;
+=======
+				console.log("EL RESPONSE CODE ES: ", e.responseCode);
+				this.respCode = e.responseCode;
+>>>>>>> Stashed changes
 		}
 	} 
 
@@ -322,7 +473,7 @@ export class RegisterComponent implements OnInit
 				const Step1Alert: AlertOptions = {
 					title: "FindEat",
 					message: "Por favor completa los datos requeridos antes de continuar con el registro.",
-					okButtonText: "OK",
+					okButtonText: "Entendido",
 					cancelable: false
 				}
 
@@ -343,7 +494,7 @@ export class RegisterComponent implements OnInit
 				const Step2Alert: AlertOptions = {
 					title: "FindEat",
 					message: "Por favor agrega una ubicación para continuar con el registro.",
-					okButtonText: "OK",
+					okButtonText: "Entendido",
 					cancelable: false
 				}
 
@@ -357,8 +508,8 @@ export class RegisterComponent implements OnInit
 
 				const Step2Alert: AlertOptions = {
 					title: "FindEat",
-					message: "Ubicación procesada y guardada!.",
-					okButtonText: "OK",
+					message: "Ubicación procesada y guardada!",
+					okButtonText: "Entendido",
 					cancelable: false
 				}
 
@@ -366,7 +517,7 @@ export class RegisterComponent implements OnInit
 					setTimeout(() => {
 						this.isBusy = false;
 						this.paso = '3';
-					}, 5000);
+					}, 2000);
 				});	
 			}
 		}
@@ -375,11 +526,41 @@ export class RegisterComponent implements OnInit
 	// metodos del checkbox
 	checkedChange(event, data, id) 
 	{
+<<<<<<< Updated upstream
 		this.checkboxData[event].select = true
+=======
+		console.log("id-1", this.checkboxData[id-1])
+		console.log("---------------------------------")
+
+		if(this.CheckCount < 5)
+		{
+			this.CheckCount++;
+			console.log("checkcount", this.CheckCount);
+			if(event.value == true)
+			{
+				this.checkboxData[id-1].select = true
+				console.log("checkboxdata completo", this.checkboxData[id-1]);
+			}
+			if(this.CheckCount == 5)
+			{
+				const checkAlert: AlertOptions = { 
+					title: "FindEat",
+					message: "Solo puedes escoger un máximo de 5 caracteristicas!",
+					okButtonText: "Entendido",
+					cancelable: false
+				}
+	
+				alert(checkAlert).then(() => {
+					this.CheckLimit = false;
+				});
+			}
+		}
+>>>>>>> Stashed changes
 	}
 
 	getCheckboxData()
 	{
+<<<<<<< Updated upstream
 		this.isBusy = true
 		this.helper.getCaracteristicas().subscribe((resp: any) => {
 			this.checkboxData = resp;
@@ -389,6 +570,34 @@ export class RegisterComponent implements OnInit
 			console.log("checkBoxData con stringify (por si acaso):", JSON.stringify(this.checkboxData));
 			this.isBusy = false;
 		});
+=======
+		if(this.status == 'userReg')
+		{
+			this.isBusy = true
+			this.userService.getUserInfo(this.cliente.id).subscribe((resp: any) => {
+
+				// Guardamos los datos del usuario en el servicio (caché)
+				this.userService.Datos_Usuario.foto = resp.avatar;
+
+				// Guardamos la ruta del avatar para su posterior uso en esta instancia
+				this.userImage = resp.avatar
+			});
+			this.helper.getCaracteristicas().subscribe((resp: any) => {
+				this.checkboxData = resp;
+				this.checkboxData.forEach(e => e.select = false);
+				this.isBusy = false;
+			});
+		}
+		else if(this.status == 'restReg')
+		{
+			this.isBusy = true
+			this.helper.getCaracteristicas().subscribe((resp: any) => {
+				this.checkboxData = resp;
+				this.checkboxData.forEach(e => e.select = false);
+				this.isBusy = false;
+			});
+		}
+>>>>>>> Stashed changes
 	}
 	
 	//variables del mapa y metodos del mapa

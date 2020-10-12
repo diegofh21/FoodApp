@@ -34,8 +34,6 @@ import { UserService } from './utils/servicios/user.service';
 import { HelperService } from './utils/servicios/helper.service';
 import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service';
 
-import { FotoComponent } from './pruebaFoto/foto.component';
-
 @NgModule({
     bootstrap: [
         AppComponent
@@ -57,7 +55,6 @@ import { FotoComponent } from './pruebaFoto/foto.component';
         ProfileRestaurantComponent,
         newReviewComponent,
         profileReviewList,
-        FotoComponent,
         SearchResultComponent
     ],
     providers: [AuthService, UserService, homeRestaurantservice, HelperService],

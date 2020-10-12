@@ -21,7 +21,6 @@ import { newReviewComponent } from "./profileRestaurant/newReview.component";
 import { reviewListComponent } from "./homeRestaurant/reviewList.component";
 import { profileReviewList } from "./profileReviewList/profileReviewList.component";
 
-import { FotoComponent } from './pruebaFoto/foto.component';
 
 const routes: Routes = [
     {path: "", redirectTo: "/login", pathMatch: "full"},
@@ -33,7 +32,6 @@ const routes: Routes = [
 	{path: "profileRestaurant/:id", component: ProfileRestaurantComponent },
     {path: "newReview/:id", component: newReviewComponent},
     {path: "profileReviewList/:id", component: profileReviewList},
-    {path: "fotoPrueba", component: FotoComponent},
     
     {path: "searchResult", component: SearchResultComponent}
 ];
