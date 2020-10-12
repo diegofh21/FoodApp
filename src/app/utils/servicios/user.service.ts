@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, map, tap } from "rxjs/operators";
 
-// import { User } from "../models/user.model";
 import { Config } from "../config";
 
 @Injectable()
@@ -11,58 +8,54 @@ export class UserService
 {
   constructor(private http: HttpClient) {}
 
-  login() 
+  // Datos del USUARIO
+  public Datos_Usuario = {
+    id: 0,
+    name: '',
+    email: '',
+    foto: '',
+    caracteristicas: undefined
+  }
+
+  // Datos del RESTAURANTE
+  public Datos_Restaurante = {
+    id: 0,
+    name: '',
+    email: '',
+    rif: '',
+    descripcion: '',
+    latitud: 0,
+    longitud: 0,
+    foto: '',
+    caracteristicas: undefined
+  }
+
+  public login(data)
+  {
+    return this.http.post(
+      Config.apiUrl + '/login', data
+    );
+  }
+
+  public register(data)
+  {
+    return this.http.post(
+      Config.apiUrl + '/registrar', data
+    );
+  }
+
+  public getUserInfo(id)
   {
     return this.http.get(
-      Config.apiUrl + '/login/google'
+      Config.apiUrl + '/registrar/' + id
     );
-    // return this.http.post(
-    //     Config.apiUrl + "user/" + Config.appKey + "/login",
-    //     JSON.stringify({
-    //         username: user.email,
-    //         password: user.password
-    //     }),
-    //     { headers: this.getCommonHeaders() }
-    // ).pipe(
-    //     map(response => response),
-    //     tap(data => {
-    //         Config.token = (<any>data)._kmd.authtoken
-    //     }),
-    //     catchError(this.handleErrors)
-    // );
   }
 
-  // register(user: User) {
-  //   if (!user.email || !user.password) {
-  //       return throwError("Please provide both an email address and password.");
-  //   }
-
-  //   return this.http.post(
-  //       Config.apiUrl + "user/" + Config.appKey,
-  //       JSON.stringify({
-  //           username: user.email,
-  //           email: user.email,
-  //           password: user.password
-  //       }),
-  //       { headers: this.getCommonHeaders() }
-  //   ).pipe(
-  //       catchError(this.handleErrors)
-  //   );
-  // }
-
-  getCommonHeaders() 
+  public storeCaracteristicas(data)
   {
-    return {
-        "Content-Type": "application/json",
-        // "Authorization": Config.authHeader
-    }
+    return this.http.post(
+      Config.apiUrl + '/storeCaracteristicas', data
+    );
   }
-
-  handleErrors(error: Response) 
-  {
-    console.log(JSON.stringify(error));
-    return throwError(error);
-  }
-
   
 }

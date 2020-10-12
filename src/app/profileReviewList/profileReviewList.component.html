@@ -1,0 +1,32 @@
+
+        <ScrollView>
+              <GridLayout class="page2">
+<StackLayout>
+    <StackLayout  justifyContent="center" alignContent="center">
+    <Image [src]="profile.profilePicture" class="img-header" margin="10" androidElevation="12" backgroundColor="white">
+    </Image>
+    <Label text="reseñas..." class="title"></Label>
+    <Label [text]="profile.name" class="restname"> </Label>
+</StackLayout>
+    <StackLayout *ngFor="let review of reviews">
+
+        <StackLayout class="review-card">
+          <StackLayout  class="user-data">
+          <FlexboxLayout class="spaceB" >  
+            <FlexboxLayout>
+            <Image [src]="getProfilepicURL(review.userID)" class="user-pic"></Image>
+            <Label [text]="getNameUser(review.userID)" class="user-name"></Label>
+          </FlexboxLayout>
+          <Image  (tap)="reportReview(review.id)" src="~/assets/images/report.png" class="report-Btn" ></Image>
+        </FlexboxLayout>
+          <FlexboxLayout>
+            <Image [src]="getStars(review.rate)"  class="stars" ></Image>
+            <Label [text]="review.date" class="review-content"></Label>
+          </FlexboxLayout>
+          </StackLayout>
+          <Label textWrap="true" [text]="review.reviewText" class="review-content"></Label>
+        </StackLayout>
+      </StackLayout>
+</StackLayout>
+              </GridLayout>
+            </ScrollView>

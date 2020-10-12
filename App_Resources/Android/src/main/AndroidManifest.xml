@@ -27,6 +27,7 @@
 		<activity
 			android:name="com.tns.NativeScriptActivity"
 			android:label="@string/title_activity_kimera"
+			android:launchMode="singleTask"
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|locale|uiMode"
 			android:theme="@style/LaunchScreenTheme">
 
@@ -47,5 +48,8 @@
 			
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>
+				<meta-data
+    android:name="com.google.android.geo.API_KEY"
+    android:value="@string/nativescript_google_maps_api_key" />
 	</application>
 </manifest>

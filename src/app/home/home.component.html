@@ -13,40 +13,112 @@
 
   <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
   <TabStrip>
-      <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
-          <Label text="Inicio"></Label>
-          <Image src="~/assets/images/google-logo.png" class=""></Image>
+      <TabStripItem (tap)="switchView('home')" class="home black-text" style="background: rgb(255, 123, 0);">
+          
+          <Image [src]="home_actual" class="icono"></Image>
       </TabStripItem>
 
-      <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-          <Label text="Buscar"></Label>
-          <Image src="~/assets/images/google-logo.png" class="icono"></Image>
+      <TabStripItem (tap)="switchView('search')" class="special black-text" style="background: rgb(255, 123, 0);">
+  
+          <Image [src]="search_actual" class="icono"></Image>
       </TabStripItem>
 
-      <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-          <Label text="Cuenta"></Label>
-          <Image src="~/assets/images/google-logo.png" class="icono"></Image>
+      <TabStripItem (tap)="switchView('account')"  class="special black-text" style="background: rgb(255, 123, 0);">
+          <Image [src]="account_actual" class="icono"></Image>
       </TabStripItem>
   </TabStrip>
 
   <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
   <TabContentItem>
     <GridLayout class="page">
-      <Label text="Página de Inicio" class="h2 text-center black-text"></Label>
-      <Label text="You're authenticated! 💪"></Label>
+      <ScrollView>
+      <StackLayout alignItems="center" justifyContent="center">
+      <Label text="Recomendaciones para ti..." class="h3 text-center black-text"></Label>
       <Button text="Logout" (tap)="Logout()" class="btn btn-primary btn-active"></Button>
+        
+      <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.id)">
+        <Image [src]="profile.profilePicture" class="cardImg"></Image>
+        <StackLayout class="card-Text">
+        <Label class="card-title" text={{profile.name}}></Label>
+        <Label  textWrap="true" class="card-info" text={{profile.info}}></Label>
+        <FlexboxLayout flexWrap="wrap" >
+          <Label *ngFor=" let item of profile.caracteristicas" class="carac" text={{item}}></Label>
+        </FlexboxLayout>
+      </StackLayout>
+      </FlexboxLayout>
+    </StackLayout>
+  </ScrollView>
     </GridLayout>
   </TabContentItem>
 
   <TabContentItem>
       <GridLayout class="page2">
-          <Label text="Página para encontrar restaurantes" class="h2 text-center black-text"></Label>
+        <StackLayout>
+             <FlexboxLayout height="7%">
+              <FlexboxLayout class="searchbuttons"  (tap)="switchSearch('tag')" >
+                <Label class="h3" text="Nombre"></Label>
+                <Image [src]="Loupe" height="80%"></Image>
+            </FlexboxLayout>
+            <FlexboxLayout class="searchbuttons" (tap)="switchSearch('nombre')">
+              <Label class="h3" text="Caracteristica" ></Label>
+              <Image [src]="Tag" height="80%"></Image>
+            </FlexboxLayout>
+            </FlexboxLayout>
+            <StackLayout >
+              <StackLayout *ngIf="searchType=='nombre'">
+                <FlexboxLayout class="busqueda"margin="10"
+                androidElevation="12"
+                backgroundColor="white">
+        <Image src="~/assets/images/logo-app.png" class="iconmap"></Image>
+        <SearchBar hint="Busca aquí" [text]="searchString" (submit)="onSubmit($event)"></SearchBar>
+      </FlexboxLayout>
+              </StackLayout>
+              <StackLayout  *ngIf="searchType=='tag'" >
+                <WrapLayout orientation="horizontal" height="auto" >
+                  <FlexboxLayout  class="item" *ngFor="let a of selectedData; let i = index" >
+                    <Label  [text]="a.name"> </Label>
+                    <Image (tap)="spliceItem(i)" src="~/assets/images/removeSquare.png" class="labelImg"></Image>
+                  </FlexboxLayout>
+                  <Label class="h3" *ngIf="selectedData.length == 0" text="selecciona hasta cinco características..."></Label>
+                  <Button *ngIf="selectedData.length > 0" height="30" (tap)="searchTag()" text="buscar"></Button>
+                </WrapLayout>
+                <ScrollView class="list">
+                  <StackLayout class="item-list">
+                    <FlexboxLayout (tap)="pushData(item)"  class="item" *ngFor="let item of checkboxData">
+                    <Label  [text]="item.name"> </Label>
+                    <Image src="~/assets/images/addSquare.png" class="labelImg"></Image>
+                  </FlexboxLayout>
+                  </StackLayout>
+                </ScrollView>
+              </StackLayout>
+            </StackLayout>
+        </StackLayout>
       </GridLayout>
   </TabContentItem>
 
   <TabContentItem>
       <GridLayout class="page3">
-          <Label text="Página de cuenta" class="h2 text-center black-text"></Label>
+      <StackLayout>
+          <StackLayout justifyContent="center" alignContent="center" >
+            <Label text="Mira y edita tu perfil" class="h4 text-center black-text"></Label>
+            <Image [src]="dataUser.profilePic" class="img-header"   
+            margin="10"
+            androidElevation="12"
+            backgroundColor="white"></Image>
+            <Label text="Cambiar foto de perfil" textWrap="true" class="restname" >  </Label>
+          </StackLayout>
+          <Stacklayout width="90%">
+            <Label text="Nombre" textWrap="true" class="restInfo" >  </Label>
+            <TextField [hint]="dataUser.name" [(ngModel)]="dataUser.name"  minlength="2" maxlength="60"></TextField>
+          </Stacklayout>
+            <FlexboxLayout width="90%">
+            <Label text="Intereses" textWrap="true" class="restInfo"  >  </Label>
+              <Label text="Modificar" class="carac"></Label>
+          </FlexboxLayout>
+            <FlexboxLayout flexWrap="wrap" class="flexstars" alignItems="center" justifyContent="center">
+              <Label  *ngFor="let carac of dataUser.intereses"  [text]="carac" class="carac" >  </Label> 
+            </FlexboxLayout>
+        </StackLayout>
       </GridLayout>
   </TabContentItem>
 
