@@ -54,13 +54,8 @@ import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service'
         reviewListComponent,
         ProfileRestaurantComponent,
         newReviewComponent,
-<<<<<<< Updated upstream
         profileReviewList,
-        FotoComponent,
         SearchResultComponent
-=======
-        profileReviewList
->>>>>>> Stashed changes
     ],
     providers: [AuthService, UserService, homeRestaurantservice, HelperService],
     schemas: [
