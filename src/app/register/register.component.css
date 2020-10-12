@@ -369,6 +369,20 @@ busquedatext:focus, busquedatext:active
   margin: 0 2%;
 }
 
+.bot-borders
+{
+  border-bottom-width: 2;
+  border-bottom-color:rgb(255, 123, 0);
+  width: 90%;
+}
+
+.top-borders
+{
+  border-top-width: 2;
+  border-top-color:rgb(255, 123, 0);
+  width: 90%;
+}
+
 /* Estilos de justificacion de texto */
 
 .align-center
@@ -397,7 +411,7 @@ busquedatext:focus, busquedatext:active
 .medium-text
 {
   font-size: 17px;
-  margin-top: 4%;
+  /* margin-top: 4%; */
 }
 
 .small-text
@@ -407,7 +421,7 @@ busquedatext:focus, busquedatext:active
 
 .stretch
 {
-  width: 90%;
+  width: 95%;
 }
 
 /* Colores */

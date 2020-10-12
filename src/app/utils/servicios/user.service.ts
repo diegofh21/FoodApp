@@ -8,6 +8,28 @@ export class UserService
 {
   constructor(private http: HttpClient) {}
 
+  // Datos del USUARIO
+  public Datos_Usuario = {
+    id: 0,
+    name: '',
+    email: '',
+    foto: '',
+    caracteristicas: undefined
+  }
+
+  // Datos del RESTAURANTE
+  public Datos_Restaurante = {
+    id: 0,
+    name: '',
+    email: '',
+    rif: '',
+    descripcion: '',
+    latitud: 0,
+    longitud: 0,
+    foto: '',
+    caracteristicas: undefined
+  }
+
   public login(data)
   {
     return this.http.post(
@@ -25,7 +47,7 @@ export class UserService
   public getUserInfo(id)
   {
     return this.http.get(
-      Config.apiUrl + '/registrar', id
+      Config.apiUrl + '/registrar/' + id
     );
   }
 

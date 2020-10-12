@@ -21,7 +21,6 @@ import { newReviewComponent } from "./profileRestaurant/newReview.component";
 import { reviewListComponent } from "./homeRestaurant/reviewList.component";
 import { profileReviewList } from "./profileReviewList/profileReviewList.component";
 
-import { FotoComponent } from './pruebaFoto/foto.component';
 
 const routes: Routes = [
     {path: "", redirectTo: "/login", pathMatch: "full"},
@@ -32,9 +31,13 @@ const routes: Routes = [
     {path: "reviewList/:id", component: reviewListComponent },
 	{path: "profileRestaurant/:id", component: ProfileRestaurantComponent },
     {path: "newReview/:id", component: newReviewComponent},
+<<<<<<< Updated upstream
     {path: "profileReviewList/:id", component: profileReviewList},
     {path: "fotoPrueba", component: FotoComponent},
     {path: "searchResult/:idUser/:Resultado", component: SearchResultComponent}
+=======
+    {path: "profileReviewList/:id", component: profileReviewList}
+>>>>>>> Stashed changes
 ];
 
 @NgModule({
