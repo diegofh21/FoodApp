@@ -1,61 +1,138 @@
-
 <ActionBar icon="" class="" style="background: rgb(255, 123, 0);">
-    <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="Logout()" class="black-text"></NavigationButton>
-    <Label text="Inicio" position="center" class="medium-text black-text" textWrap="true"></Label>
-    <ActionItem ios.position="right" class="opt-btn">
-      <Button class="opt-btn black-text" text="Opciones"></Button>
-    </ActionItem>
-  </ActionBar>
-  
-  <BottomNavigation selectedIndex="0">
-  
-    <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
-    <TabStrip>
-        <TabStripItem class="home black-text" style="background: rgb(255, 123, 0);">
-            <Label text="Inicio"></Label>
-            <Image src="~/assets/images/google-logo.png" class=""></Image>
-        </TabStripItem>
-  
-        <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-            <Label text="Buscar"></Label>
-            <Image src="~/assets/images/google-logo.png" class="icono"></Image>
-        </TabStripItem>
-  
-        <TabStripItem class="special black-text" style="background: rgb(255, 123, 0);">
-            <Label text="Cuenta"></Label>
-            <Image src="~/assets/images/google-logo.png" class="icono"></Image>
-        </TabStripItem>
-    </TabStrip>
-  
-    <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
-    <TabContentItem>
-      <GridLayout class="page">
-        <Stacklayout>
-        <Label text="Página de Inicio" class="h2 text-center black-text"></Label>
-        <Label [text]="profile.name" class="h2 text-center black-text"></Label>
-        <Button text="Ver mis reviews"  [nsRouterLink]="['reviewList', profile.id]" ></Button>
-        <Button text="Logout" (tap)="Logout()" class="btn btn-primary btn-active"></Button>
-      </Stacklayout>
-      </GridLayout>
-    </TabContentItem>
-  
-    <TabContentItem>
-<Stacklayout>
-        <GridLayout class="page2">
-            <Label text="Página para encontrar restaurantes" class="h2 text-center black-text"></Label>
-            <Label [text]="profile.name" class="h2 text-center black-text"></Label>
-        </GridLayout>
-        </Stacklayout>
-    </TabContentItem>
-  
-    <TabContentItem>
-      <Stacklayout>
-        <GridLayout class="page3">
-            <Label text="Página de cuenta" class="h2 text-center black-text"></Label>
-            <Label [text]="profile.name" class="h2 text-center black-text"></Label>
-        </GridLayout>
-          </Stacklayout>
-    </TabContentItem>
-  
-  </BottomNavigation>
+  <NavigationButton text="Back" android.systemIcon="ic_menu_back" class="black-text"></NavigationButton>
+  <Label text="Inicio" position="center" class="medium-text black-text" textWrap="true"></Label>
+  <ActionItem ios.position="right" class="opt-btn">
+    <Button class="opt-btn black-text" text="Opciones"></Button>
+  </ActionItem>
+</ActionBar>
 
+<BottomNavigation selectedIndex="0">
+
+  <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
+  <TabStrip>
+    <TabStripItem (tap)="switchView('home')" class="home black-text" style="background: rgb(255, 123, 0);">
+
+      <Image [src]="home_actual" class=""></Image>
+    </TabStripItem>
+
+    <TabStripItem (tap)="switchView('review')" class="home black-text" style="background: rgb(255, 123, 0);">
+
+      <Image [src]="review_actual" class=""></Image>
+    </TabStripItem>
+
+    <TabStripItem (tap)="switchView('photo')" class="special black-text" style="background: rgb(255, 123, 0);">
+
+      <Image [src]="photo_actual" class="icono"></Image>
+    </TabStripItem>
+
+    <TabStripItem (tap)="switchView('account')" class="special black-text" style="background: rgb(255, 123, 0);">
+
+      <Image [src]="account_actual" class="icono"></Image>
+    </TabStripItem>
+  </TabStrip>
+
+  <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
+  <TabContentItem>
+
+    <ScrollView>
+      <GridLayout class="page2">
+        <StackLayout justifyContent="center" alignContent="center" >
+          
+          
+          <Image [src]="profile.profilePicture" class="img-header"   
+          margin="10"
+          androidElevation="12"
+          backgroundColor="white"></Image>
+          <Label [text]="profile.name" textWrap="true" class="restname" >  </Label>
+          <Label [text]="profile.info" textWrap="true" class="restInfo" >  </Label>
+          <FlexboxLayout class="flexstars" alignItems="center" justifyContent="center">
+            <Label [text]="profile.rate" class="rate" >  </Label> 
+            <Image [src]="getStars(profile.rate)" class="stars" ></Image>
+          </FlexboxLayout>
+          <FlexboxLayout class="flexstars" alignItems="center" justifyContent="center">
+            <Label  *ngFor="let carac of profile.caracteristicas"   [text]="carac" class="carac" >  </Label> 
+          </FlexboxLayout>
+
+        </StackLayout>
+      </GridLayout>
+   </ScrollView>
+  </TabContentItem>
+  
+  <TabContentItem>
+    <Stacklayout>
+      <ScrollView>
+        <GridLayout class="page2">
+          <StackLayout>
+            <StackLayout justifyContent="center" alignContent="center">
+            <Image [src]="profile.profilePicture" class="img-header" margin="10" androidElevation="12"
+            backgroundColor="white"></Image>
+            <Label text="reseñas..." class="title"></Label>
+            <Label [text]="profile.name" class="restname"> </Label>
+          </StackLayout>
+            <StackLayout *ngFor="let review of reviews">
+
+              <StackLayout class="review-card">
+                <StackLayout  class="user-data">
+                <FlexboxLayout class="spaceB" >  
+                  <FlexboxLayout>
+                  <Image [src]="getProfilepicURL(review.userID)" class="user-pic"></Image>
+                  <Label [text]="getNameUser(review.userID)" class="user-name"></Label>
+                </FlexboxLayout>
+                <Image  (tap)="reportReview(review.id)" src="~/assets/images/report.png" class="report-Btn" ></Image>
+              </FlexboxLayout>
+                <FlexboxLayout>
+                  <Image [src]="getStars(review.rate)"  class="stars" ></Image>
+                  <Label [text]="review.date" class="review-content"></Label>
+                </FlexboxLayout>
+                </StackLayout>
+                <Label textWrap="true" [text]="review.reviewText" class="review-content"></Label>
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+        </GridLayout>
+      </ScrollView>
+    </Stacklayout>
+  </TabContentItem>
+  
+  <TabContentItem>
+    
+    <Stacklayout>
+      <GridLayout class="page3">
+     <ScrollView>
+       <Stacklayout justifyContent="center" alignContent="center">
+         <Label text="Nueva Publicación..." class="h4 text-center black-text"></Label>
+          <StackLayout>
+            <FlexboxLayout class="post-header">
+              <Image [src]="profile.profilePicture" width="15%" margin="10" androidElevation="12"
+              backgroundColor="white" class="img-header"></Image>
+              <StackLayout>
+                <Label [text]="profile.name" class="ProfilePost"> </Label>
+              </StackLayout>
+            </FlexboxLayout>
+        <TextView height="auto" textWrap="true" editable="true" hint="Pie de foto..." class="caption"> </TextView>
+        <Image [src]="actualPostSrc" class="imgpost"></Image>
+          <FlexboxLayout class="postButtons" >
+            <Button text="Cancelar" class="cancel-btn"></Button>
+            <Button text="Publicar" class="post-btn"></Button>
+          </FlexboxLayout>
+        </StackLayout>
+        
+      </Stacklayout>
+    </ScrollView>
+      </GridLayout>
+    </Stacklayout>
+  </TabContentItem>
+
+  <TabContentItem>
+    <Stacklayout>
+      <GridLayout class="page4">
+        <Stacklayout>
+          <Label text="Página de cuenta" class="h2 text-center black-text"></Label>
+          <Label [text]="profile.name" class="h2 text-center black-text"></Label>
+          <Button text="Logout" class="btn btn-primary btn-active" (tap)="Logout()"></Button>
+        </Stacklayout>
+      </GridLayout>
+    </Stacklayout>
+  </TabContentItem>
+
+</BottomNavigation>

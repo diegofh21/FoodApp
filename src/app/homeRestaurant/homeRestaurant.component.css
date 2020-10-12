@@ -31,16 +31,79 @@ background-color: rgba(24, 25, 32, 0.849);
     font-weight: bold;
 }
 
+.cancel-btn{
+    background-color: rgb(194, 41, 41);
+    border-radius: 5%;
+    color: white;
+    margin: 7;
+}
+.post-btn{
+    background-color: rgb(64, 90, 235);
+    border-radius: 5%;
+    font-weight: bold;
+    color: white;
+    margin: 7;
+    
+}
+.post-header{
+    border-bottom-width: 3px;
+    border-bottom-color: rgba(24, 24, 24, 0.644);
+    width: 90%;
+ 
+}
+
+.postButtons{
+
+    align-content: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 50;
+    margin-bottom: 20;
+    android-elevation: 15;
+    background-color: white;
+}
+
+.ProfilePost{
+    padding-top: 20;
+    font-size: 20;
+    font-weight: bold;
+}
+
 TextView
-{ 
-  border-bottom-color: rgba(0, 0, 0, 0);
-  placeholder-color: rgba(255, 166, 0, 0.548);
-  color: orange;
+{ border-width: 0;
+  placeholder-color: rgba(59, 59, 59, 0.548);
+  color: rgb(0, 0, 0);
   font-size: 16px;
-  width: 80%;
-  border-width: 0;
-    padding-top: 0px;
-    margin-top: 30px;
+  width: 95%;
+
+}
+
+.rate{
+    color: rgba(0, 0, 0, 0.664);
+    font-weight: lighter;
+    font-size: 23;
+    margin-top: auto;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.restInfo{
+    font-size: 16;
+    width: 90%;
+    color: rgb(37, 37, 37);
+    text-align: center;
+    border-bottom-width: 3px;
+    border-bottom-color: gray;
+}
+
+.carac{
+    color: white;
+    font-weight: lighter;
+    font-size: 18;
+    background-color: rgb(17, 115, 226);
+    padding: 2,4;
+    margin: 2, 5;
+    border-radius: 4;
 }
 
 TextView:focus, TextView:active
@@ -51,11 +114,69 @@ TextView:focus, TextView:active
 
 .title{
     font-size: 15;
-    font-weight: bold;
+    font-weight: lighter;
     align-items: center;
     align-content: center;
     text-align: center;
-    margin-bottom: 100px;
+}
+
+.review-card{
+    width: 100%;
+    padding: 15, 24, 50, 24;
+    align-items: left;
+    background-color: rgb(255, 255, 255);
+    height: fit-content;
+
+}
+
+.spaceB{
+    justify-content: space-between;
+}
+
+.report-Btn{
+    width: 6%;
+    align-self: right;
+    margin-bottom: 20;
+    justify-self: right;
+    display: flex;
+}
+
+.user-data{
+    background-color: rgb(255, 255, 255);
+}
+
+.user-pic{
+    width: 35;
+    border-radius: 100%;
+    margin: 0, 20, 15, 0;
+}
+
+.stars{
+    width: 22%;
+    margin-bottom: 0;
+    margin-right: 10;
+}
+
+.report{
+    color: red;
+    background-color: black;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.user-name{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 16;
+
+}
+
+.review-content{
+    font-size: 13;
+    font-weight: lighter;
+    height: 100%;
 }
 
 .my-button
@@ -78,14 +199,15 @@ TextView:focus, TextView:active
 .img-header{
     width: 30%;
     border-radius: 100%;
+    margin-top: 3%;
 }
 
 .restname{
     font-size: 30;
 
     color: rgb(65, 65, 65);
-    border-bottom-width: 3px;
-    border-bottom-color: gray;
+
+    font-weight: bold;
     width: 90%;
     align-items: center;
     align-content: center;

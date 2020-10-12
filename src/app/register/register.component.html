@@ -1,8 +1,191 @@
-<StackLayout class="principal-box bg-app">
-  <Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
+<StackLayout *ngIf="status == 'selectReg'" class="principal-box bg-app">
+	<Image src="~/assets/images/FindEat-logo-v5.png" class="logo"></Image>
 
-  <Label *ngIf="registro == 'usuario'" text="REGISTRO DE USUARIOS" textWrap="true"></Label>
-  <Label *ngIf="registro == 'restaurante'" text="REGISTRO DE RESTAURANTES" textWrap="true"></Label>
-  
-  
+  <StackLayout class="">
+   	<FlexboxLayout alignItems="center" justifyContent="space-around" class="inputs" flexDirection="column">
+			<Label text="Indica lo siguiente para continuar con tu registro" textWrap="true" textAlignment="center" class="medium-text black"></Label>
+			<Label text="Tu cuenta es de..." textWrap="true" textAlignment="center" class="medium-text black"></Label>
+		</FlexboxLayout>
+		
+		<Button text="Usuario" class="user-btn" (tap)="status = 'userReg'; paso = '1'; getCheckboxData();"></Button>
+		<Button text="Restaurante" class="rest-btn" (tap)="status = 'restReg'; paso = '1';"></Button>
+<<<<<<< Updated upstream
+		<Label text="" textWrap="true"></Label>
+		<Label text="-- O --" textWrap="true" textAlignment="center" class="medium-text black"></Label>
+		<Label text="" textWrap="true"></Label>
+    <Button text="Volver al inicio" class="back-btn" ></Button>
+=======
+		<Label text="" textWrap="true" class="bot-borders"></Label>
+		<Label text="O prefieres..." textWrap="true" textAlignment="center" class="medium-text black" margin="10"></Label>
+		<Label text="" textWrap="true" class="top-borders"></Label>
+    <Button text="Volver al inicio" (tap)="login()" class="back-btn" ></Button>
+>>>>>>> Stashed changes
+    
+	</StackLayout>
 </StackLayout>
+
+<!-- REGISTRO DE USUARIOS -->
+<StackLayout *ngIf="status == 'userReg'" class="principal-box bg-app">
+	<Image src="~/assets/images/logo-app.png" class="logo-registro"></Image>
+	<Label text="¡Únete ya y encuentra un nuevo sitio para encantar tu paladar🍽👅!" class="black" textAlignment="center"></Label>
+
+	<!-- PASO 1: ESCOGER FOTO DE PERFIL E INTERESES DEL USUARIO -->
+	<StackLayout *ngIf="paso == '1'">
+			
+		<GridLayout rows="85, 20, 70, 70, * auto" class="form-step3">
+			<Image src="{{ userImage }}" backgroundColor="white" stretch="aspectFill" row="0" class="profile-picture"></Image>
+			<ActivityIndicator *ngIf="isBusy == true" row="0" width="50" height="50" [busy]="isBusy" class="activity-indicator" color="orange" style="z-index: 99999;"></ActivityIndicator>
+			<Label row="2" text="Escoge algunas caracteristicas en la lista de abajo para hacernos saber que es lo que te interesa! Puedes escoger hasta un máximo de 5 caracteristicas para comenzar, luego podrás modificarlas!" textWrap="true" textAlignment="center" class="small-text white stretch"></Label>
+			<Label row="3" text="Me interesa..." class="medium-text white" textWrap="true" textAlignment="center"></Label>
+			
+			<ScrollView row="4" orientation="vertical">
+				<StackLayout orientation="vertical">
+					<StackLayout class="lista-caracteristicas white">
+						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" class="white" isEnabled="{{ CheckLimit }}" [ngClass]="{'inactive': CheckLimit == false}"></CheckBox>
+					</StackLayout>  
+				</StackLayout>
+			</ScrollView>	
+		</GridLayout>
+
+		<FlexboxLayout flexDirection="row">
+			<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'selectReg'" class="back-btn" isEnabled="{{ BtnDispo }}"></Button>
+			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" isEnabled="{{ BtnDispo }}"></Button>
+		</FlexboxLayout>
+
+	</StackLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '2'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+	</FlexboxLayout>
+
+</StackLayout>
+<!-- FIN REGISTRO DE USUARIOS -->
+
+<!-- REGISTRO DE RESTAURANTES -->
+<StackLayout *ngIf="status == 'restReg'" class="principal-box bg-app">
+	<Image src="~/assets/images/logo-app.png" class="logo-registro"></Image>
+	<Label text="¡Únete y da a conocer tu sitio de comida en la ciudad!🍔😋" class="black mt-5" textAlignment="center" *ngIf="paso == '1'"></Label>
+
+	<!-- PASO 1: RELLENAR INFORMACIÓN -->
+	<StackLayout class="formulario-registro-restaurante" *ngIf="paso == '1'">
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" class="icono">
+			<TextField hint="Nombre de comercio" [(ngModel)]="restaurante.nombre_comercio" minlength="16" maxlength="255"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout alignItems="center" class="inputs-r">
+			<img src="~/assets/images/usuario.png" class="icono">
+			<TextField hint="RIF" [(ngModel)]="restaurante.rif" keyboardType="number" minlength="9" maxlength="9"></TextField>
+		</FlexboxLayout> 
+
+		<FlexboxLayout alignItems="center" class="inputs-r" height="25%">
+			<Image src="~/assets/images/usuario.png" class="icono"></Image>
+			<TextField hint="Agrega una pequeña descricpión de tu perfil" [(ngModel)]="restaurante.descripcion" maxlength="255"></TextField>	
+		</FlexboxLayout>
+
+		<FlexboxLayout flexDirection="row" class="next-back-btn">
+			<Button flexGrow="1" text="Volver al inicio" (tap)="status = 'selectReg'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Siguiente" (tap)="processStep1();" class="next-btn" ></Button>
+		</FlexboxLayout>
+	</StackLayout>
+
+ 	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '1'">
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+	</FlexboxLayout>
+	 
+	<!-- PASO 2: ESCOGER UBICACIÓN -->
+	<StackLayout class="" *ngIf="paso == '2'">
+		<FlexboxLayout alignItems="center" alignContent="center" flexDirection="column" *ngIf="pasoMapa == 'showBtn'" class="">
+			<Label text="" textWrap="true"></Label>
+			<Label text="Escoge donde estas ubicado para que las personas sepan a donde ir!" textWrap="true" class="medium-text black" textAlignment="center"></Label>
+			<Label text="" textWrap="true" textAlignment="center"></Label>
+			<ActivityIndicator *ngIf="isBusy == true" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
+			<Image src="~/assets/images/mapa-custom-3.png" class="map-icon mt-5p"></Image>
+
+			<Button text="Escoger lugar" (tap)="pasoMapa = 'showMap'" class="map-btn"></Button>
+		</FlexboxLayout>
+			<!-- Aqui va el componente MapView del plugin nativescript-google-maps-sdk -->
+			<StackLayout class="page" *ngIf="pasoMapa == 'showMap'">
+				<FlexboxLayout class="busqueda"margin="10"
+                  androidElevation="12"
+                  backgroundColor="white">
+					<Image src="~/assets/images/mapsIcon.png" class="iconmap"></Image>
+					<SearchBar hint="Busca aquí" [text]="searchString" (clear)="onSearchBarClear($event)"  (submit)="onSubmit($event)"></SearchBar>
+				</FlexboxLayout>
+				<GridLayout class="map" >
+				  <MapView #mapView [latitude]="latitude" [longitude]="longitude"
+						   [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+						   [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+						   (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
+						   (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
+						   (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+						   (cameraChanged)="onCameraChanged($event)"
+						   (cameraMove)="onCameraMove($event)" (coordinateLongPress)="onCoordinateLongPress($event)"></MapView>
+				</GridLayout>
+				<Button text="Confirmar ubicación!" class="mapconfirmation" (tap)="Map()"></Button> 
+			  </StackLayout>
+			  
+	
+		<FlexboxLayout flexDirection="row" class="">
+			<Button flexGrow="1" text="Atrás" (tap)="paso = '1'" *ngIf="pasoMapa == 'showBtn'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Atrás" (tap)="pasoMapa = 'showBtn'" *ngIf="pasoMapa == 'showMap'" class="back-btn"></Button>
+			<Button flexGrow="1" text="Siguiente" (tap)="processStep2()" class="next-btn" ></Button>
+		</FlexboxLayout>
+		
+	</StackLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '2' && pasoMapa == 'showBtn'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+	</FlexboxLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '2' && pasoMapa == 'showMap'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+	</FlexboxLayout>
+
+	<!-- PASO 3: ESCOGER FOTO DE PERFIL Y CARACTERISTICAS -->
+	<StackLayout *ngIf="paso == '3'">
+			
+		<GridLayout rows="85, 20, 70, 70, * auto" class="form-step3">
+			<Image src="~/assets/images/buhos-foto-perfil.jpg" row="0" class="profile-picture" (tap)="choosePic()"></Image>
+			<Label row="2" text="Es hora de darle algo de estilo a tu perfil, escoge una foto de perfil y escoge las caracteristicas que representen lo que ofreces!" textWrap="true" textAlignment="center" class="small-text stretch"></Label>
+			<Label row="3" text="Lista de Caracteristicas" class="medium-text" textWrap="true" textAlignment="center"></Label>
+			<ActivityIndicator row="3" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
+			
+			<ScrollView row="4" orientation="vertical">
+				<StackLayout orientation="vertical">
+<<<<<<< Updated upstream
+					<StackLayout class="lista-caracteristicas">
+						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
+						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)"></CheckBox>
+=======
+					<StackLayout class="lista-caracteristicas white">
+						<Label text="Puedes escoger hasta un máximo de 5 caracteristicas para comenzar, luego puedes modificarlas!" textWrap="true"></Label>
+						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" isEnabled="{{ CheckLimit }}" class="white" [ngClass]="{'inactive': CheckLimit == false}"></CheckBox>
+>>>>>>> Stashed changes
+					</StackLayout>  
+				</StackLayout>
+			</ScrollView>	
+		</GridLayout>
+
+		<FlexboxLayout flexDirection="row">
+			<Button flexGrow="1" text="Atrás" (tap)="paso = '2'" class="back-btn" isEnabled="{{ BtnDispo }}"></Button>
+			<Button flexGrow="1" text="Registrarse" (tap)="register()" class="next-btn" isEnabled="{{ BtnDispo }}"></Button>
+		</FlexboxLayout>
+
+	</StackLayout>
+
+	<FlexboxLayout justifyContent="center" alignContent="center" class="step-dots" *ngIf="paso == '3'">
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-inactive"></Image>
+		<Image src="~/assets/images/orange-dot.png" class="step-active"></Image>
+	</FlexboxLayout>
+
+</StackLayout>
+<!-- FIN REGISTRO DE RESTAURANTES -->
