@@ -32,7 +32,7 @@ import { SearchResultComponent } from "./SearchResult/SearchResult.component";
 import { AuthService } from './utils/servicios/auth.service';
 import { UserService } from './utils/servicios/user.service';
 import { HelperService } from './utils/servicios/helper.service';
-import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service';
+import { homeRestaurantService } from './utils/servicios/homeRestaurant.service';
 
 @NgModule({
     bootstrap: [
@@ -57,7 +57,7 @@ import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service'
         profileReviewList,
         SearchResultComponent
     ],
-    providers: [AuthService, UserService, homeRestaurantservice, HelperService],
+    providers: [AuthService, UserService, homeRestaurantService, HelperService],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

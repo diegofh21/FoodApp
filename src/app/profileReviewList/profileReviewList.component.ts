@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from 'nativescript-angular';
-import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service";
+import { homeRestaurantService } from "../utils/servicios/homeRestaurant.service";
 import { ActivatedRoute } from "@angular/router";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import * as dialogs from "tns-core-modules/ui/dialogs";
@@ -25,7 +25,7 @@ export class profileReviewList implements OnInit {
     star4;
     star5;
 
-    constructor(private itemService: homeRestaurantservice,
+    constructor(private itemService: homeRestaurantService,
         private route: ActivatedRoute) { }
 
     ngOnInit(): void {

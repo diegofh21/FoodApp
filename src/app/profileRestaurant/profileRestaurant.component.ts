@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service";
+import { homeRestaurantService } from "../utils/servicios/homeRestaurant.service";
 import { RouterExtensions } from 'nativescript-angular';
 import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
 import { registerElement } from 'nativescript-angular/element-registry';
@@ -22,7 +22,7 @@ star4;
 star5;
 star1;
 	mapView: any;
-	constructor(private itemService: homeRestaurantservice,
+	constructor(private itemService: homeRestaurantService,
         private route: ActivatedRoute) { }
 
 	ngOnInit() {

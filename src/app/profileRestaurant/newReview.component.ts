@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from 'nativescript-angular';
-import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service";
+import { homeRestaurantService } from "../utils/servicios/homeRestaurant.service";
 import { EventData, fromObject } from "tns-core-modules/data/observable";
 import { Page } from "tns-core-modules/ui/page";
 import { ListPicker } from "tns-core-modules/ui/list-picker/list-picker";
@@ -25,7 +25,7 @@ export class newReviewComponent implements OnInit {
     starEmpty = "~/assets/images/star-empty.png";
     starFilled = "~/assets/images/star-filled.png";
     constructor(
-        private itemService: homeRestaurantservice,
+        private itemService: homeRestaurantService,
         private route: ActivatedRoute,
         private routerEx: RouterExtensions,
     ) { }
