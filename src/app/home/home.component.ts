@@ -99,14 +99,19 @@ export class HomeComponent implements OnInit {
 		alert("editar perfil")
 	}
 
+	onDelete()
+	{
+		alert("delete")
+	}
+
 	Logout() 
 	{
 		let logoutAlert = {
 			title: "FindEat",
-			message: "¿Estás seguro de cerrar sesión?❌",
-			okButtonText: "Yes",
+			message: "❌¿Estás seguro de cerrar sesión?❌",
+			okButtonText: "Si",
 			cancelButtonText: "No",
-			neutralButtonText: "Cancel"
+			cancelabe: false
 		};
 	
 		confirm(logoutAlert).then(() => 
@@ -120,14 +125,16 @@ export class HomeComponent implements OnInit {
 	getFeedList()
 	{
 		this.RestaurantService.getProfiles().subscribe((resp: any) => {
-			console.log("resp para getProfiles es:", resp)
+			// console.log("resp para getProfiles es:", resp)
 			this.feedList = resp;
 		});
 	}
-	getUserInfo(id) {
+
+	getUserInfo(id) 
+	{
 		this.userService.getUserInfo(id).subscribe((resp: any) => {
 
-			console.log("resp esssssssss", JSON.stringify(resp));
+			// console.log("resp esssssssssss", JSON.stringify(resp));
 
 			// Se guarda la data en el servicio
 			this.userService.Datos_Usuario.id = this.id;
@@ -144,6 +151,7 @@ export class HomeComponent implements OnInit {
 				this.home_actual = this.home_filled;
 				this.search_actual = this.search_empty;
 				this.account_actual = this.account_empty;
+				this.getFeedList();
 				this.status = '';
 				break;
 			}
@@ -160,6 +168,8 @@ export class HomeComponent implements OnInit {
 				this.home_actual = this.home_empty;
 				this.search_actual = this.search_empty;
 				this.account_actual = this.account_filled;
+				// Se llama en caso de que se actualicen algunos datos, igual cuando se vaya a modificar algo se tiene que llamar este metodo obligatoriamente para poder actualizar los datos mostrados en pantalla
+				this.getUserInfo(this.id);
 				this.status = 'profile';
 				break;
 			}

@@ -204,14 +204,13 @@ export class RegisterComponent implements OnInit
 						alert(regAlert).then(() => {
 							setTimeout(() => {
 								let caracteristicasRestaurante = {
-									userID: this.restaurante.id,
-									caracteristicasID: Caracteristicas,
-									typeUser: this.restaurante.type
+									userID: this.cliente.id,
+									caracteristicasID: Caracteristicas
 								};
 	
 								this.userService.storeCaracteristicas(caracteristicasRestaurante).subscribe((resp: any) => 
 								{
-									console.log("caracteristicas registradas bajo el id:", caracteristicasRestaurante.userID);
+									console.log("caracteristicas registradas bajoo el id:", caracteristicasRestaurante.userID);
 									if(caracteristicasRestaurante.userID != null || undefined)
 									{
 										// Guardamos las caracteristicas en el servicio (caché)
@@ -436,10 +435,10 @@ export class RegisterComponent implements OnInit
 
 		if(this.CheckCount < 5)
 		{
-			this.CheckCount++;
-			console.log("checkcount", this.CheckCount);
 			if(event.value == true)
 			{
+				this.CheckCount++;
+				console.log("checkcount", this.CheckCount);
 				this.checkboxData[id-1].select = true
 				console.log("checkboxdata completo", this.checkboxData[id-1]);
 			}
@@ -583,7 +582,7 @@ export class RegisterComponent implements OnInit
 		marker.title = nombre_restaurante;
 		marker.snippet = latitud + ", " + longitud;
 		this.mapView.addMarker(marker);
-		this.zoom = 18;
+		this.zoom = 14;
 	}
 
 }

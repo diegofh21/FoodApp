@@ -130,32 +130,12 @@ padding-bottom: 5;
   color: black;
 }
 
-.page
-{
-  background-color: white;
-}
-
-.page2
-{
-  background-color: whitesmoke;
-}
-
-.page3
-{
-  background-color: beige;
-}
-
-.opt-btn
-{
-  background: rgb(255, 123, 0);
-}
-
 .carac{
   color: white;
-
+  vertical-align: middle;
   font-size: 18;
   background-color: rgb(17, 115, 226);
-  padding: 2,4;
+  padding: 4, 4;
   margin: 2, 5;
   border-radius: 4;
 }
@@ -236,4 +216,40 @@ height: 30%;
 .bold
 {
   font-weight: bold;
+}
+
+.float-btn-cancel
+{
+  background: #cc0000;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+  margin-top: 7%;
+  margin-left: 65%;
+}
+
+.float-btn-confirm
+{
+  background: #00cc00;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+  margin-top: 7%;
+  margin-left: 5%;
+}
+
+.float-btn:active
+{
+  background: blue;
+}
+
+.float-btn-text
+{
+  color: #fff;
+  font-size: 36px;
+  padding-bottom: 5%;
 }

@@ -6,10 +6,13 @@
       ios.systemIcon="2" ios.position="left"
       android.systemIcon="ic_menu_edit" 
       android.position="actionBar"></ActionItem>
-  <!-- <ActionItem (tap)="onDelete()"
+  <ActionItem *ngIf="status == 'profile'" (tap)="onDelete()"
       ios.systemIcon="16" ios.position="right"
-      text="delete" android.position="popup"></ActionItem>
-  <ActionItem *ngIf="ProfileOpt == true" ios.position="right" ios.position="right" class="opt-btn">
+      text="📋 Modificar nombre" android.position="popup"></ActionItem>
+    <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'"
+    ios.systemIcon="16" ios.position="right"
+    text="📝 Modificar caracteristicas" android.position="popup"></ActionItem>
+  <!-- <ActionItem *ngIf="ProfileOpt == true" ios.position="right" ios.position="right" class="opt-btn">
     <!-- <Button class="opt-btn black-text" text="Opciones"></Button> -->
     <!-- <Image src="~/assets/images/icons8-edit-24.png" (tap)="editProfile()"></Image>  -->
   <!-- </ActionItem> -->
@@ -39,11 +42,9 @@
     <GridLayout class="page">
       <ScrollView>
       <StackLayout alignItems="center" justifyContent="center">
-      <!-- <Label text="Recomendaciones para ti..." class="h3 text-center black-text"></Label>
-      <Button text="Logout" (tap)="Logout()" class="btn btn-primary btn-active"></Button> -->
         
       <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.id)">
-        <Image src="http://192.168.1.150:8000/api/storage/{{ profile.ruta }}" class="cardImg"></Image>
+        <Image src="https://www.arpicstudios.com/storage/{{ profile.ruta }}" class="cardImg"></Image>
         <StackLayout class="card-Text">
         <Label class="card-title" text="{{ profile.name }}"></Label>
         <Label  textWrap="true" class="card-info" text="{{ profile.descripcion }}"></Label>
@@ -105,26 +106,63 @@
   </TabContentItem>
 
   <TabContentItem>
-      <StackLayout class="page3">
+    <AbsoluteLayout class="page3">
+
+        <StackLayout *ngIf="status == 'profile'" width="100%" height="100%">
+            <StackLayout flexDirection="column" justifyContent="center" alignContent="center" alignItems="center">
+              <TextField [hint]="dataUser.name" [(ngModel)]="dataUser.name" minlength="2" maxlength="60" [editable]="isEditable" class="h2 name-field text-center"></TextField>
+              <Image src="{{ userPicture }}" class="img-header"   
+              margin="7"
+              androidElevation="12"></Image>
+              <Label text="{{ dataUser.email }}" class="h3 black-text" margin="10" textAlignment="center"></Label>
+            </StackLayout>
+
+            <FlexboxLayout width="100%" flexDirection="column" left="80" top="80">
+              <Label text="Mis intereses" textWrap="true" textAlignment="center" class="h2 bold"></Label>
+            </FlexboxLayout>
+
+            <FlexboxLayout flexWrap="wrap" class="flexstars" alignItems="center" justifyContent="center" width="100%" height="100%">
+              <Label *ngFor="let data of dataUser.caracteristicas" [text]="data.name" class="carac" width="100%" textAlignment="center" height="17%"></Label> 
+            </FlexboxLayout>
+
+            
+        </StackLayout>
+
+        <StackLayout *ngIf="status == 'editCaracteristicas'">
+          
+          <GridLayout rows="* auto">
+            <ScrollView row="0" orientation="vertical">
+              <StackLayout orientation="vertical">
+                <StackLayout class="lista-caracteristicas white">
+                  <ActivityIndicator row="3" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
+                  <Label text="¡Puedes escoger hasta un máximo de 5 caracteristicas!" textWrap="true"></Label>
+                  <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black"></CheckBox>
+                </StackLayout>  
+              </StackLayout>
+            </ScrollView>
+          </GridLayout>
+          <StackLayout orientation="horizontal" height="100%">
+            <StackLayout class="float-btn-cancel" (tap)="onDelete()" androidElevation="12">
+              <Label text="✖" class="float-btn-text" textWrap="true"></Label>
+            </StackLayout>
+
+            <StackLayout class="float-btn-confirm" (tap)="onDelete()" androidElevation="12">
+                <Label text="✔" class="float-btn-text" textWrap="true"></Label>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+
+    </AbsoluteLayout>
+      <!-- <StackLayout class="page3">
         <StackLayout *ngIf="status == 'profile'">
 
           <StackLayout justifyContent="center" alignContent="center">
-            <Label text="{{ dataUser.name }}" class="h2 black-text" margin="10" textAlignment="center"></Label>
+            <TextField [hint]="dataUser.name" [(ngModel)]="dataUser.name" minlength="2" maxlength="60" [editable]="isEditable" class="h3 name-field text-center"></TextField>
             <Image src="{{ userPicture }}" class="img-header"   
             margin="7"
             androidElevation="12"></Image>
             <Label text="{{ dataUser.email }}" class="h3 black-text" margin="10" textAlignment="center"></Label>
           </StackLayout>
-
-          <!-- <Stacklayout width="90%" orientation="horizontal">
-            <Label text="Emaill:" textWrap="true" class="h3 push-top"></Label>
-            <TextField [hint]="dataUser.email" [(ngModel)]="dataUser.email" editable="false" class="h3 email-field"></TextField>
-          </Stacklayout> -->
-
-          <!-- <Stacklayout width="90%" orientation="horizontal">
-            <Label text="Nombre:" textWrap="true" class="h3 push-top"></Label>
-            <TextField [hint]="dataUser.name" [(ngModel)]="dataUser.name" minlength="2" maxlength="60" [editable]="isEditable" class="h3 name-field"></TextField>
-          </Stacklayout> -->
 
           <FlexboxLayout width="100%" flexDirection="column">
             <Label text="Mis interesees" textWrap="true" class="h3" style="margin-left:3%;"></Label>
@@ -143,7 +181,7 @@
               <StackLayout orientation="vertical">
                 <StackLayout class="lista-caracteristicas white">
                   <ActivityIndicator row="3" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
-                  <!-- <Label text="Puedes escoger hasta un máximo de 5 caracteristicas para comenzar, luego puedes modificarlas!" textWrap="true"></Label> -->
+                  <Label text="¡Puedes escoger hasta un máximo de 5 caracteristicas!" textWrap="true"></Label>
                   <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black"></CheckBox>
                 </StackLayout>  
               </StackLayout>
@@ -155,7 +193,7 @@
             <Button flexGrow="1" text="Guardar cambios" class="next-btn" isEnabled="{{ BtnDispo }}"></Button>
           </FlexboxLayout>
         </StackLayout>
-      </StackLayout>
+      </StackLayout> -->
   </TabContentItem>
 
 </BottomNavigation>
