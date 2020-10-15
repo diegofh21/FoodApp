@@ -3,7 +3,7 @@ import { RouterExtensions } from 'nativescript-angular';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../utils/servicios/auth.service';
 import { HelperService } from '../utils/servicios/helper.service'
-import { alert, AlertOptions, confirm } from "tns-core-modules/ui/dialogs";
+import { alert, AlertOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 import * as Geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
 import { NgZone } from "@angular/core";
@@ -24,10 +24,11 @@ import { timer } from 'rxjs';
 export class HomeComponent implements OnInit {
 	
 	public id: number;
-	public status: 'profile' | 'editCaracteristicas' | '' = '';
+	public status: 'profile' | 'editCaracteristicas' | 'home' | 'search' = 'home';
 	public isBusy: boolean = false;
-	public CheckCount: number;
-	public CheckLimit: boolean;
+	public BtnDispo: boolean = true;
+	public CheckCount: number = 0;
+	public CheckLimit: boolean = true;
 
 	public searchString = '';
 	public latitude: number;
@@ -106,19 +107,23 @@ export class HomeComponent implements OnInit {
 
 	Logout() 
 	{
-		let logoutAlert = {
+		const logoutAlert: ConfirmOptions = {
 			title: "FindEat",
 			message: "❌¿Estás seguro de cerrar sesión?❌",
 			okButtonText: "Si",
 			cancelButtonText: "No",
-			cancelabe: false
+			cancelable: false
 		};
 	
-		confirm(logoutAlert).then(() => 
+		confirm(logoutAlert).then((result) => 
 		{
-			this.authService.tnsOauthLogout().then(() => {
-				this.routerEx.back();
-			}).catch(err => console.log("Error: " + err));
+			if(result == true)
+			{
+				console.log("logout es", result);
+				this.authService.tnsOauthLogout().then(() => {
+					this.routerEx.back();
+				}).catch(err => console.log("Error: " + err));
+			}			
 		});
 	}
 
@@ -152,7 +157,7 @@ export class HomeComponent implements OnInit {
 				this.search_actual = this.search_empty;
 				this.account_actual = this.account_empty;
 				this.getFeedList();
-				this.status = '';
+				this.status = 'home';
 				break;
 			}
 
@@ -160,7 +165,7 @@ export class HomeComponent implements OnInit {
 				this.home_actual = this.home_empty;
 				this.search_actual = this.search_filled;
 				this.account_actual = this.account_empty;
-				this.status = '';
+				this.status = 'search';
 				break;
 			}
 
@@ -260,6 +265,76 @@ export class HomeComponent implements OnInit {
 				});
 			}
 		}
+	}
+
+	cancelUpdate()
+	{
+		const cancelAlert: ConfirmOptions = {
+			title: "FindEat",
+			message: "¿Deseas cancelar el proceso?",
+			okButtonText: "Si",
+			cancelButtonText: "No",
+			cancelable: false
+		};
+	
+		confirm(cancelAlert).then((result) => 
+		{
+			if(result == true)
+			{
+				this.status = 'profile';
+				this.CheckCount = 0;
+			}
+		});
+	}
+
+	updateCaracteristicas()
+	{
+		this.isBusy = true;
+		this.BtnDispo = false;
+		this.CheckCount = 0;
+
+		const updateAlert: AlertOptions = {
+			title: 'FindEat',
+			message: 'Actualizando tus intereses, espera un momento por favor⏳.',
+			okButtonText: 'Entendido',
+			cancelable: false
+		}
+
+		alert(updateAlert).then(() => {
+
+			var Caracteristicas = this.checkboxData.filter(e => e.select === true);
+
+			let caracteristicasUsuario = {
+				userID: this.id,
+				caracteristicasID: Caracteristicas
+			};
+
+			console.log("caracteristicas", caracteristicasUsuario);
+
+			this.userService.storeCaracteristicas(caracteristicasUsuario).subscribe((resp: any) => {
+				console.log("caracteristicas de usuario registradas bajo el id:", caracteristicasUsuario.userID);
+
+				if(caracteristicasUsuario.userID != null || undefined)
+				{
+					// Guardamos las caracteristicas en el servicio (caché)
+					this.userService.Datos_Usuario.caracteristicas = Caracteristicas;
+					const updateAlert: AlertOptions = 
+					{
+						title: "FindEat",
+						message: "¡Intereses actualizados!\nA continuación vas a ser redireccionado a tu perfil.",
+						okButtonText: "¡Gracias!",
+						cancelable: false
+					}
+
+					alert(updateAlert).then(() => {
+						this.isBusy = false;
+						this.BtnDispo = true;
+						this.getUserInfo(this.id);
+						this.status = 'profile';
+					})
+				}
+			});
+		});
 	}
 
 	private getDeviceLocation(): Promise<any> {

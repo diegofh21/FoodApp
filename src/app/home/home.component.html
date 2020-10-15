@@ -1,45 +1,50 @@
-<ActionBar icon="" class="" style="background: rgb(255, 123, 0);">
-  <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="Logout()" class="black-text">
+<ActionBar title="" style="background: rgb(255, 123, 0);">
+  <!-- NAV BUTTON EN HOME PREGUNTA SI SE QUIERE DESLOGUEAR -->
+  <NavigationButton text="Salir" *ngIf="status == 'home'" android.systemIcon="ic_menu_back" (tap)="Logout()" class="black-text" isEnabled="{{ BtnDispo }}">
   </NavigationButton>
-  <Label text="Inicio" position="center" class="medium-text black-text" textWrap="true"></Label>
-  <ActionItem *ngIf="status == 'profile'" (tap)="editProfile()"
-      ios.systemIcon="2" ios.position="left"
-      android.systemIcon="ic_menu_edit" 
-      android.position="actionBar"></ActionItem>
-  <ActionItem *ngIf="status == 'profile'" (tap)="onDelete()"
+  <!-- NAV BUTTON EN SEARCH TE DEVUELVE A HOME -->
+  <!-- <NavigationButton text="Atrás" *ngIf="status == 'search'" android.systemIcon="ic_menu_back" (tap)="switchView('home')" class="black-text" isEnabled="{{ BtnDispo }}">
+  </NavigationButton> -->
+  <!-- NAV BUTTON EN PROFILE TE DEVUELVE A HOME -->
+  <!-- <NavigationButton text="Atrás" *ngIf="status == 'profile'" android.systemIcon="ic_menu_back" (tap)="switchView('home'); getFeedList()" class="black-text" isEnabled="{{ BtnDispo }}">
+  </NavigationButton> -->
+
+  <Label text="Inicio" *ngIf="status == 'home'" position="center" class="h2 bold black-text" textWrap="true"></Label>
+
+  <Label text="Busqueda"  *ngIf="status == 'search'" position="center" class="h2 bold black-text" textWrap="true"></Label>
+
+  <Label text="Perfil"  *ngIf="status == 'profile'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
+
+  <ActionItem *ngIf="status == 'profile'"
       ios.systemIcon="16" ios.position="right"
-      text="📋 Modificar nombre" android.position="popup"></ActionItem>
+      text="📋 Modificar nombre" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
     <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'"
     ios.systemIcon="16" ios.position="right"
-    text="📝 Modificar caracteristicas" android.position="popup"></ActionItem>
-  <!-- <ActionItem *ngIf="ProfileOpt == true" ios.position="right" ios.position="right" class="opt-btn">
-    <!-- <Button class="opt-btn black-text" text="Opciones"></Button> -->
-    <!-- <Image src="~/assets/images/icons8-edit-24.png" (tap)="editProfile()"></Image>  -->
-  <!-- </ActionItem> -->
+    text="📝 Modificar intereses" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
 </ActionBar>
 
 <BottomNavigation selectedIndex="0">
 
   <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
   <TabStrip>
-    <TabStripItem (tap)="switchView('home')" class="home black-text" style="background: rgb(255, 123, 0);">
+    <TabStripItem (tap)="switchView('home')" isEnabled="{{ BtnDispo }}" class="home black-text" style="background: rgb(255, 123, 0);">
 
       <Image [src]="home_actual" class="icono"></Image>
     </TabStripItem>
 
-    <TabStripItem (tap)="switchView('search')" class="special black-text" style="background: rgb(255, 123, 0);">
+    <TabStripItem (tap)="switchView('search')" isEnabled="{{ BtnDispo }}" class="special black-text" style="background: rgb(255, 123, 0);">
 
       <Image [src]="search_actual" class="icono"></Image>
     </TabStripItem>
 
-    <TabStripItem (tap)="switchView('account')" class="special black-text" style="background: rgb(255, 123, 0);">
+    <TabStripItem (tap)="switchView('account')" isEnabled="{{ BtnDispo }}" class="special black-text" style="background: rgb(255, 123, 0);">
       <Image [src]="account_actual" class="icono"></Image>
     </TabStripItem>
   </TabStrip>
 
   <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
   <TabContentItem>
-    <GridLayout class="page">
+    <GridLayout class="page" *ngIf="status == 'home'">
       <ScrollView>
       <StackLayout alignItems="center" justifyContent="center">
         
@@ -59,7 +64,7 @@
   </TabContentItem>
 
   <TabContentItem>
-    <GridLayout class="page2">
+    <GridLayout class="page2" *ngIf="status == 'search'">
       <StackLayout>
         <FlexboxLayout height="7%">
           <FlexboxLayout class="searchbuttons" (tap)="switchSearch('tag')">
@@ -128,29 +133,49 @@
             
         </StackLayout>
 
-        <StackLayout *ngIf="status == 'editCaracteristicas'">
-          
-          <GridLayout rows="* auto">
-            <ScrollView row="0" orientation="vertical">
-              <StackLayout orientation="vertical">
-                <StackLayout class="lista-caracteristicas white">
-                  <ActivityIndicator row="3" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
-                  <Label text="¡Puedes escoger hasta un máximo de 5 caracteristicas!" textWrap="true"></Label>
-                  <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black"></CheckBox>
-                </StackLayout>  
+        <ScrollView *ngIf="status == 'editCaracteristicas'" height="100%" width="100%">
+          <StackLayout>
+            <StackLayout width="100%" class="h3">
+              <Label text="Intereses (Recuerda que puedes escoger hasta un máximo de 5 intereses😋)" textAlignment="center" class="bold h3" color="black" textWrap="true"></Label>
+              <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black" class="h3" isEnabled="{{ CheckLimit }}"></CheckBox>
+
+              <StackLayout orientation="horizontal">
+                <StackLayout class="float-btn-cancel" (tap)="cancelUpdate()" androidElevation="12">
+                  <Label text="✖" class="float-btn-text" textWrap="true"></Label>
+                </StackLayout>
+                <StackLayout class="float-btn-confirm" (tap)="updateCaracteristicas()" androidElevation="12">
+                    <Label text="✔" class="float-btn-text" textWrap="true"></Label>
+                </StackLayout>
               </StackLayout>
-            </ScrollView>
-          </GridLayout>
-          <StackLayout orientation="horizontal" height="100%">
-            <StackLayout class="float-btn-cancel" (tap)="onDelete()" androidElevation="12">
+
+            </StackLayout>
+          </StackLayout>
+          
+        </ScrollView>
+        <!-- <StackLayout *ngIf="status == 'editCaracteristicas'"> -->
+          
+          <!-- <GridLayout rows="* auto" *ngIf="status == 'editCaracteristicas'"> -->
+            <!-- <ScrollView orientation="vertical" *ngIf="status == 'editCaracteristicas'">
+              <Label text="Caracteristicas" textAlignment="center" class="bold h3" color="black" textWrap="true"></Label>
+              <StackLayout orientation="vertical"> -->
+                <!-- <StackLayout class="lista-caracteristicas white h3"> -->
+                  <!-- <ActivityIndicator *ngIf="isBusy == true" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
+                  <Label text="¡Puedes escoger hassta un máximo de 5 caracteristicas!" textWrap="true"></Label>
+                  <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black" class="h3"></CheckBox> -->
+                <!-- </StackLayout> -->
+              <!-- </StackLayout>
+            </ScrollView> -->
+          <!-- </GridLayout> -->
+          <!-- <StackLayout orientation="horizontal" height="100%">
+            <StackLayout class="float-btn-cancel" (tap)="status == 'profile'" androidElevation="12">
               <Label text="✖" class="float-btn-text" textWrap="true"></Label>
             </StackLayout>
 
-            <StackLayout class="float-btn-confirm" (tap)="onDelete()" androidElevation="12">
+            <StackLayout class="float-btn-confirm" (tap)="updateCaracteristicas()" androidElevation="12">
                 <Label text="✔" class="float-btn-text" textWrap="true"></Label>
             </StackLayout>
-          </StackLayout>
-        </StackLayout>
+          </StackLayout> -->
+        <!-- </StackLayout> -->
 
     </AbsoluteLayout>
       <!-- <StackLayout class="page3">
