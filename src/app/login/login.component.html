@@ -7,17 +7,18 @@
 			<Label text="Inicia sesión o registrate usando tus redes sociales" textWrap="true" textAlignment="center" class="black medium-text"></Label>
 			<Label text="" textWrap="true"></Label>
 			<Label text="" textWrap="true"></Label>
-			<FlexboxLayout class="sign-in-button border-google" flexDirection="row" androidElevation="3" backgroundColor="white" justifyContent="center" (tap)="google()">
+			<FlexboxLayout class="sign-in-button border-google" flexDirection="row" androidElevation="3" backgroundColor="white" justifyContent="center" (tap)="google()" isEnabled="{{ BtnDispo }}">
 				<Image src="~/assets/images/google-logo.png" backgroundColor="transparent" alt="google-btn" class="sign-in-img" alignItem="flex-start"></Image>	
 				<Label flexGrow="1" text="Inicia con Google" textWrap="true" class="big-text sign-in-label label-google" textAlignment="center"></Label>				
 			</FlexboxLayout>
 			<Label text="" textWrap="true"></Label>
-			<Label text="-- O --" textWrap="true" class="medium-text"></Label>
+			<ActivityIndicator width="100" height="100" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
+			<!-- <Label text="-- O --" textWrap="true" class="medium-text"></Label>
 			<Label text="" textWrap="true"></Label>
 			<FlexboxLayout class="sign-in-button border-fb" flexDirection="row" androidElevation="3" backgroundColor="white" justifyContent="center" (tap)="Facebook()">
 				<Image src="~/assets/images/facebook-logo.png" backgroundColor="transparent" alt="google-btn" class="sign-in-img" alignItem="flex-start"></Image>	
 				<Label flexGrow="1" text="Inicia con Facebook" textWrap="true" class="big-text sign-in-label label-fb" textAlignment="center"></Label>				
-			</FlexboxLayout>
+			</FlexboxLayout> -->
 		</FlexboxLayout>
 	</StackLayout>
 

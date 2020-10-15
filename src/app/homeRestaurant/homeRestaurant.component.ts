@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from 'nativescript-angular';
 import { Item } from "./item";
 import { AuthService } from '../utils/servicios/auth.service';
-import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service";
+import { homeRestaurantService } from "../utils/servicios/homeRestaurant.service";
 import { ActivatedRoute } from "@angular/router";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import * as dialogs from "tns-core-modules/ui/dialogs";
@@ -49,7 +49,7 @@ export class homeRestaurantComponent implements OnInit {
   account_filled = "~/assets/images/user_config_filled.png";
 
 
-  constructor(private routerEx: RouterExtensions, private authService: AuthService, private itemService: homeRestaurantservice,
+  constructor(private routerEx: RouterExtensions, private authService: AuthService, private itemService: homeRestaurantService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {

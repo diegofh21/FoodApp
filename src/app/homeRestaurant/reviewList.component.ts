@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { Item } from "./item";
-import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service";
+import { homeRestaurantService } from "../utils/servicios/homeRestaurant.service";
 import { EventData, fromObject } from "tns-core-modules/data/observable";
 import { Page } from "tns-core-modules/ui/page";
 import { ListPicker } from "tns-core-modules/ui/list-picker/list-picker";
@@ -25,7 +25,7 @@ export class reviewListComponent implements OnInit {
 
 
     constructor(
-        private itemService: homeRestaurantservice,
+        private itemService: homeRestaurantService,
         private route: ActivatedRoute
     ) { }
 

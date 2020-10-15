@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { homeRestaurantservice } from "../utils/servicios/homeRestaurant.service";
+import { homeRestaurantService } from "../utils/servicios/homeRestaurant.service";
 import { RouterExtensions } from 'nativescript-angular';
 import {HelperService} from '../utils/servicios/helper.service'
 import * as utils from "tns-core-modules/utils/utils";
@@ -28,7 +28,7 @@ star3;
 star4;
 star5;
 star1;
-activeModal = false;
+
 
 	constructor(private Helper: HelperService, private UserService: UserService,
         private route: ActivatedRoute, private routerEx: RouterExtensions ) { }

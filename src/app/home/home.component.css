@@ -182,8 +182,10 @@ height: 30%;
 }
 
 
-.img-header{
+.img-header
+{
   width: 30%;
+  /* height: 40%; */
   border-radius: 100%;
   margin-top: 3%;
 }
@@ -210,4 +212,28 @@ height: 30%;
   align-items: center;
   align-content: center;
   text-align: center;
+}
+
+.push-top
+{
+  margin-top: 4%;
+}
+
+.name-field
+{
+  border-bottom-width: 0;
+  font-weight: bold;
+  width: 70%;
+}
+
+.email-field
+{
+  border-bottom-width: 0;
+  font-weight: bold;
+  margin-top: 2%;
+}
+
+.bold
+{
+  font-weight: bold;
 }

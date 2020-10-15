@@ -41,20 +41,10 @@ export class LoginComponent implements OnInit
 		this.page.actionBarHidden = true;
 		console.log("La aplicación inicio y estas sincronizado.");	
 	}
-
-	foto()
-	{
-		this.routerEx.navigate(['/fotoPrueba']);
-	}
-
-	registro()
-	{
-		this.routerEx.navigate(['/register', 1])
-	}
 	
 	login()
 	{
-		this.routerEx.navigate(['/home'], {
+		this.routerEx.navigate(['/home', 15], {
 			animated: true,
 			transition:
 			{
@@ -66,7 +56,7 @@ export class LoginComponent implements OnInit
 	}
 
 	loginrestaurante() {
-		this.routerEx.navigate(['homeRestaurant/', 2], {
+		this.routerEx.navigate(['/homeRestaurant', 16], {
 			animated: true,
 			transition:
 			{
@@ -80,21 +70,24 @@ export class LoginComponent implements OnInit
 	// INICIO DE SESIÓN CON GOOGLE 
 	google()
 	{
+		this.isBusy = true;
+		this.BtnDispo = false;
 		this.authService.tnsOauthLogin('google').then((tokenResult) => 
 		{
 			this.userService.login(tokenResult).subscribe((resp: any) => {
 				
 				console.log("id:", resp.id);
-				console.log("email:", resp.email);
-				console.log("nombre:", resp.name);
+				console.log("nombre", resp.name)
 				console.log("typeUser:", resp.typeUser);
+
+				var userID = resp.id;
 
 				switch (resp.typeUser) 
 				{
 					case 'USUARIO':
 
 						setTimeout(() => {
-							this.routerEx.navigate(['home']), {
+							this.routerEx.navigate(['home', userID]), {
 								animated: true,
 								transition:
 								{
@@ -103,12 +96,14 @@ export class LoginComponent implements OnInit
 									curve: 'linear'
 								}
 							}
-						}, 1000)
+						}, 1000);
+						this.isBusy = true;
+						this.BtnDispo = false;
 						break;
 
 					case 'RESTAURANTE':
 						setTimeout(() => {
-							this.routerEx.navigate(['homeRestaurant']), {
+							this.routerEx.navigate(['homeRestaurant', userID]), {
 								animated: true,
 								transition:
 								{
@@ -117,12 +112,14 @@ export class LoginComponent implements OnInit
 									curve: 'linear'
 								}
 							}
-						});
+						}, 1000);
+						this.isBusy = true;
+						this.BtnDispo = false;
 						break;
 
 					case null:
 						// NULL ES IGUAL A QUE NO ESTA REGISTRADO
-						var userID = resp.id;
+						
 						setTimeout(() => {
 							console.log("entre en el timeout");
 							this.routerEx.navigate(['/register', userID], {
@@ -135,10 +132,16 @@ export class LoginComponent implements OnInit
 								}
 							});
 						}, 1000); // 1 Segundo de Timeout al volver antes de irse a la pantalla de registro
+						this.isBusy = true;
+						this.BtnDispo = false;
 						break;
 				}
 			}); //authService.login()
-		}).catch(err => console.error("Error" + err));	//authService.tnsOauthLogin(google)	
+		}).catch(err => {
+			this.isBusy = true;
+			this.BtnDispo = false;
+			alert("Error" + err)
+		});	//authService.tnsOauthLogin(google)	
 	}
 
 	// INICIO DE SESIÓN CON FACEBOOK (FALTA RUTA PARA OBTENER LOS DATOS)

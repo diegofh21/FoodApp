@@ -1,13 +1,17 @@
 import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { Item } from "../../homeRestaurant/item";
+import { Config } from "../config";
 
 @Injectable({
     providedIn: "root"
 })
-export class homeRestaurantservice {
+export class homeRestaurantService {
   //suponiendo que el array items es la respuesta de nuestra consulta a la base de datos 
   // intereses serían por ejemplo (hamburguesas y comida italiana), se devuelve este array
+
+  constructor(private http: HttpClient) {}
+
   private items = [
     {
         id: 1,
@@ -219,8 +223,11 @@ private  reviews = [
   }];
 
   
-getProfiles() {
-    return this.items;
+getProfiles() 
+{
+  return this.http.get(
+    Config.apiUrl + '/registrar'
+  );
 }
 
 getUsers(userID){
