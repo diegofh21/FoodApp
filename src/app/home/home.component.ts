@@ -24,7 +24,7 @@ import { timer } from 'rxjs';
 export class HomeComponent implements OnInit {
 	
 	public id: number;
-	public status: 'profile' | 'editCaracteristicas' | 'home' | 'search' = 'home';
+	public status: 'home' | 'search' | 'profile' | 'editCaracteristicas' | 'loading' = 'home';
 	public isBusy: boolean = false;
 	public BtnDispo: boolean = true;
 	public CheckCount: number = 0;
@@ -156,8 +156,11 @@ export class HomeComponent implements OnInit {
 				this.home_actual = this.home_filled;
 				this.search_actual = this.search_empty;
 				this.account_actual = this.account_empty;
+				this.status = 'loading';
 				this.getFeedList();
-				this.status = 'home';
+				setTimeout(() => {
+					this.status = 'home';
+				}, 1000);
 				break;
 			}
 
@@ -165,7 +168,10 @@ export class HomeComponent implements OnInit {
 				this.home_actual = this.home_empty;
 				this.search_actual = this.search_filled;
 				this.account_actual = this.account_empty;
-				this.status = 'search';
+				this.status = 'loading';
+				setTimeout(() => {
+					this.status = 'search';
+				}, 1000);
 				break;
 			}
 
@@ -174,8 +180,11 @@ export class HomeComponent implements OnInit {
 				this.search_actual = this.search_empty;
 				this.account_actual = this.account_filled;
 				// Se llama en caso de que se actualicen algunos datos, igual cuando se vaya a modificar algo se tiene que llamar este metodo obligatoriamente para poder actualizar los datos mostrados en pantalla
+				this.status = 'loading';
 				this.getUserInfo(this.id);
-				this.status = 'profile';
+				setTimeout(() => {
+					this.status = 'profile';
+				}, 1000);
 				break;
 			}
 		}
@@ -269,6 +278,7 @@ export class HomeComponent implements OnInit {
 
 	cancelUpdate()
 	{
+		this.status = 'loading';
 		const cancelAlert: ConfirmOptions = {
 			title: "FindEat",
 			message: "¿Deseas cancelar el proceso?",
@@ -291,6 +301,7 @@ export class HomeComponent implements OnInit {
 	{
 		this.isBusy = true;
 		this.BtnDispo = false;
+		this.CheckLimit = true;
 		this.CheckCount = 0;
 
 		const updateAlert: AlertOptions = {
@@ -301,7 +312,7 @@ export class HomeComponent implements OnInit {
 		}
 
 		alert(updateAlert).then(() => {
-
+			this.status = 'loading';
 			var Caracteristicas = this.checkboxData.filter(e => e.select === true);
 
 			let caracteristicasUsuario = {

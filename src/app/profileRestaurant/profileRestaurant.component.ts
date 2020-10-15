@@ -29,6 +29,8 @@ star4;
 star5;
 star1;
 
+public status: 'profile' | 'loading' = 'loading';
+
 
 	constructor(private Helper: HelperService, private UserService: UserService,
         private route: ActivatedRoute, private routerEx: RouterExtensions ) { }
@@ -36,6 +38,7 @@ star1;
 	ngOnInit() {
 		this.id = +this.route.snapshot.params.id;
 		console.log("se pedirán los datos")
+		this.status = 'loading';
 		this.loadData(this.id);
 		this.reviews = "";//aqui se pondrá la solicitud de todas las reviews de el restaurante actual
 		this.star0 = "~/assets/images/0star.png"
@@ -83,6 +86,7 @@ star1;
 			this.longitude = this.profile.longitud;
 			console.log("se cambió la ubicación a: [" + this.latitude + "," + this.longitude + "]")
 			this.zoom = 18;
+			this.status = 'profile'
 		});
 	  }
 	  
@@ -197,5 +201,17 @@ star1;
 
 	}
 	
+	backHome()
+	{
+		this.routerEx.navigate(['/home', this.UserService.Datos_Usuario.id], {
+			animated: true,
+			transition:
+			{
+				name: 'fade',
+				duration: 250,
+				curve: 'linear'
+			}
+		});
+	}
   
 }

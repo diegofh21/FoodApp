@@ -85,7 +85,7 @@ margin: 15 0 2 0;
 
 .searchbuttons{
   width: 40%;
-  margin: 0 5%;
+  margin: 2% 5%;
   height: 35;
   justify-content: space-between;
   padding-left: 5%;
@@ -96,7 +96,10 @@ margin: 15 0 2 0;
   border-radius: 100%;
 }
 
-
+.push-btn
+{
+  margin-top: 2%;
+}
 
 .card-info{
 font-size: 14;
@@ -252,4 +255,29 @@ height: 30%;
   color: #fff;
   font-size: 36px;
   padding-bottom: 5%;
+}
+
+.loading-background
+{
+  background:rgba(0, 0, 0, 0.4);
+}
+
+.round
+{
+  border-radius: 100%;
+}
+
+.loading
+{
+  margin-top: 50%;
+}
+
+.buscarIntereses-btn
+{
+  background: rgb(255, 123, 0);
+  color: black;
+  font-weight: bold;
+  width: 150px;
+  height: 100px;
+  border-radius: 100%;
 }

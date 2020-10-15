@@ -2,18 +2,16 @@
   <!-- NAV BUTTON EN HOME PREGUNTA SI SE QUIERE DESLOGUEAR -->
   <NavigationButton text="Salir" *ngIf="status == 'home'" android.systemIcon="ic_menu_back" (tap)="Logout()" class="black-text" isEnabled="{{ BtnDispo }}">
   </NavigationButton>
-  <!-- NAV BUTTON EN SEARCH TE DEVUELVE A HOME -->
-  <!-- <NavigationButton text="Atrás" *ngIf="status == 'search'" android.systemIcon="ic_menu_back" (tap)="switchView('home')" class="black-text" isEnabled="{{ BtnDispo }}">
-  </NavigationButton> -->
-  <!-- NAV BUTTON EN PROFILE TE DEVUELVE A HOME -->
-  <!-- <NavigationButton text="Atrás" *ngIf="status == 'profile'" android.systemIcon="ic_menu_back" (tap)="switchView('home'); getFeedList()" class="black-text" isEnabled="{{ BtnDispo }}">
-  </NavigationButton> -->
 
   <Label text="Inicio" *ngIf="status == 'home'" position="center" class="h2 bold black-text" textWrap="true"></Label>
 
   <Label text="Busqueda"  *ngIf="status == 'search'" position="center" class="h2 bold black-text" textWrap="true"></Label>
 
-  <Label text="Perfil"  *ngIf="status == 'profile'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
+  <Label text="Mi Perfil"  *ngIf="status == 'profile'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
+
+  <Label text="Editar Intereses"  *ngIf="status == 'editCaracteristicas'" position="center" class="h2 bold  black-text" textWrap="true" textAlignment="center"></Label>
+
+  <Label text="Cargando..."  *ngIf="status == 'loading'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
 
   <ActionItem *ngIf="status == 'profile'"
       ios.systemIcon="16" ios.position="right"
@@ -27,17 +25,17 @@
 
   <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
   <TabStrip>
-    <TabStripItem (tap)="switchView('home')" isEnabled="{{ BtnDispo }}" class="home black-text" style="background: rgb(255, 123, 0);">
+    <TabStripItem (tap)="switchView('home')" class="home black-text" style="background: rgb(255, 123, 0);">
 
       <Image [src]="home_actual" class="icono"></Image>
     </TabStripItem>
 
-    <TabStripItem (tap)="switchView('search')" isEnabled="{{ BtnDispo }}" class="special black-text" style="background: rgb(255, 123, 0);">
+    <TabStripItem (tap)="switchView('search')" class="special black-text" style="background: rgb(255, 123, 0);">
 
       <Image [src]="search_actual" class="icono"></Image>
     </TabStripItem>
 
-    <TabStripItem (tap)="switchView('account')" isEnabled="{{ BtnDispo }}" class="special black-text" style="background: rgb(255, 123, 0);">
+    <TabStripItem (tap)="switchView('account')" class="special black-text" style="background: rgb(255, 123, 0);">
       <Image [src]="account_actual" class="icono"></Image>
     </TabStripItem>
   </TabStrip>
@@ -46,33 +44,41 @@
   <TabContentItem>
     <GridLayout class="page" *ngIf="status == 'home'">
       <ScrollView>
-      <StackLayout alignItems="center" justifyContent="center">
+        <StackLayout alignItems="center" justifyContent="center">
         
-      <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.id)">
-        <Image src="https://www.arpicstudios.com/storage/{{ profile.ruta }}" class="cardImg"></Image>
-        <StackLayout class="card-Text">
-        <Label class="card-title" text="{{ profile.name }}"></Label>
-        <Label  textWrap="true" class="card-info" text="{{ profile.descripcion }}"></Label>
-        <FlexboxLayout flexWrap="wrap" >
-          <Label *ngFor="let data of profile.caracteristicas" class="carac" text="{{ data.name }}"></Label>
-        </FlexboxLayout>
-      </StackLayout>
-      </FlexboxLayout>
-    </StackLayout>
-  </ScrollView>
+          <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.id)">
+            <Image src="https://www.arpicstudios.com/storage/{{ profile.ruta }}" class="cardImg"></Image>
+            <StackLayout class="card-Text">
+              <Label class="card-title" text="{{ profile.name }}"></Label>
+              <Label  textWrap="true" class="card-info" text="{{ profile.descripcion }}"></Label>
+              <FlexboxLayout flexWrap="wrap" >
+                <Label *ngFor="let data of profile.caracteristicas" class="carac" text="{{ data.name }}"></Label>
+              </FlexboxLayout>
+            </StackLayout>
+          </FlexboxLayout>
+        </StackLayout>
+      </ScrollView>
+
     </GridLayout>
+
+    <!-- LOADING SCREEN -->
+    <StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background">
+      <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
+    </StackLayout>
+    
   </TabContentItem>
 
   <TabContentItem>
-    <GridLayout class="page2" *ngIf="status == 'search'">
-      <StackLayout>
-        <FlexboxLayout height="7%">
+
+    <GridLayout class="page2" >
+      <StackLayout *ngIf="status == 'search'" width="100%" height="100%">
+        <FlexboxLayout height="7%" class="push-btn">
           <FlexboxLayout class="searchbuttons" (tap)="switchSearch('tag')">
-            <Label class="h3" text="Nombre"></Label>
+            <Label class="h3 bold" text="Nombre" textAlignment="center"></Label>
             <Image [src]="Loupe" height="80%"></Image>
           </FlexboxLayout>
           <FlexboxLayout class="searchbuttons" (tap)="switchSearch('nombre')">
-            <Label class="h3" text="Caracteristica"></Label>
+            <Label class="h3 bold" text="Caracteristica" textAlignment="center"></Label>
             <Image [src]="Tag" height="80%"></Image>
           </FlexboxLayout>
         </FlexboxLayout>
@@ -80,7 +86,7 @@
           <StackLayout *ngIf="searchType=='nombre'">
             <FlexboxLayout class="busqueda" margin="10" androidElevation="12" backgroundColor="white">
               <Image src="~/assets/images/logo-app.png" class="iconmap"></Image>
-              <SearchBar hint="Busca aquí" [text]="searchString" (submit)="onSubmit($event)"></SearchBar>
+              <SearchBar hint="Busca aquí" [text]="searchString" class="h3 bold" (submit)="onSubmit($event)"></SearchBar>
             </FlexboxLayout>
           </StackLayout>
           <StackLayout *ngIf="searchType=='tag'">
@@ -100,39 +106,51 @@
                   <Image (tap)="spliceItem(i)" src="~/assets/images/removeSquare.png" class="labelImg"></Image>
                 </FlexboxLayout>
                 <Label class="h3" *ngIf="selectedData.length == 0"
-                  text="selecciona hasta cinco características..."></Label>
-                <Button *ngIf="selectedData.length > 0" height="30" (tap)="searchTag()" text="buscar"></Button>
+                  text="Selecciona hasta cinco características..."></Label>
+                <Button *ngIf="selectedData.length > 0" height="30" class="buscarIntereses-btn" (tap)="searchTag()" text="Buscar"></Button>
               </WrapLayout>
             </ScrollView>
           </StackLayout>
         </StackLayout>
       </StackLayout>
+
+      <!-- LOADING SCREEN -->
+      <StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background">
+        <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
+      </StackLayout>
+
     </GridLayout>
   </TabContentItem>
 
   <TabContentItem>
     <AbsoluteLayout class="page3">
 
+        <!-- PERFIL -->
         <StackLayout *ngIf="status == 'profile'" width="100%" height="100%">
-            <StackLayout flexDirection="column" justifyContent="center" alignContent="center" alignItems="center">
-              <TextField [hint]="dataUser.name" [(ngModel)]="dataUser.name" minlength="2" maxlength="60" [editable]="isEditable" class="h2 name-field text-center"></TextField>
-              <Image src="{{ userPicture }}" class="img-header"   
-              margin="7"
-              androidElevation="12"></Image>
-              <Label text="{{ dataUser.email }}" class="h3 black-text" margin="10" textAlignment="center"></Label>
-            </StackLayout>
+          <StackLayout flexDirection="column" justifyContent="center" alignContent="center" alignItems="center">
+            <TextField [hint]="dataUser.name" [(ngModel)]="dataUser.name" minlength="2" maxlength="60" [editable]="isEditable" class="h2 name-field text-center"></TextField>
+            <Image src="{{ userPicture }}" class="img-header"   
+            margin="7"
+            androidElevation="12"></Image>
+            <Label text="{{ dataUser.email }}" class="h3 black-text" margin="10" textAlignment="center"></Label>
+          </StackLayout>
 
-            <FlexboxLayout width="100%" flexDirection="column" left="80" top="80">
-              <Label text="Mis intereses" textWrap="true" textAlignment="center" class="h2 bold"></Label>
-            </FlexboxLayout>
+          <FlexboxLayout width="100%" flexDirection="column" left="80" top="80">
+            <Label text="Mis intereses" textWrap="true" textAlignment="center" class="h2 bold"></Label>
+          </FlexboxLayout>
 
-            <FlexboxLayout flexWrap="wrap" class="flexstars" alignItems="center" justifyContent="center" width="100%" height="100%">
-              <Label *ngFor="let data of dataUser.caracteristicas" [text]="data.name" class="carac" width="100%" textAlignment="center" height="17%"></Label> 
-            </FlexboxLayout>
-
-            
+          <FlexboxLayout flexWrap="wrap" class="flexstars" alignItems="center" justifyContent="center" width="100%" height="100%">
+            <Label *ngFor="let data of dataUser.caracteristicas" [text]="data.name" class="carac" width="100%" textAlignment="center" height="17%"></Label> 
+          </FlexboxLayout>
+          
         </StackLayout>
 
+        <!-- LOADING SCREEN -->
+        <StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background">
+            <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
+        </StackLayout>
+      
+        <!-- EDITAR CARACTERISTICAS -->
         <ScrollView *ngIf="status == 'editCaracteristicas'" height="100%" width="100%">
           <StackLayout>
             <StackLayout width="100%" class="h3">
@@ -150,75 +168,9 @@
 
             </StackLayout>
           </StackLayout>
-          
         </ScrollView>
-        <!-- <StackLayout *ngIf="status == 'editCaracteristicas'"> -->
-          
-          <!-- <GridLayout rows="* auto" *ngIf="status == 'editCaracteristicas'"> -->
-            <!-- <ScrollView orientation="vertical" *ngIf="status == 'editCaracteristicas'">
-              <Label text="Caracteristicas" textAlignment="center" class="bold h3" color="black" textWrap="true"></Label>
-              <StackLayout orientation="vertical"> -->
-                <!-- <StackLayout class="lista-caracteristicas white h3"> -->
-                  <!-- <ActivityIndicator *ngIf="isBusy == true" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
-                  <Label text="¡Puedes escoger hassta un máximo de 5 caracteristicas!" textWrap="true"></Label>
-                  <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black" class="h3"></CheckBox> -->
-                <!-- </StackLayout> -->
-              <!-- </StackLayout>
-            </ScrollView> -->
-          <!-- </GridLayout> -->
-          <!-- <StackLayout orientation="horizontal" height="100%">
-            <StackLayout class="float-btn-cancel" (tap)="status == 'profile'" androidElevation="12">
-              <Label text="✖" class="float-btn-text" textWrap="true"></Label>
-            </StackLayout>
-
-            <StackLayout class="float-btn-confirm" (tap)="updateCaracteristicas()" androidElevation="12">
-                <Label text="✔" class="float-btn-text" textWrap="true"></Label>
-            </StackLayout>
-          </StackLayout> -->
-        <!-- </StackLayout> -->
 
     </AbsoluteLayout>
-      <!-- <StackLayout class="page3">
-        <StackLayout *ngIf="status == 'profile'">
-
-          <StackLayout justifyContent="center" alignContent="center">
-            <TextField [hint]="dataUser.name" [(ngModel)]="dataUser.name" minlength="2" maxlength="60" [editable]="isEditable" class="h3 name-field text-center"></TextField>
-            <Image src="{{ userPicture }}" class="img-header"   
-            margin="7"
-            androidElevation="12"></Image>
-            <Label text="{{ dataUser.email }}" class="h3 black-text" margin="10" textAlignment="center"></Label>
-          </StackLayout>
-
-          <FlexboxLayout width="100%" flexDirection="column">
-            <Label text="Mis interesees" textWrap="true" class="h3" style="margin-left:3%;"></Label>
-            <Label text="Modificar" class="carac bold" textAlignment="center" width="90%" background="orange" color="black" (tap)="status = 'editCaracteristicas'"></Label>
-          </FlexboxLayout>
-
-          <FlexboxLayout flexWrap="wrap" class="flexstars" alignItems="center" justifyContent="center" width="100%">
-            <Label *ngFor="let data of dataUser.caracteristicas" [text]="data.name" class="carac" width="100%" textAlignment="center"></Label> 
-          </FlexboxLayout>
-
-        </StackLayout>
-
-        <StackLayout *ngIf="status == 'editCaracteristicas'">
-          <GridLayout rows="* auto">
-            <ScrollView row="0" orientation="vertical">
-              <StackLayout orientation="vertical">
-                <StackLayout class="lista-caracteristicas white">
-                  <ActivityIndicator row="3" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
-                  <Label text="¡Puedes escoger hasta un máximo de 5 caracteristicas!" textWrap="true"></Label>
-                  <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black"></CheckBox>
-                </StackLayout>  
-              </StackLayout>
-            </ScrollView>
-          </GridLayout>
-          
-          <FlexboxLayout flexDirection="row">
-            <Button flexGrow="1" text="Atrás" (tap)="status = 'profile'" class="back-btn" isEnabled="{{ BtnDispo }}"></Button>
-            <Button flexGrow="1" text="Guardar cambios" class="next-btn" isEnabled="{{ BtnDispo }}"></Button>
-          </FlexboxLayout>
-        </StackLayout>
-      </StackLayout> -->
   </TabContentItem>
 
 </BottomNavigation>

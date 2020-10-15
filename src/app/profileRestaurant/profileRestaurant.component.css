@@ -261,3 +261,17 @@ width: 100%;
     border-radius: 100%;
 }
 
+.loading-background
+{
+  background:rgba(0, 0, 0, 0.4);
+}
+
+.round
+{
+  border-radius: 100%;
+}
+
+.loading
+{
+  margin-top: 50%;
+}
