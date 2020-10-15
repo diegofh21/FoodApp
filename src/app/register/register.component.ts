@@ -24,8 +24,6 @@ import { HelperService } from '../utils/servicios/helper.service'
 
 import { Cliente, Restaurante } from '../utils/models/user.model';
 
-import { caracteristica } from '../login/mock-caracteristicas';
-
 registerElement('MapView', () => MapView);
 @Component({
 	selector: 'register',
@@ -36,15 +34,13 @@ registerElement('MapView', () => MapView);
 export class RegisterComponent implements OnInit 
 {
 	public searchString = '';
-  public location = new geocoding.Location();
+    public location = new geocoding.Location();
 	confirmedLatitude = 0;
 	confirmedLongitude = 0;
 	confirmedName = '';
 
 	cliente: Cliente;
 	restaurante: Restaurante;
-	caracteristicas = caracteristica;
-
 	status: 'selectReg' | 'restReg' | 'userReg' = 'selectReg';
 	paso: string = '1';
 	pasoMapa: 'showBtn' | 'showMap' = 'showBtn';
@@ -64,11 +60,8 @@ export class RegisterComponent implements OnInit
 	public userImage = "";
 	public picHeight = 0; 
 	public imagen = null;
-<<<<<<< Updated upstream
-=======
 	public finalPath = null;
 	public respCode = 0
->>>>>>> Stashed changes
 
 	constructor(private page: Page, private routerEx: RouterExtensions, private authService: AuthService, private routeAct: ActivatedRoute, private helper: HelperService, private userService: UserService, private http: HttpClient) 
 	{ 
@@ -171,49 +164,6 @@ export class RegisterComponent implements OnInit
 		}
 		else if(this.status == 'restReg')
 		{
-<<<<<<< Updated upstream
-			var Caracteristicas = this.checkboxData.filter(e => e.select === true);
-
-			this.isBusy = true;
-			this.BtnDispo = false;
-
-			// let datos_user = {
-			// 	name: this.restaurante.nombre_comercio,
-			// 	email: this.restaurante.email,
-			// };
-
-			// console.log("los datos_user son:", JSON.stringify(datos_user));
-
-			// this.authService.login(datos_user).subscribe((resp: any) => {
-			// 	console.log("Respuesta para login user:", resp);
-			// 	this.restaurante.id = resp.id;
-			// });
-
-			let datosRestaurante = {
-				id: this.restaurante.id,
-				typeUser: this.restaurante.type,
-				name: this.restaurante.nombre_comercio,
-				rif: this.restaurante.rif,
-				descripcion: this.restaurante.descripcion,
-				latitud: this.confirmedLatitude,
-				longitud: this.confirmedLongitude
-			};
-
-			console.log("los datos_rest son: ", JSON.stringify(datosRestaurante));
-
-			this.userService.register(datosRestaurante).subscribe((resp: any) => 
-			{
-				console.log("La respuesta para registro de restaurante es:", resp);
-
-				let caracteriscticasRestaurante = {
-					userID: resp.id,
-					caracteristicasID: Caracteristicas
-				}
-
-				console.log("los datos de caracteristicas son:", JSON.stringify(caracteriscticasRestaurante));
-
-				this.userService.storeCaracteristicas(caracteriscticasRestaurante).subscribe((resp: any) => 
-=======
 			this.isBusy = true;
 			this.BtnDispo = false;
 
@@ -305,7 +255,6 @@ export class RegisterComponent implements OnInit
 			else
 			{
 				const regAlert: AlertOptions = 
->>>>>>> Stashed changes
 				{
 					title: "FindEat",
 					message: "Por favor escoge una imagen📸",
@@ -318,34 +267,7 @@ export class RegisterComponent implements OnInit
 						this.BtnDispo = true;
 					}, 2000);
 				});
-<<<<<<< Updated upstream
-				
-				const regAlert: AlertOptions = {
-					title: "FindEat",
-					message: "¡Gracias por registrarte en nuestra aplicación!\nA continuación vas a ser redireccionado al inicio.",
-					okButtonText: "OK",
-					cancelable: false
-				}
-
-				alert(regAlert).then(() => {
-					this.isBusy = false;
-					setTimeout(() => {
-						this.routerEx.navigate(['/homeRestaurant', datosRestaurante.id], {
-							animated: true,
-							transition:
-							{
-								name: 'fade',
-								duration: 250,
-								curve: 'linear'
-							}
-						});
-					}, 1000);
-				});
-				this.BtnDispo = true;
-			});
-=======
 			}
->>>>>>> Stashed changes
 		}
 	}
 
@@ -379,11 +301,7 @@ export class RegisterComponent implements OnInit
 												console.log(that.imagen);
 												that.saveImage = path;
 												that.picHeight = imgSrc.height;  
-<<<<<<< Updated upstream
-												that.savePicture(folder)
-=======
 												that.finalPath = folder;
->>>>>>> Stashed changes
 										} 
 										else 
 										{
@@ -419,21 +337,12 @@ export class RegisterComponent implements OnInit
 		},
 		description: "{ 'uploading': " + "photo.png" + " }"
 				};
-<<<<<<< Updated upstream
-		let params = [{
-				name: "foto", mimeType: "image/jpeg", filename: this.saveImage
-		}, {
-				name: "dd", value: "Aqui esta la data"
-		},
-		];
-=======
 		let params = [
 			{ name: "id", value: this.restaurante.id },
 			{ name: "foto", mimeType: "image/jpeg", filename: this.saveImage }
 		];
 		// Se guarda la imagen en el servicio (caché para probar si sirve posteriormente)
 		this.userService.Datos_Restaurante.foto = this.saveImage;
->>>>>>> Stashed changes
 		var task = session.multipartUpload(params, request);
 		task.on("progress", logEvent);
 		task.on("error", logEvent);
@@ -450,12 +359,8 @@ export class RegisterComponent implements OnInit
 						console.log('current bytes transfered: ' + e.currentBytes);
 						console.log('Total bytes to transfer: ' + e.totalBytes);
 				}
-<<<<<<< Updated upstream
-				this.isBusy = false;
-=======
 				console.log("EL RESPONSE CODE ES: ", e.responseCode);
 				this.respCode = e.responseCode;
->>>>>>> Stashed changes
 		}
 	} 
 
@@ -526,9 +431,6 @@ export class RegisterComponent implements OnInit
 	// metodos del checkbox
 	checkedChange(event, data, id) 
 	{
-<<<<<<< Updated upstream
-		this.checkboxData[event].select = true
-=======
 		console.log("id-1", this.checkboxData[id-1])
 		console.log("---------------------------------")
 
@@ -555,22 +457,10 @@ export class RegisterComponent implements OnInit
 				});
 			}
 		}
->>>>>>> Stashed changes
 	}
 
 	getCheckboxData()
 	{
-<<<<<<< Updated upstream
-		this.isBusy = true
-		this.helper.getCaracteristicas().subscribe((resp: any) => {
-			this.checkboxData = resp;
-			this.checkboxData.forEach(e => e.select = false);
-			console.log("la data recogida de la api es: ", JSON.stringify(resp));
-			console.log("checkboxData sin stringify: ", this.checkboxData)
-			console.log("checkBoxData con stringify (por si acaso):", JSON.stringify(this.checkboxData));
-			this.isBusy = false;
-		});
-=======
 		if(this.status == 'userReg')
 		{
 			this.isBusy = true
@@ -597,7 +487,6 @@ export class RegisterComponent implements OnInit
 				this.isBusy = false;
 			});
 		}
->>>>>>> Stashed changes
 	}
 	
 	//variables del mapa y metodos del mapa
@@ -696,4 +585,5 @@ export class RegisterComponent implements OnInit
 		this.mapView.addMarker(marker);
 		this.zoom = 18;
 	}
+
 }

@@ -3,10 +3,9 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { NativeScriptFormsModule } from "nativescript-angular/forms"
 import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
-
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
+import { PostComponent } from "./Post/Post.component";
 // Login
 import { LoginComponent } from "./login/login.component";
 
@@ -55,7 +54,8 @@ import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service'
         ProfileRestaurantComponent,
         newReviewComponent,
         profileReviewList,
-        SearchResultComponent
+        SearchResultComponent,
+        PostComponent
     ],
     providers: [AuthService, UserService, homeRestaurantservice, HelperService],
     schemas: [

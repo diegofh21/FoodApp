@@ -1,0 +1,19 @@
+<ScrollView>
+    <Stacklayout justifyContent="center" alignContent="center">
+       <StackLayout>
+         <FlexboxLayout class="post-header">
+           <Image [src]="RestPic" width="15%" margin="10" androidElevation="12"
+           backgroundColor="white" class="img-header"></Image>
+           <StackLayout>
+             <Label [text]="post.titulo" class="ProfilePost"> </Label>
+           </StackLayout>
+         </FlexboxLayout>
+     <Label height="auto" textWrap="true" [text]="post.descripcion" class=" h4 caption"> </Label>
+     <Image [src]="post.ruta" class="imgpost"></Image>
+       <FlexboxLayout class="postButtons" >
+         <Label [text]="post.fecha" class="caption"></Label>
+       </FlexboxLayout>
+     </StackLayout>
+     
+   </Stacklayout>
+ </ScrollView>

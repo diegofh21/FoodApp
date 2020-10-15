@@ -153,15 +153,9 @@
 			
 			<ScrollView row="4" orientation="vertical">
 				<StackLayout orientation="vertical">
-<<<<<<< Updated upstream
-					<StackLayout class="lista-caracteristicas">
-						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
-						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)"></CheckBox>
-=======
 					<StackLayout class="lista-caracteristicas white">
 						<Label text="Puedes escoger hasta un máximo de 5 caracteristicas para comenzar, luego puedes modificarlas!" textWrap="true"></Label>
 						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" isEnabled="{{ CheckLimit }}" class="white" [ngClass]="{'inactive': CheckLimit == false}"></CheckBox>
->>>>>>> Stashed changes
 					</StackLayout>  
 				</StackLayout>
 			</ScrollView>	

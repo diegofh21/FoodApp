@@ -13,6 +13,7 @@ export class HelperService {
   public ID_User = 3;
   public ResultadoBusqueda;
 
+
   public getCaracteristicas() {
     return this.http.get(
       Config.apiUrl + '/indexCaracteristicas'
@@ -35,5 +36,9 @@ export class HelperService {
 
   public getUserInfo(id) {
     return this.http.get(Config.apiUrl + '/registrar/', id);
+  }
+
+  public getPost(id) {
+    return this.http.get(Config.apiUrl + '/publicaciones/'+ id);
   }
 }

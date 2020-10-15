@@ -71,8 +71,16 @@ TextField:focus, TextField:active
 }
 
 .list{
-  border-top-width: 2;
-  border-top-color: black;
+ 
+  height: 60%;
+margin: 15 0 2 0;
+
+  }
+
+  .listSelected{
+    height: 30%;
+    border-top-width: 2;
+    border-top-color: black;
   }
 
 .searchbuttons{
@@ -88,9 +96,7 @@ TextField:focus, TextField:active
   border-radius: 100%;
 }
 
-.list{
-  height: 70%;
-}
+
 
 .card-info{
 font-size: 14;

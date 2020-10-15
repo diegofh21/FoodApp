@@ -4,7 +4,7 @@
       <Label text="Resultados de su búsqueda..." class="h3 text-center black-text"></Label>
 
       <FlexboxLayout class="card" *ngFor="let profile of result" (tap)="goToProfile(profile.id)">
-        <Image [src]="profile.ruta" class="cardImg"></Image>
+        <Image [src]="addUrl(profile.ruta)"  class="cardImg"></Image>
         <StackLayout class="card-Text">
           <Label class="card-title" text={{profile.name}}></Label>
           <Label textWrap="true" class="card-info" text={{profile.descripcion}}></Label>

@@ -17,6 +17,22 @@ export class UserService
     caracteristicas: undefined
   }
 
+  //ubicación del post a mostrar
+  public Datos_Post = {
+    id:0,
+    titulo:"",
+    descripcion:"",
+    like:0,
+    restauranteID:0,
+    fecha:"",
+    ruta:"",
+    created_at:"",
+    updated_at:""
+  };
+
+  //ubicación del usuario
+  public UserLocation=[0,0];
+
   // Datos del RESTAURANTE
   public Datos_Restaurante = {
     id: 0,

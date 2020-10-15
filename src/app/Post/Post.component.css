@@ -1,0 +1,35 @@
+.Post {
+
+}
+
+.post-header{
+    border-bottom-width: 3px;
+    border-bottom-color: rgba(24, 24, 24, 0.644);
+    width: 100%;
+ 
+}
+
+.postButtons{
+    align-items: flex-end;
+    justify-content: right;
+    text-align: right;
+    width: 100%;
+    margin-bottom: 20;
+    android-elevation: 5;
+    background-color: white;
+}
+
+.caption{
+    width: 95%;
+}
+
+.ProfilePost{
+    padding-top: 20;
+    font-size: 20;
+    font-weight: bold;
+}
+.img-header{
+    width: 30%;
+    border-radius: 100%;
+    margin-top: 3%;
+}

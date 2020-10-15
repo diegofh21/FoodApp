@@ -3,6 +3,7 @@ import { RouterExtensions } from 'nativescript-angular';
 import { AuthService } from '../utils/servicios/auth.service';
 import { HelperService } from '../utils/servicios/helper.service'
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
+import { UserService } from '../utils/servicios/user.service';
 import * as Geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
 import { NgZone } from "@angular/core";
@@ -50,7 +51,7 @@ export class HomeComponent implements OnInit {
     tag_filled ="~/assets/images/label_filled.png";
     checkboxData: any = [];
     selectedData = [];
-	constructor(private itemService: homeRestaurantservice, private helper: HelperService, private routerEx: RouterExtensions, private authService: AuthService,private zone: NgZone) {
+	constructor(private userService: UserService, private itemService: homeRestaurantservice, private helper: HelperService, private routerEx: RouterExtensions, private authService: AuthService,private zone: NgZone) {
         this.latitude = 0;
         this.longitude = 0;
      }
@@ -151,17 +152,7 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-    private getDeviceLocation(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            Geolocation.enableLocationRequest().then(() => {
-                Geolocation.getCurrentLocation({timeout: 10000}).then(location => {
-                    resolve(location);
-                }).catch(error => {
-                    reject(error);
-                });
-            });
-        });
-    }
+
 
     public pushData(item){
         if ((this.selectedData.indexOf(item)== -1) && this.selectedData.length<=4){
@@ -208,41 +199,27 @@ export class HomeComponent implements OnInit {
         }
     }
 
+    private getDeviceLocation(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            Geolocation.enableLocationRequest().then(() => {
+                Geolocation.getCurrentLocation({timeout: 10000}).then(location => {
+                    resolve(location);
+                }).catch(error => {
+                    reject(error);
+                });
+            });
+        });
+	}
 
     public updateLocation() {
         this.getDeviceLocation().then(result => {
             this.latitude = result.latitude;
             this.longitude = result.longitude;
-            const ProfilePicAlert: AlertOptions = {
-                title: "Tu ubicación",
-                message: "tu latitud es "+ result.latitude +" y su longitud "+ result.longitude +".",
-                okButtonText: "OK",
-                cancelable: false
-            };
-    
-            alert(ProfilePicAlert);
+            this.userService.UserLocation[0]=result.latitude;
+            this.userService.UserLocation[1]=result.longitude;
+            console.log(this.latitude, this.longitude);
         }, error => {
             console.error(error);
         });
-    }
-
-    public startWatchingLocation() {
-        this.watchId = Geolocation.watchLocation(location => {
-            if(location) {
-                this.zone.run(() => {
-                    this.latitude = location.latitude;
-                    this.longitude = location.longitude;
-                });
-            }
-        }, error => {
-            console.error(error);
-        }, { updateDistance: 1, minimumUpdateTime: 1000 });
-    }
-
-    public stopWatchingLocation() {
-        if(this.watchId) {
-            Geolocation.clearWatch(this.watchId);
-            this.watchId = null;
-        }
     }
 }
