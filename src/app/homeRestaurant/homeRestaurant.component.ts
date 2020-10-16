@@ -638,6 +638,25 @@ export class homeRestaurantComponent implements OnInit {
         console.log("resp es", resp);
         this.userService.Datos_Post.id = resp
         this.savePicture(this.finalPath);
+
+        if(this.userService.Datos_Post.id != null || undefined)
+        {
+          const postAlert: AlertOptions = {
+            title: 'FindEat',
+            message: 'Publicación subida exitosamente🤩📸.',
+            okButtonText: '¡Gracias!',
+            cancelable: false
+          };
+
+          alert(postAlert).then(() => {
+            this.status = 'loading';
+            setTimeout(() => {
+              this.descripcionPost = '';
+              this.saveImage = '';
+              this.status = 'post';
+            }, 1000);
+          });
+        }
       },
         (error) => {
           console.log("El codigo HTTP obtenido es", error.status)

@@ -50,7 +50,7 @@
   <!-- PERFIL DE RESTAURANTE -->
   <TabContentItem>
 
-    <ScrollView *ngIf="status == 'profile'">
+    <ScrollView *ngIf="status == 'profile'" background="white">
       <GridLayout class="page2">
         <StackLayout justifyContent="center" alignContent="center">
           
@@ -86,7 +86,7 @@
     </StackLayout>
 
     <!-- EDITAR CARACTERISTICAS -->
-    <ScrollView *ngIf="status == 'editCaracteristicas'" height="100%" width="100%">
+    <ScrollView *ngIf="status == 'editCaracteristicas'" background="white" height="100%" width="100%">
       <StackLayout>
         <StackLayout width="100%" class="h3">
           <Label text="Caracteristicas (Recuerda que puedes escoger hasta un máximo de 5 caracteristicas😋)" textAlignment="center" class="bold h3" color="black" textWrap="true"></Label>
@@ -109,7 +109,7 @@
   
   <!-- RESEÑAS -->
   <TabContentItem>
-    <Stacklayout *ngIf="status == 'review'">
+    <Stacklayout *ngIf="status == 'review'" background="white">
       <ScrollView>
         <GridLayout class="page2">
           <StackLayout>
@@ -154,7 +154,7 @@
   
   <!-- NUEVA PUBLICACIÓN -->
   <TabContentItem>
-    <Stacklayout *ngIf="status == 'post'">
+    <Stacklayout *ngIf="status == 'post'" background="white">
       <GridLayout class="page3">
         <ScrollView>
           <Stacklayout justifyContent="center" alignContent="center">

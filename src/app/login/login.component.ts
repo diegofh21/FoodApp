@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	loginrestaurante() {
-		this.routerEx.navigate(['/homeRestaurant', 1], {
+		this.routerEx.navigate(['/homeRestaurant', 15], {
 			animated: true,
 			transition:
 			{
