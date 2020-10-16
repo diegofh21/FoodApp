@@ -245,11 +245,6 @@ height: 30%;
   margin-left: 5%;
 }
 
-.float-btn:active
-{
-  background: blue;
-}
-
 .float-btn-text
 {
   color: #fff;

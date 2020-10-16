@@ -43,7 +43,9 @@ export class UserService
     latitud: 0,
     longitud: 0,
     foto: '',
-    caracteristicas: undefined
+    posts: [],
+    caracteristicas: undefined,
+    rating: 0
   }
 
   public login(data)

@@ -16,9 +16,9 @@
   <ActionItem *ngIf="status == 'profile'"
       ios.systemIcon="16" ios.position="right"
       text="📋 Modificar nombre" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
-    <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'"
-    ios.systemIcon="16" ios.position="right"
-    text="📝 Modificar intereses" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
+  <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'"
+  ios.systemIcon="16" ios.position="right"
+  text="📝 Modificar intereses" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
 </ActionBar>
 
 <BottomNavigation selectedIndex="0">

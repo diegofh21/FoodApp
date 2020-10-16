@@ -1,9 +1,24 @@
-<ActionBar icon="" class="" style="background: rgb(255, 123, 0);">
-  <NavigationButton text="Back" android.systemIcon="ic_menu_back" class="black-text"></NavigationButton>
-  <Label text="Inicio" position="center" class="medium-text black-text" textWrap="true"></Label>
-  <ActionItem ios.position="right" class="opt-btn">
-    <Button class="opt-btn black-text" text="Opciones"></Button>
-  </ActionItem>
+<ActionBar icon="" title="" class="" style="background: rgb(255, 123, 0);">
+ 
+  <NavigationButton text="Salir" *ngIf="status == 'profile'" (tap)="alert('logout')" android.systemIcon="ic_menu_back" class="black-text"></NavigationButton>
+
+  <Label text="Inicio" *ngIf="status == 'profile'" position="center" class="h2 bold black-text" textWrap="true"></Label>
+
+  <Label text="Nueva Publicación"  *ngIf="status == 'post'" position="center" class="h2 bold black-text" textWrap="true"></Label>
+
+  <Label text="Reseñas"  *ngIf="status == 'review'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
+
+  <Label text="Editar Intereses"  *ngIf="status == 'editCaracteristicas'" position="center" class="h2 bold black-text" textWrap="true" textAlignment="center"></Label>
+
+  <Label text="Cargando..."  *ngIf="status == 'loading'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
+  
+  <ActionItem *ngIf="status == 'profile'"
+  ios.systemIcon="16" ios.position="right"
+  text="📋 Modificar nombre" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
+
+  <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'" ios.systemIcon="16" ios.position="right" text="📝 Modificar intereses" android.position="popup" 
+  isEnabled="{{ BtnDispo }}"></ActionItem>
+
 </ActionBar>
 
 <BottomNavigation selectedIndex="0">
@@ -32,42 +47,80 @@
   </TabStrip>
 
   <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
+  <!-- PERFIL DE RESTAURANTE -->
   <TabContentItem>
 
-    <ScrollView>
+    <ScrollView *ngIf="status == 'profile'">
       <GridLayout class="page2">
-        <StackLayout justifyContent="center" alignContent="center" >
+        <StackLayout justifyContent="center" alignContent="center">
           
+          <Label [text]="profile.email" textWrap="true" class="h3 bold" textAlignment="center" color="black"></Label>
+          <Image [src]="addUrl(profile.foto)" class="img-header"   
+          margin="10" androidElevation="12" backgroundColor="white" stretch="fill"></Image>
+
+          <Label [text]="profile.name" textTransform="capitalize" textWrap="true" class="h2 bold" color="black" textAlignment="center"></Label>
+
+          <Label text="J-{{ profile.rif }}" textWrap="true" class="h3 bold" color="black" textAlignment="center"></Label>
+          <Label [text]="profile.descripcion" textWrap="true" textTransform="capitalize" class="restInfo"></Label>
+          <Label text="" class="divider" textWrap="true"></Label>
           
-          <Image [src]="profile.profilePicture" class="img-header"   
-          margin="10"
-          androidElevation="12"
-          backgroundColor="white"></Image>
-          <Label [text]="profile.name" textWrap="true" class="restname" >  </Label>
-          <Label [text]="profile.info" textWrap="true" class="restInfo" >  </Label>
-          <FlexboxLayout class="flexstars" alignItems="center" justifyContent="center">
-            <Label [text]="profile.rate" class="rate" >  </Label> 
-            <Image [src]="getStars(profile.rate)" class="stars" ></Image>
+          <FlexboxLayout class="flexstars" alignItems="center" alignContent="center" justifyContent="center" flexDirection="column">
+            <Label [text]="profile.rating" class="rate h2 bold " textAlignment="center"></Label> 
+            <Image [src]="getStars(profile.rating)" class="stars"></Image>
           </FlexboxLayout>
-          <FlexboxLayout class="flexstars" alignItems="center" justifyContent="center">
-            <Label  *ngFor="let carac of profile.caracteristicas"   [text]="carac" class="carac" >  </Label> 
+          <FlexboxLayout class="flexstars" flexWrap="wrap" alignItems="center" justifyContent="center" margin="10">
+            <Label *ngFor="let data of profile.caracteristicas" class="carac" width="100%" text="{{ data.name }}" textAlignment="center" textTransform="capitalize"></Label> 
           </FlexboxLayout>
 
+          <WrapLayout class="fotos" width="95%">
+            <Image *ngFor="let foto of profile.posts" [src]="addUrl(foto.ruta)" class="gallery" (tap)="openPic(foto.id)" stretch="aspectFill">
+            </Image>
+          </WrapLayout>
         </StackLayout>
       </GridLayout>
-   </ScrollView>
+    </ScrollView>
+
+    <!-- LOADING SCREEN -->
+    <StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background">
+      <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
+    </StackLayout>
+
+    <!-- EDITAR CARACTERISTICAS -->
+    <ScrollView *ngIf="status == 'editCaracteristicas'" height="100%" width="100%">
+      <StackLayout>
+        <StackLayout width="100%" class="h3">
+          <Label text="Caracteristicas (Recuerda que puedes escoger hasta un máximo de 5 caracteristicas😋)" textAlignment="center" class="bold h3" color="black" textWrap="true"></Label>
+          <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black" class="h3" isEnabled="{{ CheckLimit }}"></CheckBox>
+
+          <StackLayout orientation="horizontal">
+            <StackLayout class="float-btn-cancel" (tap)="cancelUpdate()" androidElevation="12">
+              <Label text="✖" class="float-btn-text" textWrap="true"></Label>
+            </StackLayout>
+            <StackLayout class="float-btn-confirm" (tap)="updateCaracteristicas()" androidElevation="12">
+                <Label text="✔" class="float-btn-text" textWrap="true"></Label>
+            </StackLayout>
+          </StackLayout>
+
+        </StackLayout>
+      </StackLayout>
+    </ScrollView>
+
   </TabContentItem>
   
+  <!-- RESEÑAS -->
   <TabContentItem>
-    <Stacklayout>
+    <Stacklayout *ngIf="status == 'review'">
       <ScrollView>
         <GridLayout class="page2">
           <StackLayout>
             <StackLayout justifyContent="center" alignContent="center">
-            <Image [src]="profile.profilePicture" class="img-header" margin="10" androidElevation="12"
-            backgroundColor="white"></Image>
-            <Label text="reseñas..." class="title"></Label>
-            <Label [text]="profile.name" class="restname"> </Label>
+            <Image [src]="addUrl(profile.foto)" class="img-header" margin="10" androidElevation="12"
+            backgroundColor="white" stretch="fill"></Image>
+            
+            <Label [text]="profile.name" class="h2 bold" textTransform="capitalize" textAlignment="center"></Label>
+            <Label text="J-{{ profile.rif }}" textWrap="true" class="h3 bold" color="black" textAlignment="center"></Label>
+            <Label text="" class="divider" textWrap="true"></Label>
+            
           </StackLayout>
             <StackLayout *ngFor="let review of reviews">
 
@@ -92,35 +145,49 @@
         </GridLayout>
       </ScrollView>
     </Stacklayout>
+
+    <!-- LOADING SCREEN -->
+    <StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background">
+      <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
+    </StackLayout>
   </TabContentItem>
   
+  <!-- NUEVA PUBLICACIÓN -->
   <TabContentItem>
-    
-    <Stacklayout>
+    <Stacklayout *ngIf="status == 'post'">
       <GridLayout class="page3">
-     <ScrollView>
-       <Stacklayout justifyContent="center" alignContent="center">
-         <Label text="Nueva Publicación..." class="h4 text-center black-text"></Label>
-          <StackLayout>
-            <FlexboxLayout class="post-header">
-              <Image [src]="profile.profilePicture" width="15%" margin="10" androidElevation="12"
-              backgroundColor="white" class="img-header"></Image>
-              <StackLayout>
-                <Label [text]="profile.name" class="ProfilePost"> </Label>
-              </StackLayout>
-            </FlexboxLayout>
-        <TextView height="auto" textWrap="true" editable="true" hint="Pie de foto..." class="caption"> </TextView>
-        <Image [src]="actualPostSrc" class="imgpost"></Image>
-          <FlexboxLayout class="postButtons" >
-            <Button text="Cancelar" class="cancel-btn"></Button>
-            <Button text="Publicar" class="post-btn"></Button>
-          </FlexboxLayout>
-        </StackLayout>
-        
-      </Stacklayout>
-    </ScrollView>
+        <ScrollView>
+          <Stacklayout justifyContent="center" alignContent="center">
+
+            <StackLayout>
+
+              <FlexboxLayout class="post-header">
+                <Image src="https://www.arpicstudios.com/storage/{{ profile.foto }}" width="300px" height="300px" margin="10" androidElevation="12"
+                backgroundColor="white" class="img-header" stretch="aspectFill"></Image>
+                <StackLayout>
+                  <Label [text]="profile.name" class="ProfilePost" textTransform="capitalize"> </Label>
+                </StackLayout>
+              </FlexboxLayout>
+
+              <TextView height="auto" textWrap="true" editable="true" hint="Descripción de la publicación..." class="caption" [(ngModel)]="descripcionPost"></TextView>
+              <Image [src]="actualPostSrc" *ngIf="saveImage == ''" class="imgpost" stretch="aspectFill" (tap)="choosePic()"></Image>
+              <Image src="{{ saveImage }}" *ngIf="saveImage != ''" class="imgpost" stretch="aspectFill" (tap)="choosePic()"></Image>
+
+              <FlexboxLayout class="postButtons" >
+                <Button text="Cancelar" class="cancel-btn" (tap)="cancelPost()"></Button>
+                <Button text="Publicar" class="post-btn" (tap)="uploadPost()"></Button>
+              </FlexboxLayout>
+
+            </StackLayout>
+          </Stacklayout>
+        </ScrollView>
       </GridLayout>
     </Stacklayout>
+
+    <!-- LOADING SCREEN -->
+    <StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background">
+      <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
+    </StackLayout>
   </TabContentItem>
 
   <TabContentItem>

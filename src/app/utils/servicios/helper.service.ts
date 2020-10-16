@@ -35,7 +35,7 @@ export class HelperService {
 
 
   public getUserInfo(id) {
-    return this.http.get(Config.apiUrl + '/registrar/', id);
+    return this.http.get(Config.apiUrl + '/registrar/'+ id);
   }
 
   public getPost(id) {
@@ -49,5 +49,9 @@ export class HelperService {
 
   public NewReview(data){
     return this.http.post(Config.apiUrl + '/review', data);
+  }
+  
+  public uploadPost(data) {
+    return this.http.post(Config.apiUrl + '/publicaciones', data);
   }
 }
