@@ -1,11 +1,11 @@
-<StackLayout justifyContent="center" alignContent="center" >
+<StackLayout *ngIf="status == 'normal'" justifyContent="center" alignContent="center" >
 
     <Label text="Nueva reseña"  class="title"></Label>
-    <Image [src]="profile.profilePicture" class="img-header"   margin="10"
+    <Image [src]="foto" class="img-header"   margin="10"
   
     androidElevation="12"
     backgroundColor="white"></Image>
-    <Label [text]="profile.name" class="review-restname" >  </Label>
+    <Label [text]="nombre" class="review-restname" >  </Label>
   <StackLayout class="new-review">
     <FlexboxLayout alignItems="center" class="estrellas" justifyContent="space-between" width="60%">
   
@@ -22,9 +22,11 @@
   </StackLayout>
   
   <button text="Postear" (tap)="postear()" class="my-button"></button>
-    
   
-    
-  </StackLayout>
+</StackLayout>
+
+<StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background">
+<ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
+</StackLayout>
       
   

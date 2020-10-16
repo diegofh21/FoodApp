@@ -2,7 +2,10 @@
   <ScrollView>
     <StackLayout alignItems="center" justifyContent="center">
       <Label text="Resultados de su búsqueda..." class="h3 text-center black-text"></Label>
-
+     <StackLayout *ngIf="datos==null" class="errorMsg" width="80%">
+       <Label  alignItems="center" justifyContent="center" text="No se encontraron restaurantes..." textWrap="true" class="h1 text-center black-text"></Label>
+       <Image src="~/assets/images/errorSearch.png" width="90%"></Image>
+     </StackLayout>
       <FlexboxLayout class="card" *ngFor="let profile of result" (tap)="goToProfile(profile.id)">
         <Image [src]="addUrl(profile.ruta)"  class="cardImg"></Image>
         <StackLayout class="card-Text">

@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
 	public BtnDispo: boolean = true;
 	public CheckCount: number = 0;
 	public CheckLimit: boolean = true;
-
+	public loading_search: string ="desactivado"
 	public searchString = '';
 	public latitude: number;
 	public longitude: number;
@@ -75,13 +75,14 @@ export class HomeComponent implements OnInit {
 		this.longitude = 0;
 	}
 
+
 	ngOnInit() {
 		if (typeof (this.routeAct.snapshot.params.id) !== 'undefined') {
-			this.id = +this.routeAct.snapshot.params.id;
+			this.id = 14;
 		}
 		console.log("el id recogido es", this.id);
 
-		this.getUserInfo(this.id);
+		this.getUserInfo(14);
 		this.getFeedList();
 		// this.feedList = this.RestaurantService.getProfiles();
 		this.Loupe = this.loupe_filled;
@@ -194,8 +195,10 @@ export class HomeComponent implements OnInit {
 	{
 		let searchBar = <SearchBar>args.object;
 		let parametro = searchBar.text;
+		this.loading_search="activado";
 		//aqui se pasa el id del usuario + la respuesta del servidor 
-		this.helper.searchByName(parametro).subscribe((resp: any,) => {
+		this.helper.searchByName(parametro).subscribe((resp: any,) =>  {
+			this.loading_search="desactivado";
 
 			console.log(resp);
 			this.helper.ResultadoBusqueda = resp;

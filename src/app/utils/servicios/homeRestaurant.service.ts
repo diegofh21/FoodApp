@@ -15,7 +15,7 @@ export class homeRestaurantService {
   private items = [
     {
         id: 1,
-        name: "BurguerQueen",
+        name: "Burguer Landia",
         profilePicture: "~/assets/images/hamburguesa.jpg",
         info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
         caracteristicas:["hamburguesas", "Para niños", "Americana"],
@@ -25,7 +25,7 @@ export class homeRestaurantService {
 
     },{
         id: 2,
-        name: "Pizza Planeta",
+        name: "Pizzería La Romana",
         profilePicture: "~/assets/images/pizza.jpg",
         info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
         caracteristicas:["Pizza", "Calzone", "Italiana"],
@@ -35,7 +35,7 @@ export class homeRestaurantService {
 
     },{
         id: 3,
-        name: "PastaPasta",
+        name: "Pasta Parmesano",
         profilePicture: "~/assets/images/pasta.jpg",
         info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
         caracteristicas:["Pasta", "Italiana"],
@@ -46,31 +46,31 @@ export class homeRestaurantService {
 ];
 
 private users = [
-  {id: 1, name: "francesco virgolini", profilePic: "~/assets/images/profile1.jpg" },
-  {id: 2, name: "pulpo paul", profilePic: "~/assets/images/profile2.jpg" },
-  {id: 3, name: "esteban julio ricardo montolla", profilePic: "~/assets/images/profile3.jpg" }
+  {id: 1, name: "Antonio Gonzáles", profilePic: "~/assets/images/profile1.jpg" },
+  {id: 2, name: "Juan Hernández", profilePic: "~/assets/images/profile2.jpg" },
+  {id: 3, name: "Carmen Delgado", profilePic: "~/assets/images/profile3.jpg" }
 ]
 
 private  reviews = [
   { id: 1,
     restID: 1,
     userID: 3,
-    rate: 2,
-    reviewText: "meh, cualquier vaina el burguer queen Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
+    rate: 3,
+    reviewText: "Fue muy buena la comida, las hamburguesas deliciosas, pero la atención no fue muy buena..",
     date: "12/09/2020, 10:00pm",
   },
   { id: 2,
     restID: 1,
     userID: 1,
     rate: 5,
-    reviewText: "excelente burguer queen 5 estrella papa Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet. ",
+    reviewText: "Espectacular, 100% recomendado",
     date: "12/09/2020, 10:00pm",
   },
   { id: 3,
     restID: 2,
     userID: 2,
     rate: 4,
-    reviewText: "decente pizza buena atención  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
+    reviewText: "decente pizza buena atención.",
     date: "12/09/2020, 10:00pm",
   },
   { 
@@ -78,7 +78,7 @@ private  reviews = [
     restID: 2,
     userID: 3,
     rate: 1,
-    reviewText: "no me gusto nada  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea rem labore Lorem ipsum dolor sit amet.",
+    reviewText: "Tardaron mucho al servir la comida, estaba fría y nos cobraron de más.",
     date: "12/09/2020, 10:00pm",
   },
   { id: 5,

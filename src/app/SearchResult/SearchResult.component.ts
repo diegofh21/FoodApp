@@ -23,11 +23,17 @@ export class SearchResultComponent implements OnInit {
 		this.latitude = this.userService.UserLocation[0];
 		this.longitude = this.userService.UserLocation[1];
 	}
-
+datos=null;
+status="normal"
 	ngOnInit() {
-        
-        this.result = this.helper.ResultadoBusqueda;
-	 }
+
+		this.result=[];
+		this.result = this.helper.ResultadoBusqueda;
+		for (const i in this.result) {
+			this.datos=i;
+		}
+		if(this.datos==null){this.alert()}
+ }
 
 
 
@@ -46,5 +52,9 @@ export class SearchResultComponent implements OnInit {
     public addUrl(b){
 		const a = "https://www.arpicstudios.com/storage/"+ b;
 		return a;		
+	}
+
+	alert(){
+		alert("No se entontró ningún restaurante con las características o el nombre que buscaste.")
 	}
 }

@@ -9,6 +9,8 @@ import { Page } from "tns-core-modules/ui/page";
 import * as email from "nativescript-email";
 import { ListPicker } from "tns-core-modules/ui/list-picker/list-picker";
 import { GestureEventData } from "tns-core-modules/ui/gestures";
+import { UserService } from '../utils/servicios/user.service';
+import { HelperService } from "../utils/servicios/helper.service";
 @Component({
     selector: "ns-items",
     templateUrl: "./profileReviewList.component.html",
@@ -16,24 +18,30 @@ import { GestureEventData } from "tns-core-modules/ui/gestures";
 })
 export class profileReviewList implements OnInit {
   composeOptions: email.ComposeOptions;
-    profile;
-     reviews;
+ foto;
+   nombre;
+   id;
+   status="normal"
+   cantidad=null;
+    reviews;
     rate;
+    star0;
     star1;
     star2;
     star3;
     star4;
     star5;
 
-    constructor(private itemService: homeRestaurantService,
-        private route: ActivatedRoute) { }
+    constructor(private UserService: UserService,private itemService: homeRestaurantService,
+        private route: ActivatedRoute, private Helper: HelperService) { }
 
     ngOnInit(): void {
         const id = +this.route.snapshot.params.id;
-        this.profile = this.itemService.getProfilebyID(id);
-        this.reviews = this.itemService.getReviews(id);
-
-
+        this.LoadData(id);
+        this.foto = this.UserService.Datos_Restaurante.foto;
+        this.nombre = this.UserService.Datos_Restaurante.name;
+        this.id = this.UserService.Datos_Restaurante.id;
+	      this.star0 = "~/assets/images/0star.png"
         this.star1 = "~/assets/images/1star.png";
         this.star2 = "~/assets/images/2star.png";
         this.star3 = "~/assets/images/3star.png"; 
@@ -43,15 +51,11 @@ export class profileReviewList implements OnInit {
     }
 
 
-    reportReview(id){
-      var reviewData = this.itemService.getReview(id);
-      var restaurante = this.itemService.getProfilebyID(reviewData.restID);
-      var ActualUser =  this.itemService.getUsers(reviewData.userID);
+    reportReview(id, name){
 
-      
       dialogs.confirm({
           title: "Reportar reseña",
-          message: "¿Desea reportar la reseña de "+ ActualUser.name +"?",
+          message: "¿Desea reportar la reseña de "+ name +"?",
           okButtonText: "Reportar",
           cancelButtonText: "Cancelar"
       }).then(result => {
@@ -74,23 +78,28 @@ export class profileReviewList implements OnInit {
       });
     }
 
-    getStars(rate){
-      if (rate===1){return this.star1}
-      if (rate===2){return this.star2}
-      if (rate===3){return this.star3}
-      if (rate===4){return this.star4}
-      if (rate===5){return this.star5}
+    LoadData(id){
+      this.status="loading"
+     this.Helper.getReviews(id).subscribe((resp: any) => {
+        console.log("se recibieron los datos");
+        this.status="normal"
+        this.reviews = resp;
+        for (const i in this.reviews) {
+          this.cantidad=i;
+        }
+        if(this.cantidad==null){
+          this.cantidad=-1;
+        }
+
+      });
     }
-    
-  getProfilepicURL(id){
-    var ActualUser =  this.itemService.getUsers(id);
-    return ActualUser.profilePic;
-  }
 
-  getNameUser(id){
-    var ActualUser =  this.itemService.getUsers(id);
-    return ActualUser.name;
-  }
-
-
+	 getStars(rate){
+		if (rate<=0.49){return this.star0} 
+		if ((rate>=0.5)&&(rate<=1.49)){return this.star1}
+		if ((rate>=1.5) && (rate <= 2.49)){return this.star2}
+		if ((rate>=2.5) && (rate <= 3.49)){return this.star3}
+		if ((rate>=3.5) && (rate <= 4.49)){return this.star4}
+		if (rate>=4.5){return this.star5}
+	  }
 }

@@ -81,6 +81,7 @@ public status: 'profile' | 'loading' = 'loading';
 			this.profile = resp;
 			this.UserService.Datos_Restaurante.name=this.profile.restaurantName;
 			this.UserService.Datos_Restaurante.foto = this.addUrl(this.profile.ruta);
+			this.UserService.Datos_Restaurante.id = this.profile.id;
 
 			this.latitude = this.profile.latitud;
 			this.longitude = this.profile.longitud;

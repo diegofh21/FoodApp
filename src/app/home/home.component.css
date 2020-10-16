@@ -262,6 +262,10 @@ height: 30%;
   background:rgba(0, 0, 0, 0.4);
 }
 
+.loading-background-search{
+  background:rgba(0, 0, 0, 0.11);
+}
+
 .round
 {
   border-radius: 100%;

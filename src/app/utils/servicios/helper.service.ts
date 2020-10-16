@@ -41,4 +41,13 @@ export class HelperService {
   public getPost(id) {
     return this.http.get(Config.apiUrl + '/publicaciones/'+ id);
   }
+
+  public getReviews(id){
+    let obj: object = { "id": id };
+    return this.http.post(Config.apiUrl +'/indexReview', obj);
+  }
+
+  public NewReview(data){
+    return this.http.post(Config.apiUrl + '/review', data);
+  }
 }
