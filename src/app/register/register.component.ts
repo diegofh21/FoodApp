@@ -283,13 +283,13 @@ export class RegisterComponent implements OnInit {
 			alert(regAlert).then(() => {
 				setTimeout(() => {
 					let caracteristicasUsuario = {
-
+						userID: this.cliente.id,
 						caracteristicasID: Caracteristicas
 					};
 
 					this.userService.storeCaracteristicas(caracteristicasUsuario).subscribe((resp: any) => {
-						console.log("caracteristicas de usuario registradas bajo el id:",);
-						if (caracteristicasUsuario != null || undefined) {
+						console.log("caracteristicas de usuario registradas bajo el id:", caracteristicasUsuario.userID);
+						if (caracteristicasUsuario.userID != null || undefined) {
 							// Guardamos las caracteristicas en el servicio (caché)
 							this.userService.Datos_Usuario.caracteristicas = Caracteristicas;
 							const regAlert: AlertOptions =
