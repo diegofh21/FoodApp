@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	login() {
-		this.routerEx.navigate(['/home', 17], {
+		this.routerEx.navigate(['/home', 16], {
 			animated: true,
 			transition:
 			{

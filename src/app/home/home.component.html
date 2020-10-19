@@ -3,13 +3,13 @@
   <NavigationButton text="Salir" *ngIf="status == 'home'" android.systemIcon="ic_menu_back" (tap)="Logout()" class="black-text" isEnabled="{{ BtnDispo }}">
   </NavigationButton>
 
-  <Label text="Inicio" *ngIf="status == 'home'" position="center" class="h2 bold black-text" textWrap="true"></Label>
+  <Label text="Inicio" *ngIf="status == 'home'" position="center" class="h2 black-text" textWrap="true"></Label>
 
-  <Label text="Busqueda"  *ngIf="status == 'search'" position="center" class="h2 bold black-text" textWrap="true"></Label>
+  <Label text="Busqueda"  *ngIf="status == 'search'" position="center" class="h2 black-text" textWrap="true"></Label>
 
-  <Label text="Mi Perfil"  *ngIf="status == 'profile'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
+  <Label text="Mi Perfil"  *ngIf="status == 'profile'" position="center" class="h2 black-text" textWrap="true"></Label>
 
-  <Label text="Editar Intereses"  *ngIf="status == 'editCaracteristicas'" position="center" class="h2 bold  black-text" textWrap="true" textAlignment="center"></Label>
+  <Label text="Editar Intereses"  *ngIf="status == 'editCaracteristicas'" position="center" class="h2 black-text" textWrap="true" textAlignment="center"></Label>
 
   <Label text="Cargando..."  *ngIf="status == 'loading'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
 
@@ -42,17 +42,17 @@
 
   <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
   <TabContentItem>
-    <GridLayout class="page" *ngIf="status == 'home'">
+    <GridLayout class="page" *ngIf="status == 'home'" background="white">
       <ScrollView>
         <StackLayout alignItems="center" justifyContent="center">
         
           <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.id)">
-            <Image src="https://www.arpicstudios.com/storage/{{ profile.ruta }}" class="cardImg"></Image>
+            <Image src="https://www.arpicstudios.com/storage/{{ profile.ruta }}" class="cardImg" stretch="fill"></Image>
             <StackLayout class="card-Text">
-              <Label class="card-title" text="{{ profile.name }}"></Label>
+              <Label class="card-title" text="{{ profile.name }}" textTransform="capitalize"></Label>
               <Label  textWrap="true" class="card-info" text="{{ profile.descripcion }}"></Label>
               <FlexboxLayout flexWrap="wrap" >
-                <Label *ngFor="let data of profile.caracteristicas" class="carac" text="{{ data.name }}"></Label>
+                <Label *ngFor="let data of profile.caracteristicas" class="carac" text="{{ data.name }}" textTransform="capitalize"></Label>
               </FlexboxLayout>
             </StackLayout>
           </FlexboxLayout>
@@ -71,14 +71,14 @@
   <TabContentItem>
 
     <GridLayout class="page2" >
-      <StackLayout *ngIf="status == 'search'" width="100%" height="100%">
+      <StackLayout *ngIf="status == 'search'" width="100%" height="100%" background="white">
         <FlexboxLayout height="7%" class="push-btn">
           <FlexboxLayout class="searchbuttons" (tap)="switchSearch('tag')">
-            <Label class="h3 bold" text="Nombre" textAlignment="center"></Label>
+            <Label class="h3 black-text" text="Nombre" textAlignment="center"></Label>
             <Image [src]="Loupe" height="80%"></Image>
           </FlexboxLayout>
           <FlexboxLayout class="searchbuttons" (tap)="switchSearch('nombre')">
-            <Label class="h3 bold" text="Caracteristica" textAlignment="center"></Label>
+            <Label class="h3 black-text" text="Caracteristica" textAlignment="center"></Label>
             <Image [src]="Tag" height="80%"></Image>
           </FlexboxLayout>
         </FlexboxLayout>
@@ -129,9 +129,9 @@
     <AbsoluteLayout class="page3">
 
         <!-- PERFIL -->
-        <StackLayout *ngIf="status == 'profile'" width="100%" height="100%">
+        <StackLayout *ngIf="status == 'profile'" width="100%" height="100%" background="white">
           <StackLayout flexDirection="column" justifyContent="center" alignContent="center" alignItems="center">
-            <TextField [hint]="dataUser.name" [(ngModel)]="dataUser.name" minlength="2" maxlength="60" class="h2 name-field text-center"></TextField>
+            <TextField [hint]="dataUser.name" [(ngModel)]="dataUser.name" minlength="2" maxlength="60" class="h2 name-field text-center black-text"></TextField>
             <Image src="{{ userPicture }}" class="img-header"   
             margin="7"
             androidElevation="12"></Image>
@@ -143,7 +143,7 @@
           </FlexboxLayout>
 
           <FlexboxLayout flexWrap="wrap" class="flexstars" alignItems="center" justifyContent="center" width="100%" height="100%">
-            <Label *ngFor="let data of dataUser.caracteristicas" [text]="data.name" class="carac" width="100%" textAlignment="center" height="17%"></Label> 
+            <Label *ngFor="let data of dataUser.caracteristicas" [text]="data.name" class="carac-perfil" width="100%" textAlignment="center" height="17%"></Label> 
           </FlexboxLayout>
           
         </StackLayout>

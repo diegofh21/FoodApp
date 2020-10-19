@@ -10,7 +10,9 @@
 .cardImg{
   border-radius: 100%;
   margin: 5;
-  width: 25%;
+  /* width: 30%; */
+  height: 250px;
+  width: 250px;
   background-color: white;
   android-elevation: 10;
 }
@@ -22,12 +24,22 @@
 }
 .carac{
   color: white;
-
   font-size: 14;
   background-color: rgb(17, 115, 226);
   padding: 2,4;
   margin: 2, 5;
   border-radius: 4;
+}
+
+.carac-perfil
+{
+  color: white;
+  font-size: 18;
+  background-color: rgb(17, 115, 226);
+  padding: 2,4;
+  margin: 2, 5;
+  border-radius: 4;
+  padding-top: 50px;
 }
 .busqueda{
   margin-top: 100px;
@@ -62,7 +74,7 @@ TextField:focus, TextField:active
 .item{
   color: white;
   font-size: 20;
-  height: 30;
+  height: 35;
   background-color: rgb(17, 115, 226);
   padding: 2,4;
   margin: 3, 5;
@@ -254,11 +266,11 @@ height: 30%;
 
 .loading-background
 {
-  background:rgba(0, 0, 0, 0.4);
+  background:rgba(0, 0, 0, 0.1);
 }
 
 .loading-background-search{
-  background:rgba(0, 0, 0, 0.11);
+  background:rgba(0, 0, 0, 0.1);
 }
 
 .round
@@ -276,7 +288,7 @@ height: 30%;
   background: rgb(255, 123, 0);
   color: black;
   font-weight: bold;
-  width: 150px;
-  height: 100px;
+  width: 200px;
+  height: 150px;
   border-radius: 100%;
 }

@@ -3,9 +3,9 @@
   <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="backHome()" class="black-text">
   </NavigationButton>
 
-  <Label text="Perfil" *ngIf="status == 'profile'" position="center" class="h2 bold black-text" textWrap="true"></Label>
+  <Label text="Perfil" *ngIf="status == 'profile'" position="center" class="h2" color="black" textWrap="true"></Label>
 
-  <Label text="Cargando..."  *ngIf="status == 'loading'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
+  <Label text="Cargando..."  *ngIf="status == 'loading'" position="center" class="h2" color="black" textWrap="true"></Label>
 
   <!-- POR AHORA COMENTADO PERO ESTO PUEDE SERVIR PARA IMPLEMENTAR EL BOTON DE REPORTAR LOCAL -->
   <!-- <ActionItem *ngIf="status == 'profile'"
@@ -16,19 +16,19 @@
     text="📝 Modificar intereses" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem> -->
 </ActionBar>
 
-<ScrollView *ngIf="status == 'profile'">
+<ScrollView *ngIf="status == 'profile'" background="white">
   <GridLayout class="page2">
     <StackLayout justifyContent="center" alignContent="center">
       <Image [src]="addUrl(profile.ruta)" class="img-header" margin="10" androidElevation="12" backgroundColor="white">
       </Image>
-      <Label [text]="profile.restaurantName" textWrap="true" class="restname"> </Label>
+      <Label [text]="profile.restaurantName" textWrap="true" textTransform="capitalize" class="restname"> </Label>
       <Label [text]="profile.descripcion" textWrap="true" class="restInfo"> </Label>
       <FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
         <Label [text]="profile.rating" class="rate"> </Label>
         <Image [src]="getStars(profile.rating)" class="stars"></Image>
       </FlexboxLayout>
       <FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
-        <Label *ngFor="let carac of profile.caracteristicas" (tap)="aber(carac.name)" [text]="carac.name" class="carac">
+        <Label *ngFor="let carac of profile.caracteristicas" (tap)="aber(carac.name)" [text]="carac.name" class="carac" textTransform="capitalize">
         </Label>
       </FlexboxLayout>
       <FlexboxLayout class="row">
@@ -47,8 +47,8 @@
           (mapReady)="onMapReady($event)">
         </MapView>
       </StackLayout>
-      <WrapLayout class="fotos">
-        <Image *ngFor="let foto of profile.fotos" [src]="addUrl(foto.ruta)" class="gallery" (tap)="openPic(foto.id)">
+      <WrapLayout class="fotos" background="white">
+        <Image *ngFor="let foto of profile.fotos" [src]="addUrl(foto.ruta)" class="gallery" (tap)="openPic(foto.id)" stretch="fill">
         </Image>
       </WrapLayout>
     </StackLayout>
