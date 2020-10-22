@@ -19,12 +19,12 @@
 <ScrollView *ngIf="status == 'profile'" background="white">
   <GridLayout class="page2">
     <StackLayout justifyContent="center" alignContent="center">
-      <Image [src]="addUrl(profile.ruta)" class="img-header" margin="10" androidElevation="12" backgroundColor="white">
+      <Image [src]="addUrl(profile.ruta)" class="img-header" margin="10" androidElevation="10" backgroundColor="white">
       </Image>
       <Label [text]="profile.restaurantName" textWrap="true" textTransform="capitalize" class="restname"> </Label>
       <Label [text]="profile.descripcion" textWrap="true" class="restInfo"> </Label>
-      <FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
-        <Label [text]="profile.rating" class="rate"> </Label>
+      <FlexboxLayout class="flexstars" alignItems="center" alignContent="center" justifyContent="center" flexDirection="column">
+        <Label [text]="profile.rating" class="rate h2 bold " textAlignment="center" color="black"></Label> 
         <Image [src]="getStars(profile.rating)" class="stars"></Image>
       </FlexboxLayout>
       <FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
@@ -32,12 +32,12 @@
         </Label>
       </FlexboxLayout>
       <FlexboxLayout class="row">
-        <Image class="ImgButton" [nsRouterLink]="['/newReview', profile.id]" src="~/assets/images/newReviewIcon.png">
+        <Image class="ImgButton" [nsRouterLink]="['/newReview', profile.id]" src="~/assets/images/addReview.png">
         </Image>
         <Image (tap)="showMap(mapbool)" margin="10" androidElevation="12" backgroundColor="white" class="busqueda"
           [src]="statusMap"></Image>
         <Image class="ImgButton" [nsRouterLink]="['/profileReviewList', profile.id]"
-          src="~/assets/images/reviewIcon.png"></Image>
+          src="~/assets/images/reviewList.png"></Image>
       </FlexboxLayout>
 
       <StackLayout class="map" [height]="mapDisplay" justifyContent="center" alignContent="center">

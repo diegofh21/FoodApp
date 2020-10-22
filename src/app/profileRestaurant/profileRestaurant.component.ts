@@ -41,12 +41,12 @@ public status: 'profile' | 'loading' = 'loading';
 		this.status = 'loading';
 		this.loadData(this.id);
 		this.reviews = "";//aqui se pondrá la solicitud de todas las reviews de el restaurante actual
-		this.star0 = "~/assets/images/0star.png"
-		this.star1 = "~/assets/images/1star.png";
-        this.star2 = "~/assets/images/2star.png";
-        this.star3 = "~/assets/images/3star.png"; 
-        this.star4 = "~/assets/images/4star.png";
-        this.star5 = "~/assets/images/5star.png";
+		this.star0 = "~/assets/images/0estrellas.png"
+		this.star1 = "~/assets/images/1estrellas.png";
+        this.star2 = "~/assets/images/2estrellas.png";
+        this.star3 = "~/assets/images/3estrellas.png"; 
+        this.star4 = "~/assets/images/4estrellas.png";
+        this.star5 = "~/assets/images/5estrellas.png";
 	 }
 
 

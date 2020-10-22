@@ -28,8 +28,8 @@ export class newReviewComponent implements OnInit {
     starURL3;
     starURL4;
     starURL5;
-    starEmpty = "~/assets/images/star-empty.png";
-    starFilled = "~/assets/images/star-filled.png";
+    starEmpty = "~/assets/images/estrella-vacia2.png";
+    starFilled = "~/assets/images/estrella-llena.png";
     constructor(private UserService: UserService,
         private Helper: HelperService,
         private route: ActivatedRoute,

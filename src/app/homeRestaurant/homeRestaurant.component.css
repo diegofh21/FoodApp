@@ -119,9 +119,9 @@ TextView:focus, TextView:active
 .review-card{
     width: 100%;
     padding: 15, 24, 50, 24;
-    align-items: left;
+    /* align-items: left; */
     background-color: rgb(255, 255, 255);
-    height: fit-content;
+    /* height: fit-content; */
 
 }
 
@@ -131,7 +131,7 @@ TextView:focus, TextView:active
 
 .report-Btn{
     width: 6%;
-    align-self: right;
+    /* align-self: right; */
     margin-bottom: 20;
     justify-self: right;
     display: flex;
@@ -149,7 +149,7 @@ TextView:focus, TextView:active
 
 .stars
 {
-    width: 25%;
+    width: 30%;
 }
 
 .report{
@@ -172,6 +172,7 @@ TextView:focus, TextView:active
     font-size: 13;
     font-weight: 300;
     height: 100%;
+    margin-left: 20px;
 }
 
 .my-button

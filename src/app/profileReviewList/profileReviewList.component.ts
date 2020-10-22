@@ -33,7 +33,7 @@ export class profileReviewList implements OnInit {
     star5;
 
     constructor(private UserService: UserService,private itemService: homeRestaurantService,
-        private route: ActivatedRoute, private Helper: HelperService) { }
+        private route: ActivatedRoute, private Helper: HelperService, private routerEx: RouterExtensions) { }
 
     ngOnInit(): void {
         const id = +this.route.snapshot.params.id;
@@ -41,12 +41,12 @@ export class profileReviewList implements OnInit {
         this.foto = this.UserService.Datos_Restaurante.foto;
         this.nombre = this.UserService.Datos_Restaurante.name;
         this.id = this.UserService.Datos_Restaurante.id;
-	      this.star0 = "~/assets/images/0star.png"
-        this.star1 = "~/assets/images/1star.png";
-        this.star2 = "~/assets/images/2star.png";
-        this.star3 = "~/assets/images/3star.png"; 
-        this.star4 = "~/assets/images/4star.png";
-        this.star5 = "~/assets/images/5star.png";
+	      this.star0 = "~/assets/images/0estrellas.png"
+        this.star1 = "~/assets/images/1estrellas.png";
+        this.star2 = "~/assets/images/2estrellas.png";
+        this.star3 = "~/assets/images/3estrellas.png"; 
+        this.star4 = "~/assets/images/4estrellas.png";
+        this.star5 = "~/assets/images/5estrellas.png";
         this.rate = 0;
     }
 
@@ -101,5 +101,18 @@ export class profileReviewList implements OnInit {
 		if ((rate>=2.5) && (rate <= 3.49)){return this.star3}
 		if ((rate>=3.5) && (rate <= 4.49)){return this.star4}
 		if (rate>=4.5){return this.star5}
-	  }
+    }
+    
+    backProfile()
+    {
+      this.routerEx.navigate(['/home', this.UserService.Datos_Usuario.id], {
+        animated: true,
+        transition:
+        {
+          name: 'fade',
+          duration: 250,
+          curve: 'linear'
+        }
+      });
+    }
 }
