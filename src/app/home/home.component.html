@@ -46,9 +46,12 @@
       <ScrollView>
         <StackLayout alignItems="center" justifyContent="center">
         
-          <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.id)">
-            <Image src="https://www.arpicstudios.com/storage/{{ profile.ruta }}" class="cardImg" stretch="fill"></Image>
+          <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.userID)">
+            
+            <Image src="https://arpicstudios.com/storage/{{profile.ruta}}" class="cardImg" stretch="fill"></Image>
             <StackLayout class="card-Text">
+              <Label text="{{profile.id}}" textWrap="true"></Label>
+              <Label text="{{profile.userID}}" textWrap="true"></Label>
               <Label class="card-title" text="{{ profile.name }}" textTransform="capitalize"></Label>
               <Label  textWrap="true" class="card-info" text="{{ profile.descripcion }}"></Label>
               <FlexboxLayout flexWrap="wrap" >
@@ -86,7 +89,7 @@
           <StackLayout *ngIf="searchType=='nombre'">
             <FlexboxLayout class="busqueda" margin="10" androidElevation="12" backgroundColor="white">
               <Image src="~/assets/images/logo-app.png" class="iconmap"></Image>
-              <SearchBar hint="Busca aquí" [text]="searchString" class="h3 bold" (submit)="onSubmit($event)"></SearchBar>
+              <SearchBar hint="Busca aquí" [text]="searchString" class="h3" (submit)="onSubmit($event)" color="black"></SearchBar>
             </FlexboxLayout>
             <StackLayout *ngIf="loading_search == 'activado'" width="100%" height="200" class="loading-background-search">
               <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
@@ -154,11 +157,11 @@
         </StackLayout>
       
         <!-- EDITAR CARACTERISTICAS -->
-        <ScrollView *ngIf="status == 'editCaracteristicas'" height="100%" width="100%">
+        <ScrollView *ngIf="status == 'editCaracteristicas'" height="100%" width="100%" background="white">
           <StackLayout>
             <StackLayout width="100%" class="h3">
               <Label text="Intereses (Recuerda que puedes escoger hasta un máximo de 5 intereses😋)" textAlignment="center" class="bold h3" color="black" textWrap="true"></Label>
-              <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black" class="h3" isEnabled="{{ CheckLimit }}"></CheckBox>
+              <CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" color="black" class="h3 capitalize" isEnabled="{{ CheckLimit }}"></CheckBox>
 
               <StackLayout orientation="horizontal">
                 <StackLayout class="float-btn-cancel" (tap)="cancelUpdate()" androidElevation="12">

@@ -292,3 +292,8 @@ height: 30%;
   height: 150px;
   border-radius: 100%;
 }
+
+.capitalize
+{
+  text-transform: capitalize;
+}

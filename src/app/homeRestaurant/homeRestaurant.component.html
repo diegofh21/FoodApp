@@ -12,11 +12,11 @@
 
   <Label text="Cargando..."  *ngIf="status == 'loading'" position="center" class="h2 bold  black-text" textWrap="true"></Label>
   
-  <ActionItem *ngIf="status == 'profile'"
+  <!-- <ActionItem *ngIf="status == 'profile'"
   ios.systemIcon="16" ios.position="right"
-  text="📋 Modificar nombre" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
+  text="📋 Modificar nombre" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem> -->
 
-  <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'" ios.systemIcon="16" ios.position="right" text="📝 Modificar intereses" android.position="popup" 
+  <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'" ios.systemIcon="2" ios.position="right" text="📝 Modificar intereses" android.position="popup" 
   isEnabled="{{ BtnDispo }}"></ActionItem>
 
 </ActionBar>
@@ -40,10 +40,10 @@
       <Image [src]="photo_actual" class="icono"></Image>
     </TabStripItem>
 
-    <TabStripItem (tap)="switchView('account')" class="special black-text" style="background: rgb(255, 123, 0);">
+    <!-- <TabStripItem (tap)="switchView('account')" class="special black-text" style="background: rgb(255, 123, 0);">
 
       <Image [src]="account_actual" class="icono"></Image>
-    </TabStripItem>
+    </TabStripItem> -->
   </TabStrip>
 
   <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
@@ -55,7 +55,8 @@
         <StackLayout justifyContent="center" alignContent="center">
           
           <Label [text]="profile.email" textWrap="true" class="h3 bold" textAlignment="center" color="black"></Label>
-          <Image [src]="addUrl(profile.foto)" class="img-header"   
+          
+          <Image src="https://www.arpicstudios.com/storage/{{profile.foto}}" class="img-header"   
           margin="10" androidElevation="12" backgroundColor="white" stretch="fill"></Image>
 
           <Label [text]="profile.name" textTransform="capitalize" textWrap="true" class="h2 bold" color="black" textAlignment="center"></Label>
@@ -117,7 +118,7 @@
             <Image [src]="addUrl(profile.foto)" class="img-header" margin="10" androidElevation="12"
             backgroundColor="white" stretch="fill"></Image>
             
-            <Label [text]="profile.name" class="h2 bold" textTransform="capitalize" textAlignment="center"></Label>
+            <Label [text]="profile.name" class="h2 bold" textTransform="capitalize" textAlignment="center" color="black"></Label>
             <Label text="J-{{ profile.rif }}" textWrap="true" class="h3 bold" color="black" textAlignment="center"></Label>
             <Label text="" class="divider" textWrap="true"></Label>
             
@@ -135,10 +136,10 @@
               </FlexboxLayout>
                 <FlexboxLayout>
                   <Image [src]="getStars(review.rate)"  class="stars" ></Image>
-                  <Label [text]="review.date" class="review-content"></Label>
+                  <Label [text]="review.date" class="review-content" color="black"></Label>
                 </FlexboxLayout>
                 </StackLayout>
-                <Label textWrap="true" [text]="review.reviewText" class="review-content"></Label>
+                <Label textWrap="true" [text]="review.reviewText" class="review-content" color="black"></Label>
               </StackLayout>
             </StackLayout>
           </StackLayout>

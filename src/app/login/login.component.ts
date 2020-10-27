@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { isUserInteractionEnabledProperty, Page } from "tns-core-modules/ui/page";
-import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ITnsOAuthTokenResult } from "nativescript-oauth2";
+import { exit } from 'nativescript-exit';
+import { isUserInteractionEnabledProperty, Page } from "tns-core-modules/ui/page";
+import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
 import { EventData } from "tns-core-modules/data/observable";
-import { exit } from 'nativescript-exit';
 
 // Servicios
 import { AuthService } from '../utils/servicios/auth.service';
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	loginrestaurante() {
-		this.routerEx.navigate(['/homeRestaurant', 15], {
+		this.routerEx.navigate(['/homeRestaurant', 2], {
 			animated: true,
 			transition:
 			{

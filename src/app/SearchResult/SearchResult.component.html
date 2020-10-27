@@ -1,18 +1,26 @@
-<GridLayout class="page">
+<ActionBar title="" style="background: rgb(255, 123, 0);">
+  <!-- NAV BUTTON EN HOME PREGUNTA SI SE QUIERE DESLOGUEAR -->
+  <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="backHome()" class="black-text">
+  </NavigationButton>
+
+  <Label text="Resultados de busqueda" position="center" class="h2" color="black" textWrap="true"></Label>
+</ActionBar>
+
+<GridLayout class="page" background="white">
   <ScrollView>
     <StackLayout alignItems="center" justifyContent="center">
-      <Label text="Resultados de su búsqueda..." class="h3 text-center black-text"></Label>
+      <!-- <Label text="Resultados de su búsqueda..." class="h3 text-center black-text"></Label> -->
      <StackLayout *ngIf="datos==null" class="errorMsg" width="80%">
-       <Label  alignItems="center" justifyContent="center" text="No se encontraron restaurantes..." textWrap="true" class="h1 text-center black-text"></Label>
+       <Label  alignItems="center" justifyContent="center" text="No se encontraron restaurantes..." textWrap="true" class="h1 text-center black-text" textTransform="capitalize"></Label>
        <Image src="~/assets/images/errorSearch.png" width="90%"></Image>
      </StackLayout>
       <FlexboxLayout class="card" *ngFor="let profile of result" (tap)="goToProfile(profile.id)">
         <Image [src]="addUrl(profile.ruta)"  class="cardImg"></Image>
         <StackLayout class="card-Text">
-          <Label class="card-title" text={{profile.name}}></Label>
-          <Label textWrap="true" class="card-info" text={{profile.descripcion}}></Label>
+          <Label class="card-title" text={{profile.name}} textTransform="capitalize"></Label>
+          <Label textWrap="true" class="card-info" text={{profile.descripcion}} textTransform="capitalize"></Label>
           <FlexboxLayout flexWrap="wrap">
-            <Label *ngFor=" let item of profile.caracteristicas" class="carac" text={{item.name}}></Label>
+            <Label *ngFor=" let item of profile.caracteristicas" class="carac" text={{item.name}} textTransform="capitalize"></Label>
           </FlexboxLayout>
         </StackLayout>
       </FlexboxLayout>

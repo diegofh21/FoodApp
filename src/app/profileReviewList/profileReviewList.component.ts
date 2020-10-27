@@ -1,16 +1,19 @@
 import { Component, OnInit } from "@angular/core";
-import { RouterExtensions } from 'nativescript-angular';
-import { homeRestaurantService } from "../utils/servicios/homeRestaurant.service";
 import { ActivatedRoute } from "@angular/router";
+import { RouterExtensions } from 'nativescript-angular';
+import * as email from "nativescript-email";
 import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { EventData, fromObject } from "tns-core-modules/data/observable";
 import { Page } from "tns-core-modules/ui/page";
-import * as email from "nativescript-email";
 import { ListPicker } from "tns-core-modules/ui/list-picker/list-picker";
 import { GestureEventData } from "tns-core-modules/ui/gestures";
+
+// SERVICIOS
+import { homeRestaurantService } from "../utils/servicios/homeRestaurant.service";
 import { UserService } from '../utils/servicios/user.service';
 import { HelperService } from "../utils/servicios/helper.service";
+
 @Component({
     selector: "ns-items",
     templateUrl: "./profileReviewList.component.html",
