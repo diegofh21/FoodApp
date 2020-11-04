@@ -1,0 +1,48 @@
+<ActionBar title="" style="background: rgb(255, 123, 0);">
+
+    <Label text="Reseñas" position="center" class="h2 bold" color="black" textWrap="true"></Label>
+    
+  </ActionBar>
+  
+  <ScrollView>
+    <StackLayout class="page2" background="white">
+      <StackLayout>
+        <StackLayout justifyContent="center" alignContent="center" width="80%">
+          <Image [src]="foto" class="img-header" width="200px" height="200px" margin="10" androidElevation="12" backgroundColor="white">
+          </Image>
+          <Label [text]="nombre" class="restname"> </Label>
+        </StackLayout>
+  
+        <StackLayout *ngIf="cantidad ==-1" width="90%" justifyContent="center" alignContent="center">
+          <Label class="h2 transparent" textWrap="true" textAlignment="center" text="Aún no has hecho ninguna reseña..."></Label>
+          <Image src="~/assets/images/NoReviews.png" width="60%"></Image>
+        </StackLayout>
+        <Label *ngIf="cantidad == null" class="h3 transparent" text="Obteniendo reseñas..." textAlignment="center"></Label>
+        <StackLayout *ngIf="cantidad >= 0" class="">
+          <StackLayout *ngFor="let review of reviews">
+  
+            <StackLayout class="review-card">
+              <StackLayout class="user-data">
+                <FlexboxLayout class="spaceB">
+                  <FlexboxLayout>
+                    <Label text=" Para: {{review.nameRestaurante}}" class="user-name"></Label>
+                  </FlexboxLayout>
+                  <Image (tap)="options(review)" src="~/assets/images/options.png"
+                    class="report-Btn"></Image>
+                </FlexboxLayout>
+             <FlexboxLayout>
+                  <Image [src]="getStars(review.rating)" class="stars"></Image>
+                  <Label [text]="review.created_at" class="review-content"></Label>
+                </FlexboxLayout>
+              </StackLayout>
+              <Label textWrap="true" [text]="review.contenido" class="review-content" color="black"></Label>
+            </StackLayout>
+          </StackLayout>
+          <StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background-search">
+            <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange"
+              style="z-index: 99999;" background="white"></ActivityIndicator>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>

@@ -11,7 +11,7 @@
   border-radius: 100%;
   margin: 5;
   /* width: 30%; */
-  height: 250px;
+  height: 216px;
   width: 250px;
   background-color: white;
   android-elevation: 10;
@@ -44,7 +44,7 @@
 .busqueda{
   margin-top: 100px;
   width: 90%;
-  height: 130px;
+  height: 80px;
   padding: 0;
   padding-left: 15%;
   border-radius: 100%;

@@ -176,7 +176,7 @@ public status: 'profile' | 'loading' = 'loading';
 	}
 	
 	public addUrl(b){
-		const a = "https://www.arpicstudios.com/storage/"+ b;
+		const a = "https://novakaelum.com/api/public_html/storage/"+ b;
 		return a;		
 	}
 
@@ -186,7 +186,7 @@ public status: 'profile' | 'loading' = 'loading';
 			console.log(resp);
 			this.UserService.Datos_Post.id=resp.id;
 			this.UserService.Datos_Post.titulo = resp.titulo;
-			this.UserService.Datos_Post.ruta = "https://arpicstudios.com/storage/"+ resp.ruta;
+			this.UserService.Datos_Post.ruta = "https://novakaelum.com/api/public_html/storage"+ resp.ruta;
 			this.UserService.Datos_Post.fecha = resp.fecha;
 			this.UserService.Datos_Post.descripcion = resp.descripcion;
 			this.routerEx.navigate(['Post/', id], {

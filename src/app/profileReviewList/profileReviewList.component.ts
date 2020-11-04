@@ -59,7 +59,6 @@ export class profileReviewList implements OnInit {
           okButtonText: "Reportar",
           cancelButtonText: "Cancelar"
       }).then(result => {
-          // result argument is boolean
           if(result){
             //aquí debería insertar los datos de la reseña en la tabla de reportes
             const mensaje: AlertOptions = {
@@ -74,7 +73,6 @@ export class profileReviewList implements OnInit {
           else{
             return
           }
-          console.log("Dialog result: " + result);
       });
     }
 

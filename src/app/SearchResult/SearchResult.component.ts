@@ -25,8 +25,10 @@ export class SearchResultComponent implements OnInit {
 	}
 datos=null;
 status="normal"
-	ngOnInit() {
+location= this.userService.UserLocation;
 
+	ngOnInit() {
+		alert("ubicación"+ this.latitude +" y "+this.longitude + ". aber pq nojoda")
 		this.result=[];
 		this.result = this.helper.ResultadoBusqueda;
 		for (const i in this.result) {
@@ -47,10 +49,22 @@ status="normal"
                 curve: 'linear'
             }
         });
-    }
+	}
+	//esta función debería ordenar los restaurantes, pero es raro que me dice que no puede leer latitude de undefined
+public compare(a, b) {
+		const rest1 = Math.abs(((a.latitud -  this.latitude )+(a.longitud - this.longitude)))
+		const rest2 = Math.abs(((b.latitud -  this.latitude )+(b.longitud - this.longitude)))
+		let comparison = 0;
+		if (rest1 > rest2) {
+		  comparison = 1;
+		} else if (rest1 < rest2) {
+		  comparison = -1;
+		}
+		return comparison;
+	  }
 
     public addUrl(b){
-		const a = "https://www.arpicstudios.com/storage/"+ b;
+		const a = "https://novakaelum.com/api/public_html/storage/"+ b;
 		return a;		
 	}
 

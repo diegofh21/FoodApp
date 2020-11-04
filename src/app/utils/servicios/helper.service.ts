@@ -20,7 +20,6 @@ export class HelperService {
     );
   }
 
-
   public searchByTags(tagList) {
     let obj: object = {
       "caracteristicas": tagList

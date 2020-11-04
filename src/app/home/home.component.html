@@ -19,6 +19,9 @@
   <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'"
   ios.systemIcon="16" ios.position="right"
   text="📝 Modificar intereses" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
+  <ActionItem *ngIf="status == 'profile'" (tap)="UserReviews(id)"
+  ios.systemIcon="16" ios.position="right"
+  text="💬 Reseñas publicadas" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
 </ActionBar>
 
 <BottomNavigation selectedIndex="0">
@@ -47,7 +50,7 @@
         <StackLayout alignItems="center" justifyContent="center">
         
           <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.id)">
-            <Image src="https://www.arpicstudios.com/storage/{{ profile.ruta }}" class="cardImg" stretch="fill"></Image>
+            <Image src="https://novakaelum.com/api/public_html/storage/{{ profile.ruta }}" class="cardImg" stretch="fill"></Image>
             <StackLayout class="card-Text">
               <Label class="card-title" text="{{ profile.name }}" textTransform="capitalize"></Label>
               <Label  textWrap="true" class="card-info" text="{{ profile.descripcion }}"></Label>

@@ -48,7 +48,7 @@
         </MapView>
       </StackLayout>
       <WrapLayout class="fotos" background="white">
-        <Image *ngFor="let foto of profile.fotos" [src]="addUrl(foto.ruta)" class="gallery" (tap)="openPic(foto.id)" stretch="fill">
+        <Image *ngFor="let foto of profile.fotos" [src]="addUrl(foto.ruta)" class="gallery" (tap)="openPic(foto.id)">
         </Image>
       </WrapLayout>
     </StackLayout>

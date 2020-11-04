@@ -30,9 +30,9 @@ export class HomeComponent implements OnInit {
 	public CheckCount: number = 0;
 	public CheckLimit: boolean = true;
 	public loading_search: string ="desactivado"
-
+	public dataFeed;
 	public errorCount = 0;
-
+	public interesesLenght =0;
 	public searchString = '';
 	public latitude: number;
 	public longitude: number;
@@ -84,10 +84,8 @@ export class HomeComponent implements OnInit {
 			this.id = +this.routeAct.snapshot.params.id;
 		}
 		console.log("el id recogido es", this.id);
-
+		this.updateLocation();
 		this.getUserInfo(this.id);
-		this.getFeedList();
-		// this.feedList = this.RestaurantService.getProfiles();
 		this.Loupe = this.loupe_filled;
 		this.dataUser = {
 			name: this.userService.Datos_Usuario.name,
@@ -98,7 +96,7 @@ export class HomeComponent implements OnInit {
 		this.Tag = this.tag_empty;
 		this.getCheckboxData();
 	}
-
+	  
 	editProfile() {
 		alert("editar perfil")
 	}
@@ -122,12 +120,14 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	getFeedList() {
-		this.RestaurantService.getProfiles().subscribe((resp: any) => {
-			// console.log("resp para getProfiles es:", resp)
-			this.feedList = resp;
-		});
-	}
+	/*[{"name": "Comida peruana"},
+	 {"name": "Comida japonesa"}, 
+	 {"name": "Tex-Mex"},
+	  {"name": "Comida criolla"},
+	   {"name": "Comida Zuliana"}]*/
+
+
+
 
 	getUserInfo(id) {
 		this.userService.getUserInfo(id).subscribe((resp: any) => {
@@ -140,7 +140,27 @@ export class HomeComponent implements OnInit {
 			this.userService.Datos_Usuario.email = this.dataUser.email = resp.email;
 			this.userService.Datos_Usuario.foto = this.userPicture = resp.avatar
 			this.userService.Datos_Usuario.caracteristicas = this.dataUser.caracteristicas = resp.caracteristicas;
+			this.dataFeed = resp.caracteristicas;
+			//así trae los datos: 
+				/*[
+				{"name": "Comida peruana"},
+				{"name": "Comida japonesa"}, 
+	 			{"name": "Tex-Mex"},
+	  			{"name": "Comida criolla"},
+				{"name": "Comida Zuliana"}
+				]
+				   
+				 DEBERIA TRAER EL ID PARA HACER QUE EL FEED SEA CON LOS INTERESES DEL USUARIO*/
+			for (const i in this.dataFeed) {
+				this.interesesLenght = parseInt(i); 
+			}
+			console.log("aber ", this.interesesLenght);
+			this.RestaurantService.getProfiles().subscribe((resp: any) => {
+				this.feedList = resp;
+			});
 		});
+
+
 	}
 
 	switchView(tab) {
@@ -150,7 +170,6 @@ export class HomeComponent implements OnInit {
 				this.search_actual = this.search_empty;
 				this.account_actual = this.account_empty;
 				this.status = 'loading';
-				this.getFeedList();
 				setTimeout(() => {
 					this.status = 'home';
 				}, 1000);
@@ -183,6 +202,20 @@ export class HomeComponent implements OnInit {
 		}
 	}
 
+
+	UserReviews(id){
+		this.routerEx.navigate(['UserReviews/', id], {
+			animated: true,
+			transition:
+			{
+				name: 'fade',
+				duration: 250,
+				curve: 'linear'
+			}
+		});
+	}
+
+
 	public onSubmit(args) {
 		let searchBar = <SearchBar>args.object;
 		let parametro = searchBar.text;
@@ -192,7 +225,8 @@ export class HomeComponent implements OnInit {
 			this.loading_search="desactivado";
 
 			console.log(resp);
-			this.helper.ResultadoBusqueda = resp;
+			let resultado = resp
+			this.helper.ResultadoBusqueda = resultado;
 			this.routerEx.navigate(['searchResult'], {
 				animated: true,
 				transition:
@@ -398,11 +432,26 @@ export class HomeComponent implements OnInit {
 	getCheckboxData() {
 		this.isBusy = true
 		this.helper.getCaracteristicas().subscribe((resp: any) => {
-			this.checkboxData = resp;
+			let ordenar = resp.sort(this.compare);
+			this.checkboxData = ordenar;
 			this.checkboxData.forEach(e => e.select = false);
 			this.isBusy = false;
 		});
 	}
+
+	 compare(a, b) {
+		// Use toUpperCase() to ignore character casing
+		const first = a.name.toUpperCase();
+		const second = b.name.toUpperCase();
+	  
+		let comparison = 0;
+		if (first > second) {
+		  comparison = 1;
+		} else if (first < second) {
+		  comparison = -1;
+		}
+		return comparison;
+	  }
 
 	checkedChange(event, data, id) {
 		console.log("id-1", this.checkboxData[id - 1])
@@ -700,7 +749,8 @@ export class HomeComponent implements OnInit {
 			}
 			console.log(idarrayobj);
 			this.helper.searchByTags(idarrayobj).subscribe((resp: any,) => {
-				this.helper.ResultadoBusqueda = resp;
+				let resultado = resp
+				this.helper.ResultadoBusqueda = resultado;
 
 				this.routerEx.navigate(['searchResult'], {
 					animated: true,
@@ -883,7 +933,9 @@ export class HomeComponent implements OnInit {
 	public updateLocation() {
 		this.getDeviceLocation().then(result => {
 			this.latitude = result.latitude;
+			this.userService.UserLocation[0]= result.latitude;
 			this.longitude = result.longitude;
+			this.userService.UserLocation[1]= result.longitude;
 			const ProfilePicAlert: AlertOptions = {
 				title: "Tu ubicación",
 				message: "tu latitud es " + result.latitude + " y su longitud " + result.longitude + ".",

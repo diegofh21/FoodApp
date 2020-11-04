@@ -23,6 +23,7 @@ import { ProfileRestaurantComponent } from './profileRestaurant/profileRestauran
 import { reviewListComponent } from "./homeRestaurant/reviewList.component";
 import { newReviewComponent } from "./profileRestaurant/newReview.component";
 import { profileReviewList } from "./profileReviewList/profileReviewList.component";
+import { UserReviewsListComponent } from "./UserReviewsList/UserReviewsList.component";
 
 //resultado de búsqueda
 import { SearchResultComponent } from "./SearchResult/SearchResult.component";
@@ -55,7 +56,8 @@ import { homeRestaurantService } from './utils/servicios/homeRestaurant.service'
         newReviewComponent,
         profileReviewList,
         SearchResultComponent,
-        PostComponent
+        PostComponent,
+        UserReviewsListComponent
     ],
     providers: [AuthService, UserService, homeRestaurantService, HelperService],
     schemas: [

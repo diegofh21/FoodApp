@@ -268,7 +268,7 @@ export class homeRestaurantComponent implements OnInit {
   }
 
   public addUrl(b) {
-    const a = "https://www.arpicstudios.com/storage/" + b;
+    const a = "https://novakaelum.com/api/public_html/storage/" + b;
     return a;
   }
 

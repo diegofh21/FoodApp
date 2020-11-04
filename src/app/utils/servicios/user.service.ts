@@ -69,6 +69,19 @@ export class UserService
     );
   }
 
+  public  getUserReviews(id)
+  { let obj: object = {id: id};
+    return this.http.post(
+      Config.apiUrl + '/indexReviewUsuario', obj
+    );
+  }
+
+  public deleteRevew(id){
+    return this.http.delete(
+      Config.apiUrl + '/review/' + id
+    );
+  }
+
   public storeCaracteristicas(data)
   {
     return this.http.post(

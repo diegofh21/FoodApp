@@ -27,7 +27,7 @@ actualPost;
 
 
 	  public addUrl(b){
-		const a = "https://www.arpicstudios.com/api/publicaciones/"+ b;
+		const a = "https://novakaelum.com/api/public_html/api/publicaciones/"+ b;
 		return a;		
 	}
 	
