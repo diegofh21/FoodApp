@@ -1,16 +1,17 @@
 import { Component, OnInit } from "@angular/core";
-import { RouterExtensions } from 'nativescript-angular';
 import { ActivatedRoute } from "@angular/router";
-import { alert, AlertOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+import { HttpClient } from '@angular/common/http';
+import { RouterExtensions } from 'nativescript-angular';
+import { exit } from 'nativescript-exit';
 import * as email from "nativescript-email";
 import * as imagepicker from "nativescript-imagepicker";
 import * as bghttp from "nativescript-background-http";
-import * as fs from "tns-core-modules/file-system";
+
+import { alert, AlertOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 import { ImageSource } from 'tns-core-modules/image-source';
-import { exit } from 'nativescript-exit';
+import * as fs from "tns-core-modules/file-system";
 
 import { Config } from '../utils/config';
-import { HttpClient } from '@angular/common/http';
 
 // SERVICIOS
 import { AuthService } from '../utils/servicios/auth.service';
@@ -57,7 +58,7 @@ export class homeRestaurantComponent implements OnInit {
   public finalPath = null;
   public respCode = 0
   public descripcionPost: string = '';
-  public postID
+  public isRestaurant: boolean = false;
 
   reviews;
   rate;
@@ -107,7 +108,7 @@ export class homeRestaurantComponent implements OnInit {
     this.star3 = "~/assets/images/3estrellas.png";
     this.star4 = "~/assets/images/4estrellas.png";
     this.star5 = "~/assets/images/5estrellas.png";
-    this.rate = 0;
+    // this.rate = 0;
     // console.log(this.actualPostSrc);
   }
 
@@ -230,6 +231,31 @@ export class homeRestaurantComponent implements OnInit {
 */
   }
 
+  openPic(id)
+  {
+    this.isRestaurant = true;
+    this.userService.isRestaurant = this.isRestaurant;
+		this.helper.getPost(id).subscribe((resp: any,) => {
+			console.log("se recibieron los datos");
+			console.log(resp);
+			this.userService.Datos_Post.id=resp.id;
+			this.userService.Datos_Post.titulo = resp.titulo;
+			this.userService.Datos_Post.ruta = "https://arpicstudios.com/storage/"+ resp.ruta;
+			this.userService.Datos_Post.fecha = resp.fecha;
+			this.userService.Datos_Post.descripcion = resp.descripcion;
+			this.routerEx.navigate(['Post/', id], {
+				animated: true,
+				transition:
+				{
+					name: 'fade',
+					duration: 250,
+					curve: 'linear'
+				}
+			});
+		});
+
+	}
+
   Logout() {
     const logoutAlert: ConfirmOptions = {
       title: "FindEat",
@@ -250,12 +276,12 @@ export class homeRestaurantComponent implements OnInit {
   }
 
   getStars(rate) {
-    if (rate === 0) { return this.star0 }
-    if (rate === 1) { return this.star1 }
-    if (rate === 2) { return this.star2 }
-    if (rate === 3) { return this.star3 }
-    if (rate === 4) { return this.star4 }
-    if (rate === 5) { return this.star5 }
+    if (rate<=0.49){return this.star0} 
+		if ((rate>=0.5)&&(rate<=1.49)){return this.star1}
+		if ((rate>=1.5) && (rate <= 2.49)){return this.star2}
+		if ((rate>=2.5) && (rate <= 3.49)){return this.star3}
+		if ((rate>=3.5) && (rate <= 4.49)){return this.star4}
+		if (rate>=4.5){return this.star5}
   }
   getProfilepicURL(id) {
     var ActualUser = this.itemService.getUsers(id);

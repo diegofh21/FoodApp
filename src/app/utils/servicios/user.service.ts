@@ -48,6 +48,9 @@ export class UserService
     rating: 0
   }
 
+  // Verificacion si es restaurante al abrir un post
+  public isRestaurant = false;
+
   public login(data)
   {
     return this.http.post(

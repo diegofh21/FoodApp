@@ -10,14 +10,12 @@ export class HelperService {
   constructor(private http: HttpClient) {
 
   }
+
   public ID_User = 3;
   public ResultadoBusqueda;
 
-
   public getCaracteristicas() {
-    return this.http.get(
-      Config.apiUrl + '/indexCaracteristicas'
-    );
+    return this.http.get(Config.apiUrl + '/indexCaracteristicas');
   }
 
   public searchByTags(tagList) {
@@ -28,29 +26,42 @@ export class HelperService {
   }
 
   public searchByName(name) {
-    let obj: object = { "query": name };
+    let obj: object = {
+      "query": name
+    };
     return this.http.post(Config.apiUrl + '/indexRestaurantes', obj);
   }
 
 
   public getUserInfo(id) {
-    return this.http.get(Config.apiUrl + '/registrar/'+ id);
+    return this.http.get(Config.apiUrl + '/registrar/' + id);
   }
 
   public getPost(id) {
-    return this.http.get(Config.apiUrl + '/publicaciones/'+ id);
+    return this.http.get(Config.apiUrl + '/publicaciones/' + id);
   }
 
-  public getReviews(id){
-    let obj: object = { "id": id };
-    return this.http.post(Config.apiUrl +'/indexReview', obj);
+  public getReviews(id) {
+    let obj: object = {
+      "id": id
+    };
+    return this.http.post(Config.apiUrl + '/indexReview', obj);
   }
 
-  public NewReview(data){
+  public NewReview(data) {
     return this.http.post(Config.apiUrl + '/review', data);
   }
-  
+
   public uploadPost(data) {
     return this.http.post(Config.apiUrl + '/publicaciones', data);
+  }
+
+  public editPost(id, data) {
+    return this.http.put(Config.apiUrl + '/publicaciones/' + id, data);
+  }
+
+  public deletePost(id)
+  {
+    return this.http.delete(Config.apiUrl + '/publicaciones/' + id);
   }
 }

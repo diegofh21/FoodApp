@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Page } from "tns-core-modules/ui/page";
-import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
-import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { RouterExtensions } from 'nativescript-angular/router';
 import { ITnsOAuthTokenResult } from "nativescript-oauth2";
 import * as imagepicker from "nativescript-imagepicker";
 import * as bghttp from "nativescript-background-http";
-import * as fs from "tns-core-modules/file-system";
-import { ImageSource } from 'tns-core-modules/image-source';
 import { exit } from 'nativescript-exit';
 
+import { Page } from "tns-core-modules/ui/page";
+import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
+import { ImageSource } from 'tns-core-modules/image-source';
+import * as fs from "tns-core-modules/file-system";
+
 import { Config } from '../utils/config';
-import { HttpClient } from '@angular/common/http';
 
 import { registerElement } from 'nativescript-angular/element-registry';
 import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
@@ -19,10 +20,12 @@ import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
 import { SearchBar } from 'tns-core-modules/ui/search-bar';
 import * as geocoding from 'nativescript-geocoding';
 
+// SERVICIOS
 import { AuthService } from '../utils/servicios/auth.service';
 import { UserService } from '../utils/servicios/user.service';
 import { HelperService } from '../utils/servicios/helper.service'
 
+// MODELS
 import { Cliente, Restaurante } from '../utils/models/user.model';
 
 registerElement('MapView', () => MapView);

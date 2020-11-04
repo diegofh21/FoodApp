@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { RouterExtensions } from 'nativescript-angular';
 import * as Geolocation from "nativescript-geolocation";
+
+import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
+
+// SERVICIOS
 import { HelperService } from '../utils/servicios/helper.service'
 import { UserService } from '../utils/servicios/user.service';
-import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
-//import { TextField } from 'ui/text-field';
-//import { EventData } from 'data/observable';
-
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'SearchResult',
@@ -16,10 +16,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class SearchResultComponent implements OnInit {
-    public latitude: number;
+	public latitude: number;
 	public longitude: number;
 	public result;
-	constructor(private userService: UserService, private routerEx: RouterExtensions, private helper: HelperService, private route: ActivatedRoute) { 
+	constructor(private userService: UserService, private routerEx: RouterExtensions, private helper: HelperService, private route: ActivatedRoute) {
 		this.latitude = this.userService.UserLocation[0];
 		this.longitude = this.userService.UserLocation[1];
 	}
@@ -32,7 +32,7 @@ location= this.userService.UserLocation;
 		this.result=[];
 		this.result = this.helper.ResultadoBusqueda;
 		for (const i in this.result) {
-			this.datos=i;
+			this.datos = i;
 		}
 		if(this.datos==null){this.alert()}
  }
@@ -68,7 +68,7 @@ public compare(a, b) {
 		return a;		
 	}
 
-	alert(){
+	alert() {
 		alert("No se entontró ningún restaurante con las características o el nombre que buscaste.")
 	}
 }
