@@ -28,7 +28,6 @@ export class SearchResultComponent implements OnInit {
 	location = this.userService.UserLocation
 
 	ngOnInit() {
-		// alert("ubicacióon" + this.latitude + " y " + this.longitude + ". aber pq nojoda")
 		this.result = [];
 		this.result = this.helper.ResultadoBusqueda;
 		for (const i in this.result) {
@@ -83,7 +82,15 @@ export class SearchResultComponent implements OnInit {
 
 	public backHome()
 	{
-		this.routerEx.back();
+		this.routerEx.navigate(['/home', this.userService.Datos_Usuario.id], {
+			animated: true,
+			transition:
+			{
+				name: 'fade',
+				duration: 250,
+				curve: 'linear'
+			}
+		});
 	}
 
 }

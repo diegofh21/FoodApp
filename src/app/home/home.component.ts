@@ -95,7 +95,7 @@ export class HomeComponent implements OnInit {
 		}
 		this.Tag = this.tag_empty;
 		this.getCheckboxData();
-		
+
 	}
 
 	Logout() {
@@ -119,7 +119,6 @@ export class HomeComponent implements OnInit {
 
 	getFeedList() {
 		this.RestaurantService.getProfiles().subscribe((resp: any) => {
-			// console.log("resp para getProfiles es:", resp)
 			this.feedList = resp;
 		},
 			(error) => {
@@ -295,8 +294,6 @@ export class HomeComponent implements OnInit {
 
 	getUserInfo(id) {
 		this.userService.getUserInfo(id).subscribe((resp: any) => {
-
-			// console.log("resp esssssssssss", JSON.stringify(resp));
 
 			// Se guarda la data en el servicio
 			this.userService.Datos_Usuario.id = this.id;
@@ -508,7 +505,6 @@ export class HomeComponent implements OnInit {
 				// Se llama en caso de que se actualicen algunos datos, igual cuando se vaya a modificar algo se tiene que llamar este metodo obligatoriamente para poder actualizar los datos mostrados en pantalla
 				this.status = 'loading';
 				this.getUserInfo(this.id);
-				// this.newFeedList();
 				setTimeout(() => {
 					this.status = 'profile';
 				}, 1000);
@@ -516,7 +512,6 @@ export class HomeComponent implements OnInit {
 			}
 		}
 	}
-
 
 	UserReviews(id) {
 		this.routerEx.navigate(['UserReviews/', id], {
@@ -529,7 +524,6 @@ export class HomeComponent implements OnInit {
 			}
 		});
 	}
-
 
 	public onSubmit(args) {
 		let searchBar = <SearchBar>args.object;
@@ -1493,31 +1487,183 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	public newFeedList()
-	{
-		// setTimeout(() => {
-		// 	console.log("a", this.userService.Datos_Usuario.caracteristicas);
-		// }, 2000);
+	public newFeedList() {
 		let idarrayobj = [];
 
-		// console.log("a", this.userService.Datos_Usuario.caracteristicas.length);
 		for (let i = 0; i < this.userService.Datos_Usuario.caracteristicas.length; i++) {
-			// console.log(this.userService.Datos_Usuario.caracteristicas[i].id);
 			let testobj = { id: this.userService.Datos_Usuario.caracteristicas[i].id };
-				idarrayobj.push(testobj);
-				
+			idarrayobj.push(testobj);
 		}
-		// console.log("array", idarrayobj);
 
 		this.helper.searchByTags(idarrayobj).subscribe((resp: any,) => {
-			// console.log("resp es", JSON.stringify(resp))
 			this.feedList = resp;
-			console.log("ddfsddf", this.feedList)
-			if(this.feedList.length == 0)
-			{
-				console.log("feedlist esta vacio")
+			if (this.feedList.length == 0) {
 				this.status = 'vacio';
 			}
-		});
+		},
+			(error) => {
+				console.log("El codigo HTTP obtenido es", error.status)
+				console.log("errorCount", this.errorCount);
+				switch (error.status) {
+					// INTERNAL SERVER ERROR
+					case 500:
+						this.errorCount++;
+						const error500: AlertOptions = {
+							title: 'FindEat',
+							message: 'Ha ocurrido un error interno del servidor, por favor intente nuevamente',
+							okButtonText: 'OK',
+							cancelable: false
+						};
+
+						if (this.errorCount < 3) {
+							alert(error500).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+							});
+						}
+						else {
+							const error500Persist: AlertOptions = {
+								title: 'FindEat',
+								message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+								okButtonText: 'OK',
+								cancelable: false
+							};
+
+							alert(error500Persist).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+								exit();
+							});
+						}
+						break;
+
+					// BAD GATEWAY
+					case 502:
+						this.errorCount++;
+						const error502: AlertOptions = {
+							title: 'FindEat',
+							message: 'Ha ocurrido un error, el servidor encontró un error temporal y no pudo completar su solicitud\nPor favor intente nuevamente.',
+							okButtonText: 'OK',
+							cancelable: false
+						};
+
+						if (this.errorCount < 3) {
+							alert(error502).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+							});
+						}
+						else {
+							const error502Persist: AlertOptions = {
+								title: 'FindEat',
+								message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+								okButtonText: 'OK',
+								cancelable: false
+							};
+
+							alert(error502Persist).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+								exit();
+							});
+						}
+						break;
+
+					// SERVICE UNAVAILABLE (SERVICIO NO DISPONIBLE)
+					case 503:
+						this.errorCount++;
+						const error503: AlertOptions = {
+							title: 'FindEat',
+							message: 'Ha ocurrido un error, el servidor no puede responder a la petición del navegador porque está congestionado o está realizando tareas de mantenimiento.\nPor favor intente nuevamente.',
+							okButtonText: 'OK',
+							cancelable: false
+						};
+
+						if (this.errorCount < 3) {
+							alert(error503).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+							});
+						}
+						else {
+							const error503Persist: AlertOptions = {
+								title: 'FindEat',
+								message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+								okButtonText: 'OK',
+								cancelable: false
+							};
+
+							alert(error503Persist).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+								exit();
+							});
+						}
+						break;
+
+					// GATEWAY TIMEOUT
+					case 504:
+						this.errorCount++;
+						const error504: AlertOptions = {
+							title: 'FindEat',
+							message: 'Ha ocurrido un error, el servidor no pudo completar su solicitud dentro del período de tiempo establecido.\nPor favor intente nuevamente.',
+							okButtonText: 'OK',
+							cancelable: false
+						};
+
+						if (this.errorCount < 3) {
+							alert(error504).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+							})
+						}
+						else {
+							const error504Persist: AlertOptions = {
+								title: 'FindEat',
+								message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+								okButtonText: 'OK',
+								cancelable: false
+							};
+
+							alert(error504Persist).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+								exit();
+							});
+						}
+						break;
+
+					case 0:
+						this.errorCount++;
+						const error0: AlertOptions = {
+							title: 'FindEat',
+							message: 'Ha ocurrido un error, la aplicación no se ha podido conectar con el servidor.\nPor favor intente nuevamente.',
+							okButtonText: 'OK',
+							cancelable: false
+						};
+
+						if (this.errorCount < 3) {
+							alert(error0).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+							});
+						}
+						else {
+							const error0Persist: AlertOptions = {
+								title: 'FindEat',
+								message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+								okButtonText: 'OK',
+								cancelable: false
+							};
+
+							alert(error0Persist).then(() => {
+								this.isBusy = false;
+								this.BtnDispo = true;
+								exit();
+							});
+						}
+						break;
+				}
+			});
 	}
 }
