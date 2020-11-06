@@ -48,6 +48,11 @@ export class UserService
     rating: 0
   }
 
+  public editReviewData={
+rating: 0,
+contenido: ""
+  }
+
   // Verificacion si es restaurante al abrir un post
   public isRestaurant = false;
 

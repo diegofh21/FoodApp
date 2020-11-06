@@ -14,12 +14,12 @@ import { UserService } from '../utils/servicios/user.service';
 import { HelperService } from '../utils/servicios/helper.service'
 
 @Component({
-	selector: "ns-details",
-	templateUrl: "./newReview.component.html",
-	styleUrls: ['./profileRestaurant.component.css']
+	selector: 'editReview',
+	templateUrl: '../editReview/editReview.component.html',
+	styleUrls: ['../profileRestaurant/profileRestaurant.component.css']
 })
-export class newReviewComponent implements OnInit {
 
+export class EditReviewComponent implements OnInit {
 	foto;
 	nombre;
 	user_id;
@@ -34,6 +34,7 @@ export class newReviewComponent implements OnInit {
 	starURL5;
 	starEmpty = "~/assets/images/estrella-vacia2.png";
 	starFilled = "~/assets/images/estrella-llena.png";
+	idreview;
 
 	public errorCount = 0;
 
@@ -44,17 +45,17 @@ export class newReviewComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.foto = this.UserService.Datos_Restaurante.foto;
+		this.idreview = this.id = +this.route.snapshot.params.id;
 		this.nombre = this.UserService.Datos_Restaurante.name;
-		this.id = this.UserService.Datos_Restaurante.id;
 		this.user_id = this.UserService.Datos_Usuario.id;
 		this.starURL1 = this.starEmpty;
 		this.starURL2 = this.starEmpty;
 		this.starURL3 = this.starEmpty;
 		this.starURL4 = this.starEmpty;
 		this.starURL5 = this.starEmpty;
-		this.rate = 0;
-		this.reviewText = "";
+		this.rate = this.UserService.editReviewData.rating;
+		this.reviewText = this.UserService.editReviewData.contenido;
+		this.starRate(this.rate)
 	}
 
 	starRate(n) {
@@ -119,27 +120,22 @@ export class newReviewComponent implements OnInit {
 		} else {
 			//aquí se envían los datos de la reseña a la api
 			let data = {
-				restID: this.id,
-				userID: this.user_id,
-				contenido: this.reviewText,
-				rating: this.rate
+				rating: this.rate,
+				contenido: this.reviewText
 			}
 			dialogs.confirm({
-				title: "Nueva Reseña",
+				title: "Editar la Reseña",
 				message: "Calificación de " + this.rate + " estrellas a " + this.nombre + ": ''" + this.reviewText + "'' en la reseña.",
-				okButtonText: "Publicar",
+				okButtonText: "Editar",
 				cancelButtonText: "Cancelar"
 			}).then(result => {
 				// result argument is boolean
 				if (result) {
-					//aquí debería insertar los datos de la reseña en la tabla de reportes
 					this.status = "loading"
-					this.Helper.NewReview(data).subscribe((resp: any) => {
+					this.Helper.editReview(this.idreview,data).subscribe((resp: any) => {
 						this.status = "normal";
-						this.rate=0;
-						this.reviewText="";
-						alert("La reseña fue publicada!")
-						this.routerEx.navigate(['profileRestaurant/', this.id], {
+						alert(resp.message);
+						this.routerEx.navigate(['UserReviews/', this.user_id], {
 							animated: true,
 							transition:
 							{

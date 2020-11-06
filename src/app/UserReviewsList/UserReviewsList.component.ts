@@ -74,6 +74,17 @@ this.status="loading"
 			console.log("Dialog result: " + result);
 			if(result == "Editar"){
 				alert("aquí te mando a editar tu basura")
+				this.userService.editReviewData.contenido = review.contenido;
+				this.userService.editReviewData.rating = review.rating;
+				this.userService.Datos_Restaurante.name = review.nameRestaurante;
+				this.routerEx.navigate(['editReview/', review.id], {
+					animated: true,
+					transition:
+					{	name: 'fade',
+						duration: 250,
+						curve: 'linear'
+					}
+				});
 			}else if(result == "Eliminar"){
 				dialogs.confirm({
 					title: "¿Eliminar reseña?",
