@@ -21,7 +21,7 @@ import { newReviewComponent } from "./profileRestaurant/newReview.component";
 import { reviewListComponent } from "./homeRestaurant/reviewList.component";
 import { profileReviewList } from "./profileReviewList/profileReviewList.component";
 import { UserReviewsListComponent } from "./UserReviewsList/UserReviewsList.component";
-
+import { EditReviewComponent } from "./editReview/editReview.component";
 //Post
 import { PostComponent } from "./Post/Post.component";
 
@@ -38,7 +38,8 @@ const routes: Routes = [
     {path: "profileReviewList/:id", component: profileReviewList},
     {path:"Post/:id", component: PostComponent},
     {path: "searchResult", component: SearchResultComponent},
-    {path: "UserReviews/:id", component: UserReviewsListComponent}
+    {path: "UserReviews/:id", component: UserReviewsListComponent},
+    {path:"editReview/:id", component: EditReviewComponent}
 ];
 
 @NgModule({

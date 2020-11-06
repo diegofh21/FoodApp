@@ -18,6 +18,10 @@ export class HelperService {
     return this.http.get(Config.apiUrl + '/indexCaracteristicas');
   }
 
+  public editReview(id, data){
+    return this.http.put(Config.apiUrl + '/review/'+ id, data);
+  }
+
   public searchByTags(tagList) {
     let obj: object = {
       "caracteristicas": tagList
