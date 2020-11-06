@@ -91,5 +91,12 @@ export class UserService
       Config.apiUrl + '/storeCaracteristicas', data
     );
   }
+
+  public deleteUser(id)
+  {
+    return this.http.delete(
+      Config.apiUrl + '/deleteUser/' + id
+    );
+  }
   
 }

@@ -133,6 +133,10 @@ export class homeRestaurantComponent implements OnInit {
 
       console.log("------------------------------------------")
       console.log("fotos", this.userService.Datos_Restaurante.posts)
+      if(this.userService.Datos_Restaurante.posts.length == 0)
+      {
+        alert("Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!")
+      }
     },
       (error) => {
         console.log("error", error)
@@ -231,30 +235,29 @@ export class homeRestaurantComponent implements OnInit {
 */
   }
 
-  openPic(id)
-  {
+  openPic(id) {
     this.isRestaurant = true;
     this.userService.isRestaurant = this.isRestaurant;
-		this.helper.getPost(id).subscribe((resp: any,) => {
-			console.log("se recibieron los datos");
-			console.log(resp);
-			this.userService.Datos_Post.id=resp.id;
-			this.userService.Datos_Post.titulo = resp.titulo;
-			this.userService.Datos_Post.ruta = "https://arpicstudios.com/storage/"+ resp.ruta;
-			this.userService.Datos_Post.fecha = resp.fecha;
-			this.userService.Datos_Post.descripcion = resp.descripcion;
-			this.routerEx.navigate(['Post/', id], {
-				animated: true,
-				transition:
-				{
-					name: 'fade',
-					duration: 250,
-					curve: 'linear'
-				}
-			});
-		});
+    this.helper.getPost(id).subscribe((resp: any,) => {
+      console.log("se recibieron los datos");
+      console.log(resp);
+      this.userService.Datos_Post.id = resp.id;
+      this.userService.Datos_Post.titulo = resp.titulo;
+      this.userService.Datos_Post.ruta = "https://arpicstudios.com/storage/" + resp.ruta;
+      this.userService.Datos_Post.fecha = resp.fecha;
+      this.userService.Datos_Post.descripcion = resp.descripcion;
+      this.routerEx.navigate(['Post/', id], {
+        animated: true,
+        transition:
+        {
+          name: 'fade',
+          duration: 250,
+          curve: 'linear'
+        }
+      });
+    });
 
-	}
+  }
 
   Logout() {
     const logoutAlert: ConfirmOptions = {
@@ -276,12 +279,12 @@ export class homeRestaurantComponent implements OnInit {
   }
 
   getStars(rate) {
-    if (rate<=0.49){return this.star0} 
-		if ((rate>=0.5)&&(rate<=1.49)){return this.star1}
-		if ((rate>=1.5) && (rate <= 2.49)){return this.star2}
-		if ((rate>=2.5) && (rate <= 3.49)){return this.star3}
-		if ((rate>=3.5) && (rate <= 4.49)){return this.star4}
-		if (rate>=4.5){return this.star5}
+    if (rate <= 0.49) { return this.star0 }
+    if ((rate >= 0.5) && (rate <= 1.49)) { return this.star1 }
+    if ((rate >= 1.5) && (rate <= 2.49)) { return this.star2 }
+    if ((rate >= 2.5) && (rate <= 3.49)) { return this.star3 }
+    if ((rate >= 3.5) && (rate <= 4.49)) { return this.star4 }
+    if (rate >= 4.5) { return this.star5 }
   }
   getProfilepicURL(id) {
     var ActualUser = this.itemService.getUsers(id);
@@ -665,8 +668,7 @@ export class homeRestaurantComponent implements OnInit {
         this.userService.Datos_Post.id = resp
         this.savePicture(this.finalPath);
 
-        if(this.userService.Datos_Post.id != null || undefined)
-        {
+        if (this.userService.Datos_Post.id != null || undefined) {
           const postAlert: AlertOptions = {
             title: 'FindEat',
             message: 'Publicación subida exitosamente🤩📸.',
@@ -877,6 +879,213 @@ export class homeRestaurantComponent implements OnInit {
       }, 1000);
     }).catch((result) => {
       console.log("cancelado")
+    });
+  }
+
+  public deleteProfile() {
+    const firstConfirm: ConfirmOptions = {
+      title: 'FindEat',
+      message: '¿Estás seguro de querer eliminar tu cuenta?\n(SE ELIMINARÁ TODO LO RELACIONADO A TU PERFIL)',
+      okButtonText: 'Si, quiero eliminar mi cuenta.',
+      cancelButtonText: 'No, quiero quedarme',
+      cancelable: false
+    };
+
+    confirm(firstConfirm).then((result) => {
+      if (result) {
+        const secondConfirm: ConfirmOptions = {
+          title: 'FindEat',
+          message: 'Esta acción no podrá ser revertida.\n¿Estás seguro de querer continuar?',
+          okButtonText: 'Eliminar cuenta.',
+          cancelButtonText: 'He cambiado de pensar.',
+          cancelable: false
+        };
+
+        confirm(secondConfirm).then((result) => {
+          if (result) {
+            const goodByeAlert: AlertOptions = {
+              title: 'FindEat',
+              message: '¡Muchas gracias por usar FindEat!\n¡Te vamos a extrañar!',
+              okButtonText: 'OK',
+              cancelable: false
+            };
+
+            alert(goodByeAlert).then(() => {
+              this.status = 'loading';
+              this.userService.deleteUser(this.id).subscribe((resp: any) => {
+                console.log("resp es ", resp);
+              },
+                (error) => {
+                  console.log("El codigo HTTP obtenido es", error.status)
+                  console.log("errorCount", this.errorCount);
+                  switch (error.status) {
+                    // INTERNAL SERVER ERROR
+                    case 500:
+                      this.errorCount++;
+                      const error500: AlertOptions = {
+                        title: 'FindEat',
+                        message: 'Ha ocurrido un error interno del servidor, por favor intente nuevamente',
+                        okButtonText: 'OK',
+                        cancelable: false
+                      };
+
+                      if (this.errorCount < 3) {
+                        alert(error500).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                        });
+                      }
+                      else {
+                        const error500Persist: AlertOptions = {
+                          title: 'FindEat',
+                          message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+                          okButtonText: 'OK',
+                          cancelable: false
+                        };
+
+                        alert(error500Persist).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                          exit();
+                        });
+                      }
+                      break;
+
+                    // BAD GATEWAY
+                    case 502:
+                      this.errorCount++;
+                      const error502: AlertOptions = {
+                        title: 'FindEat',
+                        message: 'Ha ocurrido un error, el servidor encontró un error temporal y no pudo completar su solicitud\nPor favor intente nuevamente.',
+                        okButtonText: 'OK',
+                        cancelable: false
+                      };
+
+                      if (this.errorCount < 3) {
+                        alert(error502).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                        });
+                      }
+                      else {
+                        const error502Persist: AlertOptions = {
+                          title: 'FindEat',
+                          message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+                          okButtonText: 'OK',
+                          cancelable: false
+                        };
+
+                        alert(error502Persist).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                          exit();
+                        });
+                      }
+                      break;
+
+                    // SERVICE UNAVAILABLE (SERVICIO NO DISPONIBLE)
+                    case 503:
+                      this.errorCount++;
+                      const error503: AlertOptions = {
+                        title: 'FindEat',
+                        message: 'Ha ocurrido un error, el servidor no puede responder a la petición del navegador porque está congestionado o está realizando tareas de mantenimiento.\nPor favor intente nuevamente.',
+                        okButtonText: 'OK',
+                        cancelable: false
+                      };
+
+                      if (this.errorCount < 3) {
+                        alert(error503).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                        });
+                      }
+                      else {
+                        const error503Persist: AlertOptions = {
+                          title: 'FindEat',
+                          message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+                          okButtonText: 'OK',
+                          cancelable: false
+                        };
+
+                        alert(error503Persist).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                          exit();
+                        });
+                      }
+                      break;
+
+                    // GATEWAY TIMEOUT
+                    case 504:
+                      this.errorCount++;
+                      const error504: AlertOptions = {
+                        title: 'FindEat',
+                        message: 'Ha ocurrido un error, el servidor no pudo completar su solicitud dentro del período de tiempo establecido.\nPor favor intente nuevamente.',
+                        okButtonText: 'OK',
+                        cancelable: false
+                      };
+
+                      if (this.errorCount < 3) {
+                        alert(error504).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                        })
+                      }
+                      else {
+                        const error504Persist: AlertOptions = {
+                          title: 'FindEat',
+                          message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+                          okButtonText: 'OK',
+                          cancelable: false
+                        };
+
+                        alert(error504Persist).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                          exit();
+                        });
+                      }
+                      break;
+
+                    case 0:
+                      this.errorCount++;
+                      const error0: AlertOptions = {
+                        title: 'FindEat',
+                        message: 'Ha ocurrido un error, la aplicación no se ha podido conectar con el servidor.\nPor favor intente nuevamente.',
+                        okButtonText: 'OK',
+                        cancelable: false
+                      };
+
+                      if (this.errorCount < 3) {
+                        alert(error0).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                        });
+                      }
+                      else {
+                        const error0Persist: AlertOptions = {
+                          title: 'FindEat',
+                          message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+                          okButtonText: 'OK',
+                          cancelable: false
+                        };
+
+                        alert(error0Persist).then(() => {
+                          this.isBusy = false;
+                          this.BtnDispo = true;
+                          exit();
+                        });
+                      }
+                      break;
+                  }
+                });
+              setTimeout(() => {
+                exit();
+              }, 4000);
+            });
+          }
+        });
+      }
     });
   }
 }

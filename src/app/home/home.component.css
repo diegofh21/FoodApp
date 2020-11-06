@@ -297,3 +297,8 @@ height: 30%;
 {
   text-transform: capitalize;
 }
+
+.feedlist-vacio
+{
+  margin-left: 10px;
+}

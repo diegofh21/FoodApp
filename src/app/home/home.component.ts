@@ -23,15 +23,15 @@ import { UserService } from "../utils/servicios/user.service";
 export class HomeComponent implements OnInit {
 
 	public id: number;
-	public status: 'home' | 'search' | 'profile' | 'editCaracteristicas' | 'loading' = 'home';
+	public status: 'home' | 'search' | 'profile' | 'editCaracteristicas' | 'loading' | 'vacio' = 'home';
 	public isBusy: boolean = false;
 	public BtnDispo: boolean = true;
 	public CheckCount: number = 0;
 	public CheckLimit: boolean = true;
-	public loading_search: string ="desactivado"
+	public loading_search: string = "desactivado"
 	public dataFeed;
 	public errorCount = 0;
-	public interesesLenght =0;
+	public interesesLenght = 0;
 	public searchString = '';
 	public latitude: number;
 	public longitude: number;
@@ -82,8 +82,9 @@ export class HomeComponent implements OnInit {
 		if (typeof (this.routeAct.snapshot.params.id) !== 'undefined') {
 			this.id = +this.routeAct.snapshot.params.id;
 		}
-		console.log("el id recogido es", this.id);
+		console.log("el id recogido ess", this.id);
 		this.updateLocation();
+		// this.getFeedList();
 		this.getUserInfo(this.id);
 		this.Loupe = this.loupe_filled;
 		this.dataUser = {
@@ -94,10 +95,7 @@ export class HomeComponent implements OnInit {
 		}
 		this.Tag = this.tag_empty;
 		this.getCheckboxData();
-	}
-	  
-	editProfile() {
-		alert("editar perfil")
+		
 	}
 
 	Logout() {
@@ -306,6 +304,7 @@ export class HomeComponent implements OnInit {
 			this.userService.Datos_Usuario.email = this.dataUser.email = resp.email;
 			this.userService.Datos_Usuario.foto = this.userPicture = resp.avatar
 			this.userService.Datos_Usuario.caracteristicas = this.dataUser.caracteristicas = resp.caracteristicas;
+			this.newFeedList();
 		},
 			(error) => {
 				console.log("El codigo HTTP obtenido es", error.status)
@@ -509,6 +508,7 @@ export class HomeComponent implements OnInit {
 				// Se llama en caso de que se actualicen algunos datos, igual cuando se vaya a modificar algo se tiene que llamar este metodo obligatoriamente para poder actualizar los datos mostrados en pantalla
 				this.status = 'loading';
 				this.getUserInfo(this.id);
+				// this.newFeedList();
 				setTimeout(() => {
 					this.status = 'profile';
 				}, 1000);
@@ -518,7 +518,7 @@ export class HomeComponent implements OnInit {
 	}
 
 
-	UserReviews(id){
+	UserReviews(id) {
 		this.routerEx.navigate(['UserReviews/', id], {
 			animated: true,
 			transition:
@@ -748,26 +748,26 @@ export class HomeComponent implements OnInit {
 	getCheckboxData() {
 		this.isBusy = true
 		this.helper.getCaracteristicas().subscribe((resp: any) => {
-			let ordenar = resp.sort(this.compare);
-			this.checkboxData = ordenar;
+			// let ordenar = resp.sort(this.compare);
+			this.checkboxData = resp;
 			this.checkboxData.forEach(e => e.select = false);
 			this.isBusy = false;
 		});
 	}
 
-	 compare(a, b) {
+	compare(a, b) {
 		// Use toUpperCase() to ignore character casing
 		const first = a.name.toUpperCase();
 		const second = b.name.toUpperCase();
-	  
+
 		let comparison = 0;
 		if (first > second) {
-		  comparison = 1;
+			comparison = 1;
 		} else if (first < second) {
-		  comparison = -1;
+			comparison = -1;
 		}
 		return comparison;
-	  }
+	}
 
 	checkedChange(event, data, id) {
 		console.log("id-1", this.checkboxData[id - 1])
@@ -855,6 +855,7 @@ export class HomeComponent implements OnInit {
 						this.isBusy = false;
 						this.BtnDispo = true;
 						this.getUserInfo(this.id);
+						console.log("caracteristicas", caracteristicasUsuario);
 						this.status = 'profile';
 					})
 				}
@@ -1249,9 +1250,9 @@ export class HomeComponent implements OnInit {
 	public updateLocation() {
 		this.getDeviceLocation().then(result => {
 			this.latitude = result.latitude;
-			this.userService.UserLocation[0]= result.latitude;
+			this.userService.UserLocation[0] = result.latitude;
 			this.longitude = result.longitude;
-			this.userService.UserLocation[1]= result.longitude;
+			this.userService.UserLocation[1] = result.longitude;
 			const ProfilePicAlert: AlertOptions = {
 				title: "Tu ubicación",
 				message: "tu latitud es " + result.latitude + " y su longitud " + result.longitude + ".",
@@ -1283,5 +1284,240 @@ export class HomeComponent implements OnInit {
 			Geolocation.clearWatch(this.watchId);
 			this.watchId = null;
 		}
+	}
+
+	public deleteProfile() {
+		const firstConfirm: ConfirmOptions = {
+			title: 'FindEat',
+			message: '¿Estás seguro de querer eliminar tu cuenta?',
+			okButtonText: 'Si, quiero eliminar mi cuenta.',
+			cancelButtonText: 'No, quiero quedarme',
+			cancelable: false
+		};
+
+		confirm(firstConfirm).then((result) => {
+			if (result) {
+				const secondConfirm: ConfirmOptions = {
+					title: 'FindEat',
+					message: 'Esta acción no podrá ser revertida.\n¿Estás seguro de querer continuar?',
+					okButtonText: 'Eliminar cuenta.',
+					cancelButtonText: 'He cambiado de pensar.',
+					cancelable: false
+				};
+
+				confirm(secondConfirm).then((result) => {
+					if (result) {
+						const goodByeAlert: AlertOptions = {
+							title: 'FindEat',
+							message: '¡Muchas gracias por usar FindEat!\n¡Te vamos a extrañar!',
+							okButtonText: 'OK',
+							cancelable: false
+						};
+
+						alert(goodByeAlert).then(() => {
+							this.status = 'loading';
+							this.userService.deleteUser(this.id).subscribe((resp: any) => {
+								console.log("resp es ", resp);
+							},
+								(error) => {
+									console.log("El codigo HTTP obtenido es", error.status)
+									console.log("errorCount", this.errorCount);
+									switch (error.status) {
+										// INTERNAL SERVER ERROR
+										case 500:
+											this.errorCount++;
+											const error500: AlertOptions = {
+												title: 'FindEat',
+												message: 'Ha ocurrido un error interno del servidor, por favor intente nuevamente',
+												okButtonText: 'OK',
+												cancelable: false
+											};
+
+											if (this.errorCount < 3) {
+												alert(error500).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+												});
+											}
+											else {
+												const error500Persist: AlertOptions = {
+													title: 'FindEat',
+													message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+													okButtonText: 'OK',
+													cancelable: false
+												};
+
+												alert(error500Persist).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+													exit();
+												});
+											}
+											break;
+
+										// BAD GATEWAY
+										case 502:
+											this.errorCount++;
+											const error502: AlertOptions = {
+												title: 'FindEat',
+												message: 'Ha ocurrido un error, el servidor encontró un error temporal y no pudo completar su solicitud\nPor favor intente nuevamente.',
+												okButtonText: 'OK',
+												cancelable: false
+											};
+
+											if (this.errorCount < 3) {
+												alert(error502).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+												});
+											}
+											else {
+												const error502Persist: AlertOptions = {
+													title: 'FindEat',
+													message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+													okButtonText: 'OK',
+													cancelable: false
+												};
+
+												alert(error502Persist).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+													exit();
+												});
+											}
+											break;
+
+										// SERVICE UNAVAILABLE (SERVICIO NO DISPONIBLE)
+										case 503:
+											this.errorCount++;
+											const error503: AlertOptions = {
+												title: 'FindEat',
+												message: 'Ha ocurrido un error, el servidor no puede responder a la petición del navegador porque está congestionado o está realizando tareas de mantenimiento.\nPor favor intente nuevamente.',
+												okButtonText: 'OK',
+												cancelable: false
+											};
+
+											if (this.errorCount < 3) {
+												alert(error503).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+												});
+											}
+											else {
+												const error503Persist: AlertOptions = {
+													title: 'FindEat',
+													message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+													okButtonText: 'OK',
+													cancelable: false
+												};
+
+												alert(error503Persist).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+													exit();
+												});
+											}
+											break;
+
+										// GATEWAY TIMEOUT
+										case 504:
+											this.errorCount++;
+											const error504: AlertOptions = {
+												title: 'FindEat',
+												message: 'Ha ocurrido un error, el servidor no pudo completar su solicitud dentro del período de tiempo establecido.\nPor favor intente nuevamente.',
+												okButtonText: 'OK',
+												cancelable: false
+											};
+
+											if (this.errorCount < 3) {
+												alert(error504).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+												})
+											}
+											else {
+												const error504Persist: AlertOptions = {
+													title: 'FindEat',
+													message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+													okButtonText: 'OK',
+													cancelable: false
+												};
+
+												alert(error504Persist).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+													exit();
+												});
+											}
+											break;
+
+										case 0:
+											this.errorCount++;
+											const error0: AlertOptions = {
+												title: 'FindEat',
+												message: 'Ha ocurrido un error, la aplicación no se ha podido conectar con el servidor.\nPor favor intente nuevamente.',
+												okButtonText: 'OK',
+												cancelable: false
+											};
+
+											if (this.errorCount < 3) {
+												alert(error0).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+												});
+											}
+											else {
+												const error0Persist: AlertOptions = {
+													title: 'FindEat',
+													message: 'La aplicación ha superado el número máximo de intentos de conexión, por favor comuniquese con los administradores de la aplicación para notificar este error.\nLa aplicación se cerrará automaticamente por su seguridad.',
+													okButtonText: 'OK',
+													cancelable: false
+												};
+
+												alert(error0Persist).then(() => {
+													this.isBusy = false;
+													this.BtnDispo = true;
+													exit();
+												});
+											}
+											break;
+									}
+								});
+							setTimeout(() => {
+								exit();
+							}, 4000);
+						});
+					}
+				});
+			}
+		});
+	}
+
+	public newFeedList()
+	{
+		// setTimeout(() => {
+		// 	console.log("a", this.userService.Datos_Usuario.caracteristicas);
+		// }, 2000);
+		let idarrayobj = [];
+
+		// console.log("a", this.userService.Datos_Usuario.caracteristicas.length);
+		for (let i = 0; i < this.userService.Datos_Usuario.caracteristicas.length; i++) {
+			// console.log(this.userService.Datos_Usuario.caracteristicas[i].id);
+			let testobj = { id: this.userService.Datos_Usuario.caracteristicas[i].id };
+				idarrayobj.push(testobj);
+				
+		}
+		// console.log("array", idarrayobj);
+
+		this.helper.searchByTags(idarrayobj).subscribe((resp: any,) => {
+			// console.log("resp es", JSON.stringify(resp))
+			this.feedList = resp;
+			console.log("ddfsddf", this.feedList)
+			if(this.feedList.length == 0)
+			{
+				console.log("feedlist esta vacio")
+				this.status = 'vacio';
+			}
+		});
 	}
 }
