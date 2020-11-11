@@ -32,12 +32,12 @@
         </Label>
       </FlexboxLayout>
       <FlexboxLayout class="row">
-        <Image class="ImgButton" [nsRouterLink]="['/newReview', profile.id]" src="~/assets/images/addReview.png">
+        <Image class="ImgButton" [nsRouterLink]="['/newReview', profile.id]" src="~/assets/images/newReviewIcon.png">
         </Image>
         <Image (tap)="showMap(mapbool)" margin="10" androidElevation="12" backgroundColor="white" class="busqueda"
           [src]="statusMap"></Image>
         <Image class="ImgButton" [nsRouterLink]="['/profileReviewList', profile.id]"
-          src="~/assets/images/reviewList.png"></Image>
+          src="~/assets/images/reviewIcon.png"></Image>
       </FlexboxLayout>
 
       <StackLayout class="map" [height]="mapDisplay" justifyContent="center" alignContent="center">

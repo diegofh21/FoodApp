@@ -25,7 +25,7 @@
 	<!-- PASO 1: ESCOGER FOTO DE PERFIL E INTERESES DEL USUARIO -->
 	<StackLayout *ngIf="paso == '1'">
 			
-		<GridLayout rows="85, 20, 70, 70, * auto" class="form-step3">
+		<GridLayout rows="85, 20, 100, 40, * auto" class="form-step3">
 			<Image src="{{ userImage }}" backgroundColor="white" stretch="aspectFill" row="0" class="profile-picture"></Image>
 			<ActivityIndicator *ngIf="isBusy == true" row="0" width="50" height="50" [busy]="isBusy" class="activity-indicator" color="orange" style="z-index: 99999;"></ActivityIndicator>
 			<Label row="2" text="Escoge algunas caracteristicas en la lista de abajo para hacernos saber que es lo que te interesa! Puedes escoger hasta un máximo de 5 caracteristicas para comenzar, luego podrás modificarlas!" textWrap="true" textAlignment="center" class="small-text white stretch"></Label>
@@ -34,7 +34,7 @@
 			<ScrollView row="4" orientation="vertical">
 				<StackLayout orientation="vertical">
 					<StackLayout class="lista-caracteristicas white">
-						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" class="white" isEnabled="{{ CheckLimit }}" [ngClass]="{'inactive': CheckLimit == false}"></CheckBox>
+						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" class="white capitalize" isEnabled="{{ CheckLimit }}" [ngClass]="{'inactive': CheckLimit == false}"></CheckBox>
 					</StackLayout>  
 				</StackLayout>
 			</ScrollView>	

@@ -29,6 +29,9 @@ import { EditReviewComponent } from "./editReview/editReview.component";
 //resultado de búsqueda
 import { SearchResultComponent } from "./SearchResult/SearchResult.component";
 
+// tutorial
+import { TutorialComponent } from "./tutorial/tutorial.component";
+
 // Servicios
 import { AuthService } from './utils/servicios/auth.service';
 import { UserService } from './utils/servicios/user.service';
@@ -59,7 +62,8 @@ import { homeRestaurantService } from './utils/servicios/homeRestaurant.service'
         SearchResultComponent,
         PostComponent,
         UserReviewsListComponent,
-        EditReviewComponent
+        EditReviewComponent,
+        TutorialComponent
     ],
     providers: [AuthService, UserService, homeRestaurantService, HelperService],
     schemas: [

@@ -3,7 +3,9 @@
   <NavigationButton text="Salir" *ngIf="status == 'home'" android.systemIcon="ic_menu_back" (tap)="Logout()" class="black-text" isEnabled="{{ BtnDispo }}">
   </NavigationButton>
 
-  <Label text="Inicio" *ngIf="status == 'home' || 'vacio'" position="center" class="h2 black-text" textWrap="true"></Label>
+  <Label text="Inicio" *ngIf="status == 'home'" position="center" class="h2 black-text" textWrap="true"></Label>
+
+  <Label text="Inicio" *ngIf="status == 'vacio'" position="center" class="h2 black-text" textWrap="true"></Label>
 
   <Label text="Busqueda"  *ngIf="status == 'search'" position="center" class="h2 black-text" textWrap="true"></Label>
 
@@ -53,10 +55,10 @@
         <StackLayout alignItems="center" justifyContent="center">
         
           <FlexboxLayout class="card" *ngFor="let profile of feedList" (tap)="goToProfile(profile.id)">
-            <Image src="https://novakaelum.com/api/public_html/storage/{{ profile.ruta }}" class="cardImg" stretch="fill"></Image>
+            <Image src="https://www.arpicstudios.com/storage/{{ profile.ruta }}" class="cardImg" stretch="fill"></Image>
             <StackLayout class="card-Text">
-              <Label text="{{profile.id}}" textWrap="true"></Label>
-              <Label text="{{profile.userID}}" textWrap="true"></Label>
+              <!-- <Label text="{{profile.id}}" textWrap="true"></Label>
+              <Label text="{{profile.userID}}" textWrap="true"></Label> -->
               <Label class="card-title" text="{{ profile.name }}" textTransform="capitalize"></Label>
               <Label  textWrap="true" class="card-info" text="{{ profile.descripcion }}"></Label>
               <FlexboxLayout flexWrap="wrap" >
@@ -76,10 +78,9 @@
 
     <!-- FEEDLIST VACIO -->
     <StackLayout *ngIf="status == 'vacio'" width="100%" height="100%" background="white">
-      <Image src="~/assets/images/errorSearch.png" width="30%" height="30%" class="feedlist-vacio" alignContent="center" justifyContent="center"></Image>
+      <Image src="~/assets/images/phone_error.png" width="30%" height="30%" class="feedlist-vacio" alignContent="center" justifyContent="center"></Image>
       <Label text="No tenemos alguna recomendación que hacerte por los momentos..." class="h2" textWrap="true" color="black" textAlignment="center" width="90%"></Label>
       <Label text="¡Prueba usando nuestro buscador para encontrar establecimientos que te puedan interesar!" class="h2" color="black" textAlignment="center" textWrap="true" width="90%"></Label>
-      
       
     </StackLayout>
     
@@ -91,12 +92,12 @@
       <StackLayout *ngIf="status == 'search'" width="100%" height="100%" background="white">
         <FlexboxLayout height="7%" class="push-btn">
           <FlexboxLayout class="searchbuttons" (tap)="switchSearch('tag')">
-            <Label class="h3 black-text" text="Nombre" textAlignment="center"></Label>
             <Image [src]="Loupe" height="80%"></Image>
+            <Label class="h3 black-text" text="Nombre" textAlignment="center"></Label>
           </FlexboxLayout>
           <FlexboxLayout class="searchbuttons" (tap)="switchSearch('nombre')">
-            <Label class="h3 black-text" text="Caracteristica" textAlignment="center"></Label>
             <Image [src]="Tag" height="80%"></Image>
+            <Label class="h3 black-text" text="Caracteristica" textAlignment="center"></Label>
           </FlexboxLayout>
         </FlexboxLayout>
         <StackLayout>
@@ -152,7 +153,7 @@
             <Image src="{{ userPicture }}" class="img-header"   
             margin="7"
             androidElevation="12"></Image>
-            <Label text="{{ dataUser.email }}" class="h3 black-text" margin="10" textAlignment="center"></Label>
+            <Label text="{{ dataUser.email }}" class="h3 black-text" margin="10" textAlignment="center" ></Label>
           </StackLayout>
 
           <FlexboxLayout width="100%" flexDirection="column" left="80" top="80">
@@ -160,7 +161,7 @@
           </FlexboxLayout>
 
           <FlexboxLayout flexWrap="wrap" class="flexstars" alignItems="center" justifyContent="center" width="100%" height="100%">
-            <Label *ngFor="let data of dataUser.caracteristicas" [text]="data.name" class="carac" width="100%" textAlignment="center" height="17%"></Label> 
+            <Label *ngFor="let data of dataUser.caracteristicas" [text]="data.name" class="carac" width="100%" textAlignment="center" height="17%" textTransform="capitalize"></Label> 
           </FlexboxLayout>
           
         </StackLayout>

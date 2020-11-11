@@ -135,7 +135,14 @@ export class homeRestaurantComponent implements OnInit {
       console.log("fotos", this.userService.Datos_Restaurante.posts)
       if(this.userService.Datos_Restaurante.posts.length == 0)
       {
-        alert("Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!Este restaurante no tiene ninguna foto!")
+        const photoAlert: AlertOptions = {
+          title: 'FindEat',
+          message: '¡Hola! Vemos que no tienes ningúna foto, te sugerimos que subas una en el apartado de nueva publicación.\n¡Gracias por usar FindEat!🤩🍕🥤',
+          okButtonText: '¡Gracias!',
+          cancelable: false
+        }
+
+        alert(photoAlert);
       }
     },
       (error) => {
@@ -243,7 +250,7 @@ export class homeRestaurantComponent implements OnInit {
       console.log(resp);
       this.userService.Datos_Post.id = resp.id;
       this.userService.Datos_Post.titulo = resp.titulo;
-      this.userService.Datos_Post.ruta = "https://arpicstudios.com/storage/" + resp.ruta;
+      this.userService.Datos_Post.ruta = "https://www.arpicstudios.com/storage/" + resp.ruta;
       this.userService.Datos_Post.fecha = resp.fecha;
       this.userService.Datos_Post.descripcion = resp.descripcion;
       this.routerEx.navigate(['Post/', id], {
@@ -297,7 +304,7 @@ export class homeRestaurantComponent implements OnInit {
   }
 
   public addUrl(b) {
-    const a = "https://novakaelum.com/api/public_html/storage/" + b;
+    const a = "https://www.arpicstudios.com/storage/" + b;
     return a;
   }
 

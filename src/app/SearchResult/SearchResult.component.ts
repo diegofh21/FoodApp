@@ -63,7 +63,7 @@ export class SearchResultComponent implements OnInit {
 	}
 
 	public addUrl(b) {
-		const a = "https://novakaelum.com/api/public_html/storage/" + b;
+		const a = "https://www.arpicstudios.com/storage/" + b;
 		return a;
 	}
 

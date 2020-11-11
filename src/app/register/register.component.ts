@@ -295,17 +295,19 @@ export class RegisterComponent implements OnInit {
 						if (caracteristicasUsuario.userID != null || undefined) {
 							// Guardamos las caracteristicas en el servicio (caché)
 							this.userService.Datos_Usuario.caracteristicas = Caracteristicas;
+							this.userService.Datos_Usuario.id = this.cliente.id;
 							const regAlert: AlertOptions =
 							{
 								title: "FindEat",
-								message: "¡Gracias por registrarte en nuestra aplicación!🤩🍔🥤\nA continuación vas a ser redireccionado al inicio.",
+								message: "¡Gracias por registrarte en nuestra aplicación!🤩🍔🥤\nA continuación vas a ser redireccionado al tutorial de inicio.",
 								okButtonText: "¡Gracias!",
 								cancelable: false
 							}
 							alert(regAlert).then(() => {
 								this.errorCount = 0;
 								setTimeout(() => {
-									this.routerEx.navigate(['/home', this.cliente.id], {
+									// deberia ser /tutorial, this.cliente.id pero aja, hay que arreglar el problema de google
+									this.routerEx.navigate(['/tutorial', this.cliente.id], {
 										animated: true,
 										transition:
 										{
@@ -537,14 +539,15 @@ export class RegisterComponent implements OnInit {
 										const regAlert: AlertOptions =
 										{
 											title: "FindEat",
-											message: "¡Gracias por registrarte en nuestra aplicación!🤩🍔🥤\nA continuación vas a ser redireccionado al inicio.",
+											message: "¡Gracias por registrarte en nuestra aplicación!🤩🍔🥤\nA continuación vas a ser redireccionado al tutorial de inicio.",
 											okButtonText: "¡Gracias!",
 											cancelable: false
 										}
 										alert(regAlert).then(() => {
 											this.errorCount = 0;
 											setTimeout(() => {
-												this.routerEx.navigate(['/homeRestaurant', this.cliente.id], {
+												// deberia ser /tutorial, this.cliente.id pero aja, hay que arreglar el problema de google
+												this.routerEx.navigate(['/tutorial', this.cliente.id], {
 													animated: true,
 													transition:
 													{
@@ -1038,7 +1041,7 @@ export class RegisterComponent implements OnInit {
 
 				const Step2Alert: AlertOptions = {
 					title: "FindEat",
-					message: "Ubicación procesada y guardada!",
+					message: "¡Ubicación procesada y guardada!",
 					okButtonText: "Entendido",
 					cancelable: false
 				}
@@ -1055,14 +1058,19 @@ export class RegisterComponent implements OnInit {
 
 	// metodos del checkbox
 	checkedChange(event, data, id) {
-		console.log("id-1", this.checkboxData[id - 1])
-		console.log("---------------------------------")
 
 		if (this.CheckCount < 5) {
 			if (event.value == true) {
 				this.CheckCount++;
 				console.log("checkcount", this.CheckCount);
-				this.checkboxData[id - 1].select = true
+				this.checkboxData[id - 1].select = true;
+				console.log("checkboxdata completo", this.checkboxData[id - 1]);
+			}
+			else if(event.value == false)
+			{
+				this.CheckCount--;
+				console.log("checkcountt", this.CheckCount);
+				this.checkboxData[id - 1].select = false;
 				console.log("checkboxdata completo", this.checkboxData[id - 1]);
 			}
 			if (this.CheckCount == 5) {

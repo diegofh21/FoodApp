@@ -1,0 +1,134 @@
+<ActionBar title="" style="background: rgb(255, 123, 0);">
+
+  <Label text="Tutorial" position="center" class="h2" color="black" textWrap="true"></Label>
+
+</ActionBar>
+
+<!-- TUTORIAL DE USUARIOS -->
+<ScrollView *ngIf="isUser == true" background="white">
+  <ScrollView>
+    <StackLayout>
+      <Image src="~/assets/images/FindEat-logo-v5.png" class="logo" width="50%" margin="10"></Image>
+      <Label text="{{profile.name}}" textWrap="true" color="black" class="h2" textAlignment="center"
+        textTransform="capitalize"></Label>
+      <Label text="¡Bienvenido a FindEat!" textWrap="true" color="black" class="h2" textAlignment="center"></Label>
+      <Label
+        text="Como usuario, esta aplicación te ofrece la función de poder ver restaurantes en tu inicio, buscarlos mediante nombre y caracteristicas, ver sus perfiles, dejarles una reseña o ver las que ya tiene, además de eso podrás ver donde se encuentra gracias a la implementación de google maps y como llegar hasta el seleccionando la mejor ruta basada en tu ubicación actual."
+        textWrap="true" color="black" class="h3" margin="5"></Label>
+      <Label
+        text="Esta sección que estas viendo está especialmente diseñada para ti, para guiarte un poco sobre lo que puedes hacer en nuestra aplicación!"
+        textWrap="true" color="black" class="h3" margin="5"></Label>
+      <Label text="¡Esperemos que la disfrute y gracias por usar FindEat!" textWrap="true" color="black" class="h3"
+        margin="5"></Label>
+
+      <Label text="1. Al iniciar sesión irás al inicio y abajo tendrás 3 botones de navegación." textWrap="true"
+        color="black" class="h3 bold" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/usuario/Inicio.jpg" class="foto-tutorial" width="50%" margin="10"></Image>
+      <Label
+        text="2. El primer botón te llevará al inicio donde podrás ver una lista de restaurantes basada en tus intereses."
+        textWrap="true" color="black" class="h3 bold" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/usuario/Inicio-circle.jpg" class="foto-tutorial" width="50%" margin="10">
+      </Image>
+      <Label
+        text="3. El segundo botón te llevará a la búsqueda de restaurantes donde tendrás 2 opciones de búsqueda, por nombre o por caracteristicas."
+        textWrap="true" color="black" class="h3 bold" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/usuario/Busqueda-circle.jpg" class="foto-tutorial" width="50%" margin="10">
+      </Image>
+      <Image src="~/assets/images/tutorial/usuario/Resultado.jpg" class="foto-tutorial" width="50%" margin="10">
+      </Image>
+      <Label
+        text="4. El tercer botón te llevará a tu perfil donde podrás ver tu perfil y tendrás la opción de ver tus intereses que donde podrás cambiarlos siempre que quieras, reseñas publicadas y eliminar tu cuenta."
+        textWrap="true" color="black" class="h3 bold" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/usuario/Perfil-circle.jpg" class="foto-tutorial" width="50%" margin="10">
+      </Image>
+      <Image src="~/assets/images/tutorial/usuario/Opciones-perfil.jpg" class="foto-tutorial" width="50%" margin="10">
+      </Image>
+      <Label
+        text="5. Al tocar un restaurante en el inicio o en el resultado de búsqueda irás a su perfil donde tienes 3 opciones (mencionadas de izquierda a derecha)."
+        textWrap="true" color="black" class="h3 bold" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/usuario/Perfil-restaurante-usuario.jpg" class="foto-tutorial" width="50%"
+        margin="10">
+      </Image>
+      <Label text="A. Escribir una nueva reseña." textWrap="true" color="black" class="h3 bold" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/usuario/Perfil-restaurante-usuario-nuevaReview-circle.jpg"
+        class="foto-tutorial" width="50%" margin="10">
+      </Image>
+      <Label text="B. Ver donde está ubicado el restaurante." textWrap="true" color="black" class="h3 bold"
+        margin="5"></Label>
+      <Image src="~/assets/images/tutorial/usuario/Perfil-restaurante-usuario-maps-circle.jpg" class="foto-tutorial"
+        width="50%" margin="10">
+        
+      </Image>
+      <Image src="~/assets/images/tutorial/usuario/Ubicacion.jpg" class="foto-tutorial" width="50%" margin="10">
+      </Image>
+      <Label text="C. Ver la lista de reseñas del restaurante." textWrap="true" color="black" class="h3 bold"
+        margin="5"></Label>
+      <Image src="~/assets/images/tutorial/usuario/Perfil-restaurante-usuario-listaReview-circle.jpg"
+        class="foto-tutorial" width="50%" margin="10">
+      </Image>
+
+      <Label
+        text="6. Si tocas una foto de las que tiene el restaurante publicadas se abrirá en una nueva pantalla para que la puedas ver mejor."
+        textWrap="true" color="black" class="h3 bold" margin="5"></Label>
+        <Image src="~/assets/images/tutorial/usuario/Publicacion.jpg"
+        class="foto-tutorial" width="50%" margin="10">
+      </Image>
+
+      <Label
+        text="Por ahora esto es todo lo que necesitas saber. ¡Pronto estaremos agregando actualizaciones con más contenido para ofrecerte!"
+        textWrap="true" color="black" class="h3" margin="5"></Label>
+
+      <Label text="" textWrap="true"></Label>
+      <Button text="¡Ir al inicio!" (tap)="goHome()" class="goBtn" androidElevation="15"></Button>
+      <Label text="" textWrap="true"></Label>
+    </StackLayout>
+  </ScrollView>
+</ScrollView>
+
+<!-- TUTORIAL DE RESTAURANTES -->
+<GridLayout *ngIf="isUser == false" background="white">
+  <ScrollView>
+    <StackLayout>
+      <Image src="~/assets/images/FindEat-logo-v5.png" class="logo" width="50%" margin="10"></Image>
+      <Label text="{{profile.name}}" textWrap="true" color="black" class="h2" textAlignment="center"
+        textTransform="capitalize"></Label>
+      <Label text="¡Bienvenido a FindEat!" textWrap="true" color="black" class="h2" textAlignment="center"></Label>
+      <Label
+        text="Como restaurante o lugar que ofrece servicios de comida, esta aplicación te ofrece la función de poder publicar imagenes de tu establecimiento, menu, comida, promociones, todo con el fin de informar a las personas sobre lo que haces y darte a conocer en la ciudad."
+        textWrap="true" color="black" class="h3" margin="5"></Label>
+      <Label
+        text="Esta sección que estas viendo está especialmente diseñada para ti, para guiarte un poco sobre lo que puedes hacer en nuestra aplicación!"
+        textWrap="true" color="black" class="h3" margin="5"></Label>
+      <Label text="¡Esperemos que la disfrute y gracias por usar FindEat!" textWrap="true" color="black" class="h3"
+        margin="5"></Label>
+
+      <Label text="1. Al iniciar sesión irás a tu perfil y abajo tendrás 3 botones de navegación." textWrap="true"
+        color="black" class="h3" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/restaurante/Perfil-restaurante.jpg" class="foto-tutorial" width="50%"
+        margin="10"></Image>
+      <Label
+        text="2. El primer botón te llevará a tu perfil donde podrás ver tus datos, calificación total dada por los usuarios y públicaciones."
+        textWrap="true" color="black" class="h3" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/restaurante/Perfil-restaurante-circle.jpg" class="foto-tutorial" width="50%"
+        margin="10"></Image>
+      <Label
+        text="3. El segundo botón te llevará a las reseñas hechas por los usuarios con sus respectivas calificaciones, aquí podrás ver que es lo que las personas hablan de ti."
+        textWrap="true" color="black" class="h3" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/restaurante/Reviews-circle.jpg" class="foto-tutorial" width="50%"
+        margin="10"></Image>
+      <Label
+        text="4. El tercer y último botón te llevará a un apartado donde podrás realizar nuevas publicaciones para que estas se vean en tu perfil."
+        textWrap="true" color="black" class="h3" margin="5"></Label>
+      <Image src="~/assets/images/tutorial/restaurante/Nueva-publicacion-circle.jpg" class="foto-tutorial" width="50%"
+        margin="10"></Image>
+
+      <Label
+        text="Por ahora esto es todo lo que necesitas saber. ¡Pronto estaremos agregando actualizaciones con más contenido para ofrecerte!"
+        textWrap="true" color="black" class="h3" margin="5"></Label>
+
+      <Label text="" textWrap="true"></Label>
+      <Button text="¡Ir a mi Perfil!" (tap)="goHome()" class="goBtn" androidElevation="15"></Button>
+      <Label text="" textWrap="true"></Label>
+    </StackLayout>
+  </ScrollView>
+</GridLayout>

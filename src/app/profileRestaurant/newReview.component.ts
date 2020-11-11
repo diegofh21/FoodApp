@@ -136,17 +136,26 @@ export class newReviewComponent implements OnInit {
 					this.status = "loading"
 					this.Helper.NewReview(data).subscribe((resp: any) => {
 						this.status = "normal";
-						this.rate=0;
-						this.reviewText="";
-						alert("La reseña fue publicada!")
-						this.routerEx.navigate(['profileRestaurant/', this.id], {
-							animated: true,
-							transition:
-							{
-								name: 'fade',
-								duration: 250,
-								curve: 'linear'
-							}
+						this.rate = 0;
+						this.reviewText = "";
+
+						const reviewPosteada: AlertOptions = {
+							title: 'FindEat',
+							message: '¡La reseña fue publicada satisfactoriamente!',
+							okButtonText: '¡Gracias!',
+							cancelable: false
+						};
+
+						alert(reviewPosteada).then(() => {
+							this.routerEx.navigate(['profileRestaurant/', this.id], {
+								animated: true,
+								transition:
+								{
+									name: 'fade',
+									duration: 250,
+									curve: 'linear'
+								}
+							});
 						});
 					},
 						(error) => {

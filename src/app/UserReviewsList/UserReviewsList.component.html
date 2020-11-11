@@ -11,7 +11,7 @@
         <Image [src]="foto" class="img-header" width="200px" height="200px" margin="10" androidElevation="12"
           backgroundColor="white">
         </Image>
-        <Label [text]="nombre" class="restname"> </Label>
+        <Label [text]="nombre" class="restname" textTransform="capitalize"> </Label>
       </StackLayout>
 
       <StackLayout *ngIf="cantidad ==-1" width="90%" justifyContent="center" alignContent="center">
@@ -28,7 +28,7 @@
             <StackLayout class="user-data">
               <FlexboxLayout class="spaceB">
                 <FlexboxLayout>
-                  <Label text=" Para: {{review.nameRestaurante}}" class="user-name"></Label>
+                  <Label text=" Para: {{review.nameRestaurante}}" class="user-name" textTransform="capitalize"></Label>
                 </FlexboxLayout>
                 <Image (tap)="options(review)" src="~/assets/images/options.png" class="report-Btn"></Image>
               </FlexboxLayout>

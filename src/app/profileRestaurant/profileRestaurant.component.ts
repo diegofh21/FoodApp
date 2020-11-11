@@ -353,7 +353,7 @@ export class ProfileRestaurantComponent implements OnInit {
 	}
 	
 	public addUrl(b){
-		const a = "https://novakaelum.com/api/public_html/storage/"+ b;
+		const a = "https://www.arpicstudios.com/storage/"+ b;
 		return a;		
 	}
 
@@ -363,7 +363,7 @@ export class ProfileRestaurantComponent implements OnInit {
 			console.log(resp);
 			this.UserService.Datos_Post.id = resp.id;
 			this.UserService.Datos_Post.titulo = resp.titulo;
-			this.UserService.Datos_Post.ruta = "https://novakaelum.com/api/public_html/storage"+ resp.ruta;
+			this.UserService.Datos_Post.ruta = "https://www.arpicstudios.com/storage"+ resp.ruta;
 			this.UserService.Datos_Post.fecha = resp.fecha;
 			this.UserService.Datos_Post.descripcion = resp.descripcion;
 			this.routerEx.navigate(['Post/', id], {

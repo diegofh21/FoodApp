@@ -481,9 +481,17 @@ export class HomeComponent implements OnInit {
 				this.search_actual = this.search_empty;
 				this.account_actual = this.account_empty;
 				this.status = 'loading';
-				setTimeout(() => {
-					this.status = 'home';
-				}, 1000);
+				console.log(this.feedList.length)
+				if (this.feedList.length == 0) {
+					setTimeout(() => {
+						this.status = 'vacio';
+					}, 1000);
+				}
+				else {
+					setTimeout(() => {
+						this.status = 'home';
+					}, 1000);
+				}
 				break;
 			}
 
@@ -803,6 +811,7 @@ export class HomeComponent implements OnInit {
 			if (result == true) {
 				this.status = 'profile';
 				this.CheckCount = 0;
+				this.CheckLimit = true;
 			}
 		});
 	}
@@ -1494,15 +1503,16 @@ export class HomeComponent implements OnInit {
 			let testobj = { id: this.userService.Datos_Usuario.caracteristicas[i].id };
 			idarrayobj.push(testobj);
 		}
-
+		console.log(idarrayobj);
 		this.helper.searchByTags(idarrayobj).subscribe((resp: any,) => {
-			this.feedList = resp;
+			let resultado = resp
+			this.feedList = resultado;
 			if (this.feedList.length == 0) {
 				this.status = 'vacio';
 			}
 		},
 			(error) => {
-				console.log("El codigo HTTP obtenido es", error.status)
+				console.log("El codigo HTTP obtenido esss", error.status)
 				console.log("errorCount", this.errorCount);
 				switch (error.status) {
 					// INTERNAL SERVER ERROR
