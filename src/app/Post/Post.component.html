@@ -1,5 +1,8 @@
 <ActionBar title="" style="background: rgb(255, 123, 0);">
 
+  <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="backHome()" class="black-text">
+  </NavigationButton>
+
   <Label *ngIf="status == 'post'" text="Publicaciones" position="center" class="h2 bold" color="black"
     textWrap="true"></Label>
 
@@ -16,7 +19,7 @@
   <Stacklayout justifyContent="center" alignContent="center" background="white">
     <StackLayout>
       <FlexboxLayout class="post-header">
-        <Image src="https://www.arpicstudios.com/storage/{{RestPic}}" width="15%" margin="20" androidElevation="12"
+        <Image src="{{RestPic}}" width="15%" margin="20" androidElevation="12"
           class="img-header" stretch="fill"></Image>
         <StackLayout>
           <Label [text]="post.titulo" class="ProfilePost" textTransform="capitalize" color="black"> </Label>

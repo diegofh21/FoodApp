@@ -419,4 +419,16 @@ export class PostComponent implements OnInit {
 
 	}
 
+	backHome() {
+		this.routerEx.navigate(['/home', this.UserService.Datos_Usuario.id], {
+			animated: true,
+			transition:
+			{
+				name: 'fade',
+				duration: 250,
+				curve: 'linear'
+			}
+		});
+	}
+
 }

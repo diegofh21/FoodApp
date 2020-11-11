@@ -1256,14 +1256,14 @@ export class HomeComponent implements OnInit {
 			this.userService.UserLocation[0] = result.latitude;
 			this.longitude = result.longitude;
 			this.userService.UserLocation[1] = result.longitude;
-			const ProfilePicAlert: AlertOptions = {
-				title: "Tu ubicación",
-				message: "tu latitud es " + result.latitude + " y su longitud " + result.longitude + ".",
-				okButtonText: "OK",
-				cancelable: false
-			};
+			// const ProfilePicAlert: AlertOptions = {
+			// 	title: "Tu ubicación",
+			// 	message: "tu latitud es " + result.latitude + " y su longitud " + result.longitude + ".",
+			// 	okButtonText: "OK",
+			// 	cancelable: false
+			// };
 
-			alert(ProfilePicAlert);
+			// alert(ProfilePicAlert);
 		}, error => {
 			console.error(error);
 		});
@@ -1503,7 +1503,7 @@ export class HomeComponent implements OnInit {
 			let testobj = { id: this.userService.Datos_Usuario.caracteristicas[i].id };
 			idarrayobj.push(testobj);
 		}
-		console.log(idarrayobj);
+		// console.log(idarrayobj);
 		this.helper.searchByTags(idarrayobj).subscribe((resp: any,) => {
 			let resultado = resp
 			this.feedList = resultado;
