@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {
 		this.page.actionBarHidden = true;
-		console.log("La aplicación inicio y estas sincronizado.");
+		console.log("La aplicación inicio y estas sincronizadoo.");
 	}
 
 	login() {
-		this.routerEx.navigate(['/home', 16], {
+		this.routerEx.navigate(['/home', 23], {
 			animated: true,
 			transition:
 			{
