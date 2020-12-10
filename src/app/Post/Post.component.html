@@ -1,0 +1,63 @@
+<ActionBar title="" style="background: rgb(255, 123, 0);">
+
+  <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="backHome()" class="black-text">
+  </NavigationButton>
+
+  <Label *ngIf="status == 'post'" text="Publicaciones" position="center" class="h2 bold" color="black"
+    textWrap="true"></Label>
+
+  <Label *ngIf="status == 'editPost'" text="Editar Publicación" position="center" class="h2 bold" color="black"
+    textWrap="true"></Label>
+
+  <ActionItem *ngIf="Restaurante == true" (tap)="status = 'editPost'" ios.systemIcon="2" ios.position="right"
+    text="Editar publicación" android.position="popup"></ActionItem>
+  <ActionItem *ngIf="Restaurante == true" (tap)="deletePost()" ios.systemIcon="16" ios.position="right"
+    text="Eliminar publicación" android.position="popup"></ActionItem>
+</ActionBar>
+
+<ScrollView *ngIf="status == 'post'">
+  <Stacklayout justifyContent="center" alignContent="center" background="white">
+    <StackLayout>
+      <FlexboxLayout class="post-header">
+        <Image *ngIf="Restaurante == false" src="{{RestPic}}" width="15%" margin="20" androidElevation="12"
+          class="img-header" stretch="fill"></Image>
+          <Image *ngIf="Restaurante == true" src="https://www.arpicstudios.com/storage/{{RestPic}}" width="15%" margin="20" androidElevation="12"
+          class="img-header" stretch="fill"></Image>
+        <StackLayout>
+          <Label [text]="post.titulo" class="ProfilePost" textTransform="capitalize" color="black"> </Label>
+        </StackLayout>
+      </FlexboxLayout>
+      <Label height="auto" textWrap="true" [text]="post.descripcion" class="h4 caption" textTransform="capitalize"
+        color="black"> </Label>
+      <Image [src]="post.ruta" class="imgpost"></Image>
+      <FlexboxLayout class="postDate">
+        <Label [text]="post.fecha" class="caption" color="black"></Label>
+      </FlexboxLayout>
+
+    </StackLayout>
+
+  </Stacklayout>
+</ScrollView>
+
+<ScrollView *ngIf="status == 'editPost'">
+  <Stacklayout justifyContent="center" alignContent="center" background="white">
+    <StackLayout>
+      <FlexboxLayout class="post-header">
+        <Image src="https://www.arpicstudios.com/storage/{{RestPic}}" width="15%" margin="20" androidElevation="12"
+          class="img-header" stretch="fill"></Image>
+        <StackLayout>
+          <Label [text]="post.titulo" class="ProfilePost" textTransform="capitalize" color="black"></Label>
+        </StackLayout>
+      </FlexboxLayout>
+      <TextView height="auto" textWrap="true" editable="true" [hint]="post.descripcion" class="caption"
+        [(ngModel)]="descripcionPost" color="black"></TextView>
+      <Image [src]="post.ruta" class="imgpost"></Image>
+      <FlexboxLayout class="postButtons">
+        <Button text="Cancelar" class="cancel-btn" (tap)="cancelPost()"></Button>
+        <Button text="Confirmar Edición" class="post-btn" (tap)="editPost()"></Button>
+      </FlexboxLayout>
+
+    </StackLayout>
+
+  </Stacklayout>
+</ScrollView>

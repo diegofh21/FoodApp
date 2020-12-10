@@ -9,17 +9,10 @@
 		
 		<Button text="Usuario" class="user-btn" (tap)="status = 'userReg'; paso = '1'; getCheckboxData();"></Button>
 		<Button text="Restaurante" class="rest-btn" (tap)="status = 'restReg'; paso = '1';"></Button>
-<<<<<<< Updated upstream
-		<Label text="" textWrap="true"></Label>
-		<Label text="-- O --" textWrap="true" textAlignment="center" class="medium-text black"></Label>
-		<Label text="" textWrap="true"></Label>
-    <Button text="Volver al inicio" class="back-btn" ></Button>
-=======
 		<Label text="" textWrap="true" class="bot-borders"></Label>
 		<Label text="O prefieres..." textWrap="true" textAlignment="center" class="medium-text black" margin="10"></Label>
 		<Label text="" textWrap="true" class="top-borders"></Label>
     <Button text="Volver al inicio" (tap)="login()" class="back-btn" ></Button>
->>>>>>> Stashed changes
     
 	</StackLayout>
 </StackLayout>
@@ -32,7 +25,7 @@
 	<!-- PASO 1: ESCOGER FOTO DE PERFIL E INTERESES DEL USUARIO -->
 	<StackLayout *ngIf="paso == '1'">
 			
-		<GridLayout rows="85, 20, 70, 70, * auto" class="form-step3">
+		<GridLayout rows="85, 20, 100, 40, * auto" class="form-step3">
 			<Image src="{{ userImage }}" backgroundColor="white" stretch="aspectFill" row="0" class="profile-picture"></Image>
 			<ActivityIndicator *ngIf="isBusy == true" row="0" width="50" height="50" [busy]="isBusy" class="activity-indicator" color="orange" style="z-index: 99999;"></ActivityIndicator>
 			<Label row="2" text="Escoge algunas caracteristicas en la lista de abajo para hacernos saber que es lo que te interesa! Puedes escoger hasta un máximo de 5 caracteristicas para comenzar, luego podrás modificarlas!" textWrap="true" textAlignment="center" class="small-text white stretch"></Label>
@@ -41,7 +34,7 @@
 			<ScrollView row="4" orientation="vertical">
 				<StackLayout orientation="vertical">
 					<StackLayout class="lista-caracteristicas white">
-						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" class="white" isEnabled="{{ CheckLimit }}" [ngClass]="{'inactive': CheckLimit == false}"></CheckBox>
+						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" class="white capitalize" isEnabled="{{ CheckLimit }}" [ngClass]="{'inactive': CheckLimit == false}"></CheckBox>
 					</StackLayout>  
 				</StackLayout>
 			</ScrollView>	
@@ -152,23 +145,17 @@
 	<!-- PASO 3: ESCOGER FOTO DE PERFIL Y CARACTERISTICAS -->
 	<StackLayout *ngIf="paso == '3'">
 			
-		<GridLayout rows="85, 20, 70, 70, * auto" class="form-step3">
-			<Image src="~/assets/images/buhos-foto-perfil.jpg" row="0" class="profile-picture" (tap)="choosePic()"></Image>
-			<Label row="2" text="Es hora de darle algo de estilo a tu perfil, escoge una foto de perfil y escoge las caracteristicas que representen lo que ofreces!" textWrap="true" textAlignment="center" class="small-text stretch"></Label>
-			<Label row="3" text="Lista de Caracteristicas" class="medium-text" textWrap="true" textAlignment="center"></Label>
+		<GridLayout rows="85, 20, 70, 50, * auto" class="form-step3">
+			<Image src="{{ saveImage }}" backgroundColor="white" stretch="aspectFill" row="0" class="profile-picture" (tap)="choosePic()"></Image>
+			<Label row="2" text="Es hora de darle algo de estilo a tu perfil, escoge una foto de perfil y escoge las caracteristicas que representen lo que ofreces!" textWrap="true" textAlignment="center" class="small-text stretch white"></Label>
+			<Label row="3" text="Lista de Caracteristicas" class="medium-text white" textWrap="true" textAlignment="center"></Label>
 			<ActivityIndicator row="3" width="50" height="50" [busy]="isBusy" class="activity-indicator round" color="orange" style="z-index: 99999;"></ActivityIndicator>
 			
 			<ScrollView row="4" orientation="vertical">
 				<StackLayout orientation="vertical">
-<<<<<<< Updated upstream
-					<StackLayout class="lista-caracteristicas">
-						<Label text="Grupo #1 de Caracteristicaxs (ejemplo)" textWrap="true"></Label>
-						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)"></CheckBox>
-=======
 					<StackLayout class="lista-caracteristicas white">
 						<Label text="Puedes escoger hasta un máximo de 5 caracteristicas para comenzar, luego puedes modificarlas!" textWrap="true"></Label>
 						<CheckBox *ngFor="let data of checkboxData" text="{{ data.name }}" id="data.id"  checked="false" fillColor="orange" (checkedChange)="checkedChange($event, data.name, data.id)" isEnabled="{{ CheckLimit }}" class="white" [ngClass]="{'inactive': CheckLimit == false}"></CheckBox>
->>>>>>> Stashed changes
 					</StackLayout>  
 				</StackLayout>
 			</ScrollView>	

@@ -1,32 +1,49 @@
+<ActionBar title="" style="background: rgb(255, 123, 0);">
 
-        <ScrollView>
-              <GridLayout class="page2">
-<StackLayout>
-    <StackLayout  justifyContent="center" alignContent="center">
-    <Image [src]="profile.profilePicture" class="img-header" margin="10" androidElevation="12" backgroundColor="white">
-    </Image>
-    <Label text="reseñas..." class="title"></Label>
-    <Label [text]="profile.name" class="restname"> </Label>
-</StackLayout>
-    <StackLayout *ngFor="let review of reviews">
+  <Label text="Reseñas" position="center" class="h2 bold" color="black" textWrap="true"></Label>
+  
+</ActionBar>
 
-        <StackLayout class="review-card">
-          <StackLayout  class="user-data">
-          <FlexboxLayout class="spaceB" >  
-            <FlexboxLayout>
-            <Image [src]="getProfilepicURL(review.userID)" class="user-pic"></Image>
-            <Label [text]="getNameUser(review.userID)" class="user-name"></Label>
-          </FlexboxLayout>
-          <Image  (tap)="reportReview(review.id)" src="~/assets/images/report.png" class="report-Btn" ></Image>
-        </FlexboxLayout>
-          <FlexboxLayout>
-            <Image [src]="getStars(review.rate)"  class="stars" ></Image>
-            <Label [text]="review.date" class="review-content"></Label>
-          </FlexboxLayout>
+<ScrollView>
+  <StackLayout class="page2" background="white">
+    <StackLayout>
+      <StackLayout justifyContent="center" alignContent="center">
+        <Image [src]="foto" class="img-header" margin="10" androidElevation="12" backgroundColor="white">
+        </Image>
+        <!-- <Label text="reseñas..." class="title"></Label> -->
+        <Label [text]="nombre" class="restname" textTransform="capitalize"> </Label>
+      </StackLayout>
+
+      <StackLayout *ngIf="cantidad ==-1" width="90%" justifyContent="center" alignContent="center">
+        <Label class="h2 transparent" textWrap="true" textAlignment="center" text="Aún no hay ninguna reseña para este restaurante..."></Label>
+        <Image src="~/assets/images/NoReviews.png" width="60%"></Image>
+      </StackLayout>
+      <Label *ngIf="cantidad == null" class="h3 transparent" text="Obteniendo reseñas..." textAlignment="center"></Label>
+      <StackLayout *ngIf="cantidad >= 0" class="">
+        <StackLayout *ngFor="let review of reviews">
+
+          <StackLayout class="review-card">
+            <StackLayout class="user-data">
+              <FlexboxLayout class="spaceB">
+                <FlexboxLayout>
+                  <Label [text]="review.username" class="user-name"></Label>
+                </FlexboxLayout>
+                <Image (tap)="reportReview(review.id, review.username)" src="~/assets/images/report.png"
+                  class="report-Btn"></Image>
+              </FlexboxLayout>
+              <FlexboxLayout>
+                <Image [src]="getStars(review.rating)" class="stars"></Image>
+                <Label [text]="review.created_at" class="review-content"></Label>
+              </FlexboxLayout>
+            </StackLayout>
+            <Label textWrap="true" [text]="review.contenido" class="review-content" color="black"></Label>
           </StackLayout>
-          <Label textWrap="true" [text]="review.reviewText" class="review-content"></Label>
+        </StackLayout>
+        <StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background-search">
+          <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange"
+            style="z-index: 99999;" background="white"></ActivityIndicator>
         </StackLayout>
       </StackLayout>
-</StackLayout>
-              </GridLayout>
-            </ScrollView>
+    </StackLayout>
+  </StackLayout>
+</ScrollView>

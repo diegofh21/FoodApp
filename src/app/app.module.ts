@@ -3,10 +3,9 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { NativeScriptFormsModule } from "nativescript-angular/forms"
 import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
-
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
+import { PostComponent } from "./Post/Post.component";
 // Login
 import { LoginComponent } from "./login/login.component";
 
@@ -24,15 +23,20 @@ import { ProfileRestaurantComponent } from './profileRestaurant/profileRestauran
 import { reviewListComponent } from "./homeRestaurant/reviewList.component";
 import { newReviewComponent } from "./profileRestaurant/newReview.component";
 import { profileReviewList } from "./profileReviewList/profileReviewList.component";
+import { UserReviewsListComponent } from "./UserReviewsList/UserReviewsList.component";
+import { EditReviewComponent } from "./editReview/editReview.component";
 
 //resultado de búsqueda
 import { SearchResultComponent } from "./SearchResult/SearchResult.component";
+
+// tutorial
+import { TutorialComponent } from "./tutorial/tutorial.component";
 
 // Servicios
 import { AuthService } from './utils/servicios/auth.service';
 import { UserService } from './utils/servicios/user.service';
 import { HelperService } from './utils/servicios/helper.service';
-import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service';
+import { homeRestaurantService } from './utils/servicios/homeRestaurant.service';
 
 @NgModule({
     bootstrap: [
@@ -55,9 +59,13 @@ import { homeRestaurantservice } from './utils/servicios/homeRestaurant.service'
         ProfileRestaurantComponent,
         newReviewComponent,
         profileReviewList,
-        SearchResultComponent
+        SearchResultComponent,
+        PostComponent,
+        UserReviewsListComponent,
+        EditReviewComponent,
+        TutorialComponent
     ],
-    providers: [AuthService, UserService, homeRestaurantservice, HelperService],
+    providers: [AuthService, UserService, homeRestaurantService, HelperService],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

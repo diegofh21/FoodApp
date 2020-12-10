@@ -1,11 +1,24 @@
-<StackLayout justifyContent="center" alignContent="center" >
+<ActionBar title="" style="background: rgb(255, 123, 0);">
 
-    <Label text="Nueva reseña"  class="title"></Label>
-    <Image [src]="profile.profilePicture" class="img-header"   margin="10"
+  <Label text="Nueva Reseña" position="center" class="h2 bold" color="black" textWrap="true"></Label>
+
+  <!-- POR AHORA COMENTADO PERO ESTO PUEDE SERVIR PARA IMPLEMENTAR EL BOTON DE REPORTAR LOCAL -->
+  <!-- <ActionItem *ngIf="status == 'profile'"
+      ios.systemIcon="16" ios.position="right"
+      text="📋 Modificar nombre" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
+    <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'"
+    ios.systemIcon="16" ios.position="right"
+    text="📝 Modificar intereses" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem> -->
+</ActionBar>
+
+<StackLayout *ngIf="status == 'normal'" justifyContent="center" alignContent="center" background="white">
+
+    <!-- <Label text="Nueva reseña"  class="title"></Label> -->
+    <Image [src]="foto" class="img-header"   margin="10"
   
     androidElevation="12"
     backgroundColor="white"></Image>
-    <Label [text]="profile.name" class="review-restname" >  </Label>
+    <Label [text]="nombre" class="review-restname" textTransform="capitalize"></Label>
   <StackLayout class="new-review">
     <FlexboxLayout alignItems="center" class="estrellas" justifyContent="space-between" width="60%">
   
@@ -21,10 +34,12 @@
   </TextView>
   </StackLayout>
   
-  <button text="Postear" (tap)="postear()" class="my-button"></button>
-    
+  <button text="Publicar nueva reseña" (tap)="postear()" class="my-button"></button>
   
-    
-  </StackLayout>
+</StackLayout>
+
+<StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background">
+<ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
+</StackLayout>
       
   

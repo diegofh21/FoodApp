@@ -12,7 +12,7 @@
 .map 
 { margin-top: 100px;
   width: 90%;
-  height: 70%;
+  height: 50%;
 }
 
 .icono
@@ -381,6 +381,11 @@ busquedatext:focus, busquedatext:active
   border-top-width: 2;
   border-top-color:rgb(255, 123, 0);
   width: 90%;
+}
+
+.capitalize
+{
+  text-transform: capitalize;
 }
 
 /* Estilos de justificacion de texto */

@@ -1,37 +1,62 @@
+<ActionBar title="" style="background: rgb(255, 123, 0);">
+  <!-- NAV BUTTON EN HOME PREGUNTA SI SE QUIERE DESLOGUEAR -->
+  <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="backHome()" class="black-text">
+  </NavigationButton>
 
- <ScrollView>
-    <GridLayout class="page2">
-      <StackLayout justifyContent="center" alignContent="center" >
-        
-        
-        <Image [src]="profile.profilePicture" class="img-header"   
-        margin="10"
-        androidElevation="12"
-        backgroundColor="white"></Image>
-        <Label [text]="profile.name" textWrap="true" class="restname" >  </Label>
-        <Label [text]="profile.info" textWrap="true" class="restInfo" >  </Label>
-        <FlexboxLayout class="flexstars" alignItems="center" justifyContent="center">
-          <Label [text]="profile.rate" class="rate" >  </Label> 
-          <Image [src]="getStars(profile.rate)" class="stars" ></Image>
-        </FlexboxLayout>
-        <FlexboxLayout flexWrap="wrap" class="flexstars" alignItems="center" justifyContent="center">
-          <Label  *ngFor="let carac of profile.caracteristicas" (tap)="aber(carac)"  [text]="carac" class="carac" >  </Label> 
-        </FlexboxLayout>
-        <FlexboxLayout class="row">
-          <Image class="ImgButton"  [nsRouterLink]="['/newReview', profile.id]" src="~/assets/images/newReviewIcon.png" ></Image>
-        <Image  (tap)="showMap(mapbool)" margin="10"
-        androidElevation="12"
-        backgroundColor="white" class="busqueda" [src]="statusMap" ></Image>
-        <Image class="ImgButton"  [nsRouterLink]="['/profileReviewList', profile.id]"  src="~/assets/images/reviewIcon.png" ></Image>
-        </FlexboxLayout>
+  <Label text="Perfil" *ngIf="status == 'profile'" position="center" class="h2" color="black" textWrap="true"></Label>
 
-        <GridLayout class="map" [height]="mapDisplay">
-            <MapView #mapView [latitude]="profile.location[0]" [longitude]="profile.location[1]"
-                     [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
-                     [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
-></MapView>
-          </GridLayout>
+  <Label text="Cargando..."  *ngIf="status == 'loading'" position="center" class="h2" color="black" textWrap="true"></Label>
+
+  <!-- POR AHORA COMENTADO PERO ESTO PUEDE SERVIR PARA IMPLEMENTAR EL BOTON DE REPORTAR LOCAL -->
+  <!-- <ActionItem *ngIf="status == 'profile'"
+      ios.systemIcon="16" ios.position="right"
+      text="📋 Modificar nombre" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem>
+    <ActionItem *ngIf="status == 'profile'" (tap)="status = 'editCaracteristicas'"
+    ios.systemIcon="16" ios.position="right"
+    text="📝 Modificar intereses" android.position="popup" isEnabled="{{ BtnDispo }}"></ActionItem> -->
+</ActionBar>
+
+<ScrollView *ngIf="status == 'profile'" background="white">
+  <GridLayout class="page2">
+    <StackLayout justifyContent="center" alignContent="center">
+      <Image [src]="addUrl(profile.ruta)" class="img-header" margin="10" androidElevation="10" backgroundColor="white">
+      </Image>
+      <Label [text]="profile.restaurantName" textWrap="true" textTransform="capitalize" class="restname"> </Label>
+      <Label [text]="profile.descripcion" textWrap="true" class="restInfo"> </Label>
+      <FlexboxLayout class="flexstars" alignItems="center" alignContent="center" justifyContent="center" flexDirection="column">
+        <Label [text]="profile.rating" class="rate h2 bold " textAlignment="center" color="black"></Label> 
+        <Image [src]="getStars(profile.rating)" class="stars"></Image>
+      </FlexboxLayout>
+      <FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
+        <Label *ngFor="let carac of profile.caracteristicas" (tap)="aber(carac.name)" [text]="carac.name" class="carac" textTransform="capitalize">
+        </Label>
+      </FlexboxLayout>
+      <FlexboxLayout class="row">
+        <Image class="ImgButton" [nsRouterLink]="['/newReview', profile.id]" src="~/assets/images/newReviewIcon.png">
+        </Image>
+        <Image (tap)="showMap(mapbool)" margin="10" androidElevation="12" backgroundColor="white" class="busqueda"
+          [src]="statusMap"></Image>
+        <Image class="ImgButton" [nsRouterLink]="['/profileReviewList', profile.id]"
+          src="~/assets/images/reviewIcon.png"></Image>
+      </FlexboxLayout>
+
+      <StackLayout class="map" [height]="mapDisplay" justifyContent="center" alignContent="center">
+        <Label class="h4 link" (tap)="openGMaps()" text="Ver cómo llegar" textWrap="true"></Label>
+        <MapView #mapView [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [minZoom]="minZoom"
+          [maxZoom]="maxZoom" [bearing]="bearing" [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding"
+          (mapReady)="onMapReady($event)">
+        </MapView>
       </StackLayout>
-    </GridLayout>
- </ScrollView>
+      <WrapLayout class="fotos" background="white">
+        <Image *ngFor="let foto of profile.fotos" [src]="addUrl(foto.ruta)" class="gallery" (tap)="openPic(foto.id)">
+        </Image>
+      </WrapLayout>
+    </StackLayout>
+  </GridLayout>
 
+</ScrollView>
+
+<!-- LOADING SCREEN -->
+<StackLayout *ngIf="status == 'loading'" width="100%" height="100%" class="loading-background">
+  <ActivityIndicator width="50" height="50" busy="true" class="activity-indicator round loading" color="orange" style="z-index: 99999;" background="white"></ActivityIndicator>
+</StackLayout>

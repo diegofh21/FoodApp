@@ -72,6 +72,12 @@ TextView:focus, TextView:active
     margin-bottom: 15px;
 }
 
+.gallery{
+    width: 33%;
+    border-width: 3px;
+    border-color: rgba(255, 255, 255, 0);
+}
+
 .stars{
     width: 30%;
     margin-top: 15px;
@@ -148,7 +154,6 @@ TextView:focus, TextView:active
 
 .rate{
     color: rgba(0, 0, 0, 0.664);
-
     font-size: 23;
     margin-top: auto;
     margin-right: 5%;
@@ -198,7 +203,27 @@ TextView:focus, TextView:active
     padding:0;
 }
 
-.h3{
+.modalImg{
+width: 100%;
+}
+
+.link{
+    text-decoration: underline;
+    text-decoration-color: rgb(255, 123, 0);
+    align-content: center;
+    text-align: center;
+}
+
+.transparent{
+    color: rgba(0, 0, 0, 0.479);
+}
+
+.loading-background-search{
+    background:rgba(0, 0, 0, 0.11);
+  }
+  
+
+.h3, .h4{
     color: rgb(255, 123, 0);
     font-weight: bold;
 }
@@ -210,7 +235,7 @@ TextView:focus, TextView:active
 }
 
 .ImgButton{
-    height: 40; 
+    height: 50; 
 }
  
 
@@ -245,3 +270,17 @@ TextView:focus, TextView:active
     border-radius: 100%;
 }
 
+.loading-background
+{
+  background:rgba(0, 0, 0, 0.4);
+}
+
+.round
+{
+  border-radius: 100%;
+}
+
+.loading
+{
+  margin-top: 50%;
+}

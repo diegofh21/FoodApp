@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { RouterExtensions } from 'nativescript-angular';
 import * as Geolocation from "nativescript-geolocation";
-import { HelperService } from '../utils/servicios/helper.service'
-import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
-//import { TextField } from 'ui/text-field';
-//import { EventData } from 'data/observable';
 
-import { ActivatedRoute } from '@angular/router';
+import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
+
+// SERVICIOS
+import { HelperService } from '../utils/servicios/helper.service'
+import { UserService } from '../utils/servicios/user.service';
 
 @Component({
 	selector: 'SearchResult',
@@ -15,60 +16,81 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class SearchResultComponent implements OnInit {
-    public latitude: number;
-	public longitude: number;
+	 latitude: number;
+	 longitude: number;
 	public result;
-	constructor(private routerEx: RouterExtensions, private helper: HelperService, private route: ActivatedRoute) { 
-		this.latitude = 0;
-		this.longitude = 0;
+	constructor(private userService: UserService, private routerEx: RouterExtensions, private helper: HelperService, private route: ActivatedRoute) {
+		this.latitude = this.userService.UserLocation[0];
+		this.longitude = this.userService.UserLocation[1];
 	}
+	datos = null;
+	status = "normal"
+	location = this.userService.UserLocation
 
 	ngOnInit() {
-        const id = +this.route.snapshot.params.idUser;
-        this.result = this.helper.ResultadoBusqueda;
-        console.log(this.result.lenght); 
-        this.updateLocation();
-	 }
-
-	 private getDeviceLocation(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            Geolocation.enableLocationRequest().then(() => {
-                Geolocation.getCurrentLocation({timeout: 10000}).then(location => {
-                    resolve(location);
-                }).catch(error => {
-                    reject(error);
-                });
-            });
-        });
+		this.result = [];
+		this.result = this.helper.ResultadoBusqueda;
+		for (const i in this.result) {
+			this.datos = i;
+		}
+		if (this.datos == null) { 
+			this.alert() 
+		}
 	}
-	
-	
-    public updateLocation() {
-        this.getDeviceLocation().then(result => {
-            this.latitude = result.latitude;
-            this.longitude = result.longitude;
-            const ProfilePicAlert: AlertOptions = {
-                title: "Tu ubicación",
-                message: "tu latitud es "+ result.latitude +" y su longitud "+ result.longitude +".",
-                okButtonText: "OK",
-                cancelable: false
-            };
-    
-            alert(ProfilePicAlert);
-        }, error => {
-            console.error(error);
-        });
-    }
 
-	goToProfile(id){
-        this.routerEx.navigate(['profileRestaurant/', id], {
-            animated: true,
-            transition:
-            {
-                name: 'fade',
-                duration: 250,
-                curve: 'linear'
-            }
-        });
-    }
+	goToProfile(id) {
+		this.routerEx.navigate(['profileRestaurant/', id], {
+			animated: true,
+			transition:
+			{
+				name: 'fade',
+				duration: 250,
+				curve: 'linear'
+			}
+		});
+	}
+	//esta función debería ordenar los restaurantes, pero es raro que me dice que no puede leer latitude de undefined
+	public compare(a, b) {
+		const rest1 = Math.abs(((a.latitud - this.latitude) + (a.longitud - this.longitude)))
+		const rest2 = Math.abs(((b.latitud - this.latitude) + (b.longitud - this.longitude)))
+		let comparison = 0;
+		if (rest1 > rest2) {
+			comparison = 1;
+		} else if (rest1 < rest2) {
+			comparison = -1;
+		}
+		return comparison;
+	}
+
+	public addUrl(b) {
+		const a = "https://www.arpicstudios.com/storage/" + b;
+		return a;
+	}
+
+	alert() {
+		const backAlert: AlertOptions = {
+			title: 'FindEat',
+			message: 'No se entontró ningún restaurante con las características o el nombre que buscaste.',
+			okButtonText: 'OK',
+			cancelable: false
+		}
+
+		alert(backAlert).then(() => {
+			this.routerEx.back();
+		});
+	}
+
+	public backHome()
+	{
+		this.routerEx.navigate(['/home', this.userService.Datos_Usuario.id], {
+			animated: true,
+			transition:
+			{
+				name: 'fade',
+				duration: 250,
+				curve: 'linear'
+			}
+		});
+	}
+
 }

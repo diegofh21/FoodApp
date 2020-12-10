@@ -10,7 +10,9 @@
 .cardImg{
   border-radius: 100%;
   margin: 5;
-  width: 25%;
+  /* width: 30%; */
+  height: 216px;
+  width: 250px;
   background-color: white;
   android-elevation: 10;
 }
@@ -22,17 +24,27 @@
 }
 .carac{
   color: white;
-
   font-size: 14;
   background-color: rgb(17, 115, 226);
   padding: 2,4;
   margin: 2, 5;
   border-radius: 4;
 }
+
+/* .carac-perfil
+{
+  color: white;
+  font-size: 18;
+  background-color: rgb(17, 115, 226);
+  padding: 2,4;
+  margin: 2, 5;
+  border-radius: 4;
+  padding-top: 50px;
+} */
 .busqueda{
   margin-top: 100px;
   width: 90%;
-  height: 130px;
+  height: 80px;
   padding: 0;
   padding-left: 15%;
   border-radius: 100%;
@@ -62,7 +74,7 @@ TextField:focus, TextField:active
 .item{
   color: white;
   font-size: 20;
-  height: 30;
+  height: 35;
   background-color: rgb(17, 115, 226);
   padding: 2,4;
   margin: 3, 5;
@@ -71,13 +83,21 @@ TextField:focus, TextField:active
 }
 
 .list{
-  border-top-width: 2;
-  border-top-color: black;
+ 
+  height: 60%;
+margin: 15 0 2 0;
+
+  }
+
+  .listSelected{
+    height: 30%;
+    border-top-width: 2;
+    border-top-color: black;
   }
 
 .searchbuttons{
   width: 40%;
-  margin: 0 5%;
+  margin: 2% 5%;
   height: 35;
   justify-content: space-between;
   padding-left: 5%;
@@ -88,8 +108,9 @@ TextField:focus, TextField:active
   border-radius: 100%;
 }
 
-.list{
-  height: 70%;
+.push-btn
+{
+  margin-top: 2%;
 }
 
 .card-info{
@@ -124,32 +145,12 @@ padding-bottom: 5;
   color: black;
 }
 
-.page
-{
-  background-color: white;
-}
-
-.page2
-{
-  background-color: whitesmoke;
-}
-
-.page3
-{
-  background-color: beige;
-}
-
-.opt-btn
-{
-  background: rgb(255, 123, 0);
-}
-
 .carac{
   color: white;
-
+  vertical-align: middle;
   font-size: 18;
   background-color: rgb(17, 115, 226);
-  padding: 2,4;
+  padding: 4, 4;
   margin: 2, 5;
   border-radius: 4;
 }
@@ -176,8 +177,10 @@ height: 30%;
 }
 
 
-.img-header{
+.img-header
+{
   width: 30%;
+  /* height: 40%; */
   border-radius: 100%;
   margin-top: 3%;
 }
@@ -204,4 +207,98 @@ height: 30%;
   align-items: center;
   align-content: center;
   text-align: center;
+}
+
+.push-top
+{
+  margin-top: 4%;
+}
+
+.name-field
+{
+  border-bottom-width: 0;
+  font-weight: bold;
+  width: 70%;
+}
+
+.email-field
+{
+  border-bottom-width: 0;
+  font-weight: bold;
+  margin-top: 2%;
+}
+
+.bold
+{
+  font-weight: bold;
+}
+
+.float-btn-cancel
+{
+  background: #cc0000;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+  margin-top: 7%;
+  margin-left: 65%;
+}
+
+.float-btn-confirm
+{
+  background: #00cc00;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+  margin-top: 7%;
+  margin-left: 5%;
+}
+
+.float-btn-text
+{
+  color: #fff;
+  font-size: 36px;
+  padding-bottom: 5%;
+}
+
+.loading-background
+{
+  background:rgba(0, 0, 0, 0.1);
+}
+
+.loading-background-search{
+  background:rgba(0, 0, 0, 0.1);
+}
+
+.round
+{
+  border-radius: 100%;
+}
+
+.loading
+{
+  margin-top: 50%;
+}
+
+.buscarIntereses-btn
+{
+  background: rgb(255, 123, 0);
+  color: black;
+  font-weight: bold;
+  width: 200px;
+  height: 150px;
+  border-radius: 100%;
+}
+
+.capitalize
+{
+  text-transform: capitalize;
+}
+
+.feedlist-vacio
+{
+  margin-left: 10px;
 }

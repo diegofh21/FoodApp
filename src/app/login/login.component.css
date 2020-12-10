@@ -360,22 +360,24 @@ TextField:focus, TextField:active
 
 .sign-in-img
 {
+  width: 100%;
   height: 100%;
-  border-radius: 330px;
-  float: left;
+  border-radius: 100%;
+  margin-top: 20%;
 }
 
 .sign-in-label
 {
   height: 100%;
-  margin-right: 15%;
-  padding-top: 10%;
+  width: 100%;
+  /* margin-right: 15%;
+  padding-top: 10%; */
 }
 
 .border-google
 {
   border-radius: 360px;
-  border-width: 3px;
+  border-width: 5px;
   border-color: rgb(255, 123, 0);
 }
 
@@ -473,4 +475,9 @@ TextField:focus, TextField:active
 .white
 {
   color: white;
+}
+
+.sign
+{
+  border-radius: 100%;
 }

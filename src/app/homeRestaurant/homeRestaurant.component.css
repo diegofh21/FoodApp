@@ -79,12 +79,10 @@ TextView
 }
 
 .rate{
-    color: rgba(0, 0, 0, 0.664);
-    font-weight: lighter;
-    font-size: 23;
-    margin-top: auto;
-    margin-right: 5%;
-    margin-left: 5%;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    font-size: 32;
+    margin: 0 auto;
 }
 
 .restInfo{
@@ -92,16 +90,14 @@ TextView
     width: 90%;
     color: rgb(37, 37, 37);
     text-align: center;
-    border-bottom-width: 3px;
-    border-bottom-color: gray;
 }
 
 .carac{
     color: white;
-    font-weight: lighter;
+    font-weight: 300;
     font-size: 18;
     background-color: rgb(17, 115, 226);
-    padding: 2,4;
+    padding: 4, 4;
     margin: 2, 5;
     border-radius: 4;
 }
@@ -114,7 +110,7 @@ TextView:focus, TextView:active
 
 .title{
     font-size: 15;
-    font-weight: lighter;
+    font-weight: 300;
     align-items: center;
     align-content: center;
     text-align: center;
@@ -123,9 +119,9 @@ TextView:focus, TextView:active
 .review-card{
     width: 100%;
     padding: 15, 24, 50, 24;
-    align-items: left;
+    /* align-items: left; */
     background-color: rgb(255, 255, 255);
-    height: fit-content;
+    /* height: fit-content; */
 
 }
 
@@ -135,7 +131,7 @@ TextView:focus, TextView:active
 
 .report-Btn{
     width: 6%;
-    align-self: right;
+    /* align-self: right; */
     margin-bottom: 20;
     justify-self: right;
     display: flex;
@@ -151,10 +147,9 @@ TextView:focus, TextView:active
     margin: 0, 20, 15, 0;
 }
 
-.stars{
-    width: 22%;
-    margin-bottom: 0;
-    margin-right: 10;
+.stars
+{
+    width: 40%;
 }
 
 .report{
@@ -175,8 +170,9 @@ TextView:focus, TextView:active
 
 .review-content{
     font-size: 13;
-    font-weight: lighter;
+    font-weight: 300;
     height: 100%;
+    margin-left: 20px;
 }
 
 .my-button
@@ -196,10 +192,12 @@ TextView:focus, TextView:active
     border-color: black;
 }
 
-.img-header{
-    width: 30%;
-    border-radius: 100%;
-    margin-top: 3%;
+.img-header
+{
+  width: 300px;
+  height: 300px;
+  border-radius: 100%;
+  margin-top: 3%;
 }
 
 .restname{
@@ -212,4 +210,75 @@ TextView:focus, TextView:active
     align-items: center;
     align-content: center;
     text-align: center;
+}
+
+.gallery{
+    width: 33%;
+    /* width: 300px;
+    height: 300px; */
+    border-width: 3px;
+    border-color: rgba(255, 255, 255, 0);
+}
+
+.push-top
+{
+    padding-top: 3%;
+}
+
+.loading-background
+{
+  background:rgba(0, 0, 0, 0.4);
+}
+
+.round
+{
+  border-radius: 100%;
+}
+
+.loading
+{
+  margin-top: 50%;
+}
+
+.divider
+{
+    border-bottom-width: 3px;
+    border-color: rgb(255, 123, 0);
+    width: 90%;
+}
+
+.float-btn-cancel
+{
+  background: #cc0000;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+  margin-top: 7%;
+  margin-left: 65%;
+}
+
+.float-btn-confirm
+{
+  background: #00cc00;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+  margin-top: 7%;
+  margin-left: 5%;
+}
+
+.float-btn-text
+{
+  color: #fff;
+  font-size: 36px;
+  padding-bottom: 5%;
+}
+
+.black-text
+{
+    color: black;
 }

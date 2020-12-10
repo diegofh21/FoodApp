@@ -1,0 +1,17 @@
+.foto-tutorial
+{
+  border-width: 1px;
+  border-color: black;
+}
+
+.goBtn
+{
+  width: 50%;
+  border-radius: 100%;
+  background-color: rgb(255, 123, 0);
+}
+
+.bold
+{
+  font-weight: bold;
+}
